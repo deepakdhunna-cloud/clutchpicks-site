@@ -61,17 +61,14 @@ export default function Footer() {
 
           {/* Links */}
           <div className="flex items-center gap-6 text-sm text-[var(--color-text-muted)]">
-            <a href="/privacy" className="hover:text-white transition-colors">
+            <a href="/privacy-policy" className="hover:text-white transition-colors">
               Privacy Policy
             </a>
             <a href="/terms" className="hover:text-white transition-colors">
               Terms
             </a>
-            <a
-              href="mailto:support@clutchpicksapp.com"
-              className="hover:text-white transition-colors"
-            >
-              Contact
+            <a href="/support" className="hover:text-white transition-colors">
+              Support
             </a>
           </div>
         </div>
