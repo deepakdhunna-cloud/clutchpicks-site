@@ -6,8 +6,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  viewportFit: "cover",
-  themeColor: "#040608",
+  viewportFit: "auto",
+  themeColor: "#000000",
 };
 
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   keywords: "sports predictions, AI, NBA, NFL, MLB, NHL, MLS, EPL, NCAAF, NCAAB",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default",
     title: "Clutch Picks",
   },
   formatDetection: {
@@ -54,6 +54,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
           rel="stylesheet"
         />
+        <meta name="theme-color" content="#000000" />
         <link rel="apple-touch-icon" href="/logo.png" />
       </head>
       <body className="noise">
