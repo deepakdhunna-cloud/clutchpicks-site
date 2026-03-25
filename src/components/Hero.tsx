@@ -103,19 +103,19 @@ function GameCard({
       className="relative group"
     >
       <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-white/[0.08] to-transparent pointer-events-none" />
-      <div className="relative rounded-2xl bg-[#080c10]/90 backdrop-blur-xl border border-white/[0.04] p-3 sm:p-5 overflow-hidden">
+      <div className="relative rounded-xl sm:rounded-2xl bg-[#080c10]/90 backdrop-blur-xl border border-white/[0.04] p-3 sm:p-5 overflow-hidden">
         {/* League badge */}
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-[10px] font-bold tracking-[0.2em] text-[var(--color-coral)] bg-[var(--color-coral)]/10 px-2 py-0.5 rounded">
+        <div className="flex items-center justify-between mb-2 sm:mb-3">
+          <span className="text-[8px] sm:text-[10px] font-bold tracking-[0.2em] text-[var(--color-coral)] bg-[var(--color-coral)]/10 px-1.5 sm:px-2 py-0.5 rounded">
             {game.league}
           </span>
-          <span className="text-[10px] text-[var(--color-text-muted)] tracking-wide">
+          <span className="text-[8px] sm:text-[10px] text-[var(--color-text-muted)] tracking-wide">
             {game.quarter}
           </span>
         </div>
 
         {/* Teams & scores */}
-        <div className="space-y-2 mb-4">
+        <div className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4">
           <div className={`flex items-center justify-between ${isPickAway && showPick ? "text-white" : "text-white/60"}`}>
             <div className="flex items-center gap-2">
               {isPickAway && showPick && (
@@ -125,11 +125,11 @@ function GameCard({
                   className="w-1.5 h-1.5 rounded-full bg-[var(--color-green)]"
                 />
               )}
-              <span className="text-sm font-bold tracking-wide" style={{ fontFamily: "var(--font-heading)" }}>
+              <span className="text-xs sm:text-sm font-bold tracking-wide" style={{ fontFamily: "var(--font-heading)" }}>
                 {game.away.abbr}
               </span>
             </div>
-            <span className="text-lg font-bold tabular-nums" style={{ fontFamily: "var(--font-heading)" }}>
+            <span className="text-base sm:text-lg font-bold tabular-nums" style={{ fontFamily: "var(--font-heading)" }}>
               {awayScore}
             </span>
           </div>
@@ -142,11 +142,11 @@ function GameCard({
                   className="w-1.5 h-1.5 rounded-full bg-[var(--color-green)]"
                 />
               )}
-              <span className="text-sm font-bold tracking-wide" style={{ fontFamily: "var(--font-heading)" }}>
+              <span className="text-xs sm:text-sm font-bold tracking-wide" style={{ fontFamily: "var(--font-heading)" }}>
                 {game.home.abbr}
               </span>
             </div>
-            <span className="text-lg font-bold tabular-nums" style={{ fontFamily: "var(--font-heading)" }}>
+            <span className="text-base sm:text-lg font-bold tabular-nums" style={{ fontFamily: "var(--font-heading)" }}>
               {homeScore}
             </span>
           </div>
@@ -154,15 +154,15 @@ function GameCard({
 
         {/* AI Confidence bar */}
         <div>
-          <div className="flex items-center justify-between mb-1.5">
-            <span className="text-[10px] text-[var(--color-text-muted)] tracking-wider uppercase">
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-[8px] sm:text-[10px] text-[var(--color-text-muted)] tracking-wider uppercase">
               AI Confidence
             </span>
-            <span className="text-xs font-bold text-[var(--color-coral)]">
+            <span className="text-[10px] sm:text-xs font-bold text-[var(--color-coral)]">
               {barWidth > 0 ? `${game.confidence}%` : "..."}
             </span>
           </div>
-          <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
+          <div className="h-1 sm:h-1.5 rounded-full bg-white/5 overflow-hidden">
             <motion.div
               className="h-full rounded-full"
               initial={{ width: 0 }}
@@ -281,14 +281,14 @@ function GlowOrb() {
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
       {/* Main large orb — coral/teal morphing */}
       <motion.div
-        className="absolute top-[40%] left-[35%] w-[600px] h-[600px] sm:w-[900px] sm:h-[900px]"
+        className="absolute top-[40%] left-[35%] w-[500px] h-[500px] sm:w-[900px] sm:h-[900px]"
         style={{
           background:
             "radial-gradient(ellipse at center, var(--color-coral) 0%, var(--color-teal) 35%, transparent 65%)",
-          filter: "blur(100px)",
+          filter: "blur(80px)",
         }}
         animate={{
-          opacity: [0.12, 0.22, 0.12],
+          opacity: [0.2, 0.35, 0.2],
           scale: [1, 1.2, 0.95, 1.1, 1],
           x: ["-50%", "-45%", "-55%", "-48%", "-50%"],
           y: ["-50%", "-45%", "-55%", "-52%", "-50%"],
@@ -304,14 +304,14 @@ function GlowOrb() {
       />
       {/* Secondary orb — coral, offset left */}
       <motion.div
-        className="absolute top-[30%] left-[15%] w-[400px] h-[400px] sm:w-[500px] sm:h-[500px]"
+        className="absolute top-[30%] left-[10%] w-[350px] h-[350px] sm:w-[500px] sm:h-[500px]"
         style={{
           background:
-            "radial-gradient(circle, var(--color-coral) 0%, transparent 60%)",
-          filter: "blur(90px)",
+            "radial-gradient(circle, var(--color-coral) 0%, transparent 55%)",
+          filter: "blur(70px)",
         }}
         animate={{
-          opacity: [0.08, 0.18, 0.08],
+          opacity: [0.15, 0.3, 0.15],
           scale: [1, 1.15, 1],
           y: ["0%", "-8%", "5%", "0%"],
         }}
@@ -319,29 +319,29 @@ function GlowOrb() {
       />
       {/* Third orb — teal/orange, offset right */}
       <motion.div
-        className="absolute top-[45%] right-[10%] w-[350px] h-[350px] sm:w-[500px] sm:h-[500px]"
+        className="absolute top-[45%] right-[5%] w-[300px] h-[300px] sm:w-[500px] sm:h-[500px]"
         style={{
           background:
-            "radial-gradient(circle, var(--color-teal) 0%, transparent 60%)",
-          filter: "blur(90px)",
+            "radial-gradient(circle, var(--color-teal) 0%, transparent 55%)",
+          filter: "blur(70px)",
         }}
         animate={{
-          opacity: [0.06, 0.16, 0.06],
+          opacity: [0.12, 0.28, 0.12],
           scale: [1, 1.1, 0.95, 1],
           y: ["0%", "6%", "-5%", "0%"],
         }}
         transition={{ duration: 9, delay: 2, repeat: Infinity, ease: "easeInOut" }}
       />
-      {/* Top accent — subtle warm glow */}
+      {/* Top accent — warm glow */}
       <motion.div
-        className="absolute -top-[10%] left-[40%] w-[500px] h-[300px] sm:w-[700px] sm:h-[400px]"
+        className="absolute -top-[10%] left-[40%] w-[400px] h-[250px] sm:w-[700px] sm:h-[400px]"
         style={{
           background:
-            "radial-gradient(ellipse, var(--color-coral) 0%, transparent 60%)",
-          filter: "blur(120px)",
+            "radial-gradient(ellipse, var(--color-coral) 0%, transparent 55%)",
+          filter: "blur(90px)",
         }}
         animate={{
-          opacity: [0.05, 0.12, 0.05],
+          opacity: [0.1, 0.22, 0.1],
           x: ["-50%", "-45%", "-55%", "-50%"],
         }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
@@ -514,7 +514,7 @@ export default function Hero() {
 
           {/* Right — Game cards stack */}
           <div className="relative w-full lg:w-auto flex justify-center lg:justify-end">
-            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 max-w-[500px] w-full">
+            <div className="grid grid-cols-1 min-[400px]:grid-cols-2 gap-3 sm:gap-4 max-w-[500px] w-full">
               {GAMES.map((game, i) => (
                 <GameCard key={game.away.abbr + game.home.abbr} game={game} index={i} />
               ))}
