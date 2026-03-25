@@ -339,6 +339,17 @@
   }
 }
 
+/* Spotlight animations — smooth, no hard edges */
+@keyframes spotlight-left {
+  0%, 100% { opacity: 0.2; transform: translateX(-8px); }
+  50% { opacity: 0.45; transform: translateX(8px); }
+}
+
+@keyframes spotlight-right {
+  0%, 100% { opacity: 0.2; transform: translateX(8px); }
+  50% { opacity: 0.45; transform: translateX(-8px); }
+}
+
 .animate-shimmer {
   background: linear-gradient(
     90deg,

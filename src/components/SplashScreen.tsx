@@ -29,47 +29,43 @@ export default function SplashScreen() {
         pointerEvents: phase === "fade" ? "none" : "auto",
       }}
     >
-      {/* Spotlight beams behind logo */}
+      {/* Spotlight beams — soft, no hard edges */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-        {/* Left beam */}
+        {/* Left glow */}
         <motion.div
-          initial={{ opacity: 0, x: -200 }}
-          animate={{ opacity: [0, 0.5, 0.3], x: [-200, 0, 0] }}
-          transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute w-[400px] h-[120px] rounded-full blur-[80px]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 0.35, 0.35] }}
+          transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
           style={{
-            left: "calc(50% - 300px)",
-            background: "radial-gradient(ellipse at right, var(--color-coral, #7A9DB8) 0%, transparent 70%)",
+            position: "absolute",
+            width: "50%",
+            height: "200px",
+            left: 0,
+            filter: "blur(100px)",
+            background: "radial-gradient(ellipse at 70% 50%, var(--color-coral, #7A9DB8), transparent 70%)",
           }}
         />
-        {/* Right beam */}
+        {/* Right glow */}
         <motion.div
-          initial={{ opacity: 0, x: 200 }}
-          animate={{ opacity: [0, 0.5, 0.3], x: [200, 0, 0] }}
-          transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute w-[400px] h-[120px] rounded-full blur-[80px]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 0.35, 0.35] }}
+          transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
           style={{
-            right: "calc(50% - 300px)",
-            background: "radial-gradient(ellipse at left, var(--color-teal, #E8936A) 0%, transparent 70%)",
-          }}
-        />
-        {/* Center merge */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: [0, 0.4, 0.25], scale: [0.5, 1.1, 1] }}
-          transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-          className="absolute w-[500px] h-[80px] rounded-full blur-[60px]"
-          style={{
-            background: "radial-gradient(ellipse, var(--color-coral, #7A9DB8) 0%, var(--color-teal, #E8936A) 50%, transparent 80%)",
+            position: "absolute",
+            width: "50%",
+            height: "200px",
+            right: 0,
+            filter: "blur(100px)",
+            background: "radial-gradient(ellipse at 30% 50%, var(--color-teal, #E8936A), transparent 70%)",
           }}
         />
       </div>
 
       {/* Logo */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
