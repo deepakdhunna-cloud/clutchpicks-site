@@ -400,7 +400,7 @@ function StatsBar() {
 // ── Main Hero ─────────────────────────────────────────────────────
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-28 sm:pt-24 pb-20 sm:pb-0">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-36 sm:pt-32 pb-20 sm:pb-0">
       {/* ── Background layers ── */}
       <NeuralDots />
       <GlowOrb />

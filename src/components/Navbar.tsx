@@ -18,8 +18,6 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 50);
-
-      // Track active section
       const sections = navLinks.map((l) => l.href.replace("#", ""));
       let current = "";
       for (const id of sections) {
@@ -41,27 +39,53 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-[#040608]/80 backdrop-blur-2xl border-b border-white/[0.06] py-2.5"
-          : "bg-transparent py-5"
+          ? "bg-[#040608]/80 backdrop-blur-2xl border-b border-white/[0.06] py-3"
+          : "bg-transparent py-4"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        {/* Logo */}
-        <a href="#" className="flex items-center group">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo.png"
-            alt="Clutch Picks"
-            className="h-9 sm:h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-            onError={(e) => {
-              (e.target as HTMLImageElement).style.display = "none";
+      <div className="max-w-7xl mx-auto px-6">
+        {/* Top row — Large centered logo with spotlight */}
+        <div className="flex justify-center mb-3 relative">
+          {/* Spotlight glow behind logo */}
+          <motion.div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+            animate={{
+              opacity: [0.15, 0.35, 0.15],
+              scale: [1, 1.1, 1],
             }}
-          />
-        </a>
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <div
+              className="w-[300px] h-[100px] rounded-full blur-[50px]"
+              style={{
+                background: "radial-gradient(ellipse, var(--color-coral) 0%, transparent 70%)",
+              }}
+            />
+          </motion.div>
 
-        {/* Desktop Links — pill container */}
-        <div className="hidden md:flex items-center">
-          <div className="flex items-center gap-1 rounded-full bg-white/[0.04] border border-white/[0.06] px-1.5 py-1.5 mr-5">
+          <a href="#" className="relative group">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo.png"
+              alt="Clutch Picks"
+              className={`w-auto object-contain transition-all duration-500 group-hover:scale-105 ${
+                scrolled ? "h-10 sm:h-12" : "h-14 sm:h-18 md:h-20"
+              }`}
+              onError={(e) => {
+                (e.target as HTMLImageElement).style.display = "none";
+              }}
+            />
+          </a>
+        </div>
+
+        {/* Bottom row — Nav links centered, download button right */}
+        <div className="hidden md:flex items-center justify-center relative">
+          {/* Centered pill nav */}
+          <div className="flex items-center gap-1 rounded-full bg-white/[0.04] border border-white/[0.06] px-1.5 py-1.5">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.replace("#", "");
               return (
@@ -87,37 +111,36 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
             })}
           </div>
 
-          <DownloadButton size="small" />
+          {/* Download button — absolute right */}
+          <div className="absolute right-0">
+            <DownloadButton size="small" />
+          </div>
         </div>
 
-        {/* Mobile Toggle */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden flex flex-col gap-1.5 p-2"
-          aria-label="Toggle menu"
-        >
-          <motion.span
-            animate={{
-              rotate: mobileOpen ? 45 : 0,
-              y: mobileOpen ? 8 : 0,
-            }}
-            transition={{ duration: 0.3 }}
-            className="block w-6 h-0.5 bg-white"
-          />
-          <motion.span
-            animate={{ opacity: mobileOpen ? 0 : 1 }}
-            transition={{ duration: 0.2 }}
-            className="block w-6 h-0.5 bg-white"
-          />
-          <motion.span
-            animate={{
-              rotate: mobileOpen ? -45 : 0,
-              y: mobileOpen ? -8 : 0,
-            }}
-            transition={{ duration: 0.3 }}
-            className="block w-6 h-0.5 bg-white"
-          />
-        </button>
+        {/* Mobile — hamburger right-aligned */}
+        <div className="flex md:hidden justify-end -mt-12">
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="flex flex-col gap-1.5 p-2"
+            aria-label="Toggle menu"
+          >
+            <motion.span
+              animate={{ rotate: mobileOpen ? 45 : 0, y: mobileOpen ? 8 : 0 }}
+              transition={{ duration: 0.3 }}
+              className="block w-6 h-0.5 bg-white"
+            />
+            <motion.span
+              animate={{ opacity: mobileOpen ? 0 : 1 }}
+              transition={{ duration: 0.2 }}
+              className="block w-6 h-0.5 bg-white"
+            />
+            <motion.span
+              animate={{ rotate: mobileOpen ? -45 : 0, y: mobileOpen ? -8 : 0 }}
+              transition={{ duration: 0.3 }}
+              className="block w-6 h-0.5 bg-white"
+            />
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
