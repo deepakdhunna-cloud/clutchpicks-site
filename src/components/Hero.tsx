@@ -419,22 +419,6 @@ export default function Hero() {
         <div className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-8 items-center">
           {/* Left — text column */}
           <div className="max-w-2xl">
-            {/* Live badge */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[var(--color-coral)]/15 bg-[var(--color-coral)]/[0.04] mb-8"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-green)] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-green)]" />
-              </span>
-              <span className="text-xs font-semibold text-[var(--color-coral)] tracking-[0.15em]">
-                AI PREDICTIONS LIVE NOW
-              </span>
-            </motion.div>
-
             {/* Headline */}
             <AnimatedHeadline />
 

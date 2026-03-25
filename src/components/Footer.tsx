@@ -73,15 +73,27 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Disclaimer + Copyright */}
+        {/* Copyright */}
         <div className="mt-10 pt-8 border-t border-white/5 text-center">
           <p className="text-xs text-[var(--color-text-muted)]/50 max-w-2xl mx-auto mb-4">
-            All predictions are for entertainment purposes only. Clutch Picks does
-            not facilitate gambling or wagering of any kind. Sports outcomes are
-            inherently unpredictable.
+            All predictions and analysis provided by Clutch Picks are for
+            entertainment and informational purposes only. Sports outcomes are
+            inherently unpredictable and no guarantee of accuracy is made.
           </p>
-          <p className="text-xs text-[var(--color-text-muted)]/30">
+          <p className="text-xs text-[var(--color-text-muted)]/30 mb-8">
             &copy; 2026 Clutch Picks LLC. All rights reserved.
+          </p>
+        </div>
+
+        {/* No gambling disclaimer */}
+        <div className="pt-6 border-t border-white/5 text-center">
+          <p className="text-[11px] text-[var(--color-text-muted)]/40 max-w-3xl mx-auto leading-relaxed">
+            Clutch Picks does not facilitate, promote, or condone gambling,
+            wagering, or betting of any kind. This app does not accept bets,
+            process wagers, or enable real-money transactions. All features,
+            predictions, and content are intended solely for entertainment and
+            personal tracking purposes. Users are responsible for complying with
+            all applicable laws in their jurisdiction.
           </p>
         </div>
       </div>

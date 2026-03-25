@@ -16,7 +16,7 @@ const floatingElements = [
 
 const statsCards = [
   { label: "87% CONF", value: "+4.5", x: "3%", y: "30%", delay: 0.6, duration: 5.5 },
-  { label: "EDGE", value: "HIGH", x: "88%", y: "35%", delay: 1.4, duration: 6 },
+  { label: "ACCURACY", value: "92%", x: "88%", y: "35%", delay: 1.4, duration: 6 },
   { label: "PICK", value: "W", x: "6%", y: "65%", delay: 1.0, duration: 5 },
   { label: "VALUE", value: "A+", x: "85%", y: "60%", delay: 2.2, duration: 6.2 },
 ];
@@ -222,7 +222,7 @@ export default function CTA() {
           animate={controls}
           className="text-lg sm:text-xl text-[var(--color-text-muted)] max-w-xl mx-auto mb-12"
         >
-          AI-powered predictions. Real-time scores. Every edge you need — free to start.
+          AI-powered predictions. Real-time scores. Everything you need — free to start.
         </motion.p>
 
         {/* Pulsing glow download button */}

@@ -206,7 +206,7 @@ const features: FeatureData[] = [
   {
     title: "Detailed Analysis",
     description:
-      "Elo ratings, point differentials, win streaks, injuries, and edge ratings for every game.",
+      "Elo ratings, point differentials, win streaks, injuries, and performance ratings for every game.",
     tag: "PRO",
     tagColor: "var(--color-coral)",
     size: "medium",
@@ -432,7 +432,7 @@ export default function Features() {
             <span className="gradient-text">IN ONE APP</span>
           </h2>
           <p className="text-[var(--color-text-muted)] max-w-xl mx-auto">
-            From live scores to AI-powered predictions, Clutch Picks gives you the edge.
+            From live scores to AI-powered predictions, Clutch Picks gives you the full picture.
           </p>
         </motion.div>
 

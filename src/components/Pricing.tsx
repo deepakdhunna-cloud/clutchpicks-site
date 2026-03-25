@@ -19,8 +19,8 @@ const proFeatures = [
   "Everything in Free, plus:",
   "AI winner predictions with confidence %",
   "Complete 20-factor breakdown",
-  "Spread & over/under predictions",
-  "Edge & value ratings",
+  "Score & outcome projections",
+  "Performance & matchup ratings",
   "Full pick history access",
 ];
 
@@ -277,10 +277,10 @@ export default function Pricing() {
                   <span className="text-2xl">🧠</span>
                   <div>
                     <p className="text-xs uppercase tracking-wider text-[var(--color-coral)] font-medium">
-                      AI-Powered Edge
+                      AI-Powered Advantage
                     </p>
                     <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
-                      20-factor analysis on every game. Know more than the average fan.
+                      20-factor analysis on every game. Stay ahead of the competition.
                     </p>
                   </div>
                 </div>
