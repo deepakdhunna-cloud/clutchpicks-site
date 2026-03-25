@@ -18,7 +18,7 @@ export default function Home() {
   const [splashDone, setSplashDone] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setSplashDone(true), 1900);
+    const timer = setTimeout(() => setSplashDone(true), 2300);
     return () => clearTimeout(timer);
   }, []);
 
