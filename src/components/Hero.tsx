@@ -275,19 +275,23 @@ function NeuralDots() {
   );
 }
 
-// ── Glowing morphing orb ──────────────────────────────────────────
+// ── Glowing morphing orbs ─────────────────────────────────────────
 function GlowOrb() {
   return (
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {/* Main large orb — coral/teal morphing */}
       <motion.div
-        className="w-[500px] h-[500px] sm:w-[700px] sm:h-[700px] rounded-full opacity-[0.07]"
+        className="absolute top-[40%] left-[35%] w-[600px] h-[600px] sm:w-[900px] sm:h-[900px]"
         style={{
           background:
-            "radial-gradient(ellipse at center, var(--color-coral) 0%, var(--color-teal) 40%, transparent 70%)",
-          filter: "blur(80px)",
+            "radial-gradient(ellipse at center, var(--color-coral) 0%, var(--color-teal) 35%, transparent 65%)",
+          filter: "blur(100px)",
         }}
         animate={{
-          scale: [1, 1.15, 0.95, 1.08, 1],
+          opacity: [0.12, 0.22, 0.12],
+          scale: [1, 1.2, 0.95, 1.1, 1],
+          x: ["-50%", "-45%", "-55%", "-48%", "-50%"],
+          y: ["-50%", "-45%", "-55%", "-52%", "-50%"],
           borderRadius: [
             "50% 50% 50% 50%",
             "40% 60% 55% 45%",
@@ -295,6 +299,50 @@ function GlowOrb() {
             "45% 55% 60% 40%",
             "50% 50% 50% 50%",
           ],
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
+      {/* Secondary orb — coral, offset left */}
+      <motion.div
+        className="absolute top-[30%] left-[15%] w-[400px] h-[400px] sm:w-[500px] sm:h-[500px]"
+        style={{
+          background:
+            "radial-gradient(circle, var(--color-coral) 0%, transparent 60%)",
+          filter: "blur(90px)",
+        }}
+        animate={{
+          opacity: [0.08, 0.18, 0.08],
+          scale: [1, 1.15, 1],
+          y: ["0%", "-8%", "5%", "0%"],
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+      {/* Third orb — teal/orange, offset right */}
+      <motion.div
+        className="absolute top-[45%] right-[10%] w-[350px] h-[350px] sm:w-[500px] sm:h-[500px]"
+        style={{
+          background:
+            "radial-gradient(circle, var(--color-teal) 0%, transparent 60%)",
+          filter: "blur(90px)",
+        }}
+        animate={{
+          opacity: [0.06, 0.16, 0.06],
+          scale: [1, 1.1, 0.95, 1],
+          y: ["0%", "6%", "-5%", "0%"],
+        }}
+        transition={{ duration: 9, delay: 2, repeat: Infinity, ease: "easeInOut" }}
+      />
+      {/* Top accent — subtle warm glow */}
+      <motion.div
+        className="absolute -top-[10%] left-[40%] w-[500px] h-[300px] sm:w-[700px] sm:h-[400px]"
+        style={{
+          background:
+            "radial-gradient(ellipse, var(--color-coral) 0%, transparent 60%)",
+          filter: "blur(120px)",
+        }}
+        animate={{
+          opacity: [0.05, 0.12, 0.05],
+          x: ["-50%", "-45%", "-55%", "-50%"],
         }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -407,7 +455,7 @@ export default function Hero() {
 
       {/* Subtle grid */}
       <div
-        className="absolute inset-0 opacity-[0.025] pointer-events-none"
+        className="absolute inset-0 opacity-[0.04] pointer-events-none"
         style={{
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
