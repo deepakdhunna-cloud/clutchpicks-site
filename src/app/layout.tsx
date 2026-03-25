@@ -6,7 +6,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  viewportFit: "auto",
+  viewportFit: "cover",
   themeColor: "#000000",
 };
 
@@ -58,6 +58,20 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/logo.png" />
       </head>
       <body className="noise">
+        {/* Black cover behind iOS status bar */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: "env(safe-area-inset-top, 0px)",
+            background: "#000000",
+            zIndex: 99999,
+            pointerEvents: "none",
+          }}
+        />
         {children}
       </body>
     </html>
