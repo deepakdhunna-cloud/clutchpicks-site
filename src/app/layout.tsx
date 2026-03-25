@@ -6,7 +6,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  viewportFit: "auto",
+  viewportFit: "cover",
   themeColor: "#040608",
 };
 
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   keywords: "sports predictions, AI, NBA, NFL, MLB, NHL, MLS, EPL, NCAAF, NCAAB",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black",
+    statusBarStyle: "black-translucent",
     title: "Clutch Picks",
   },
   formatDetection: {
