@@ -10,19 +10,20 @@ export default function ScrollProgress() {
     restDelta: 0.001,
   });
 
+  // This renders as an absolutely positioned bar — parent must be relative
   return (
     <motion.div
       style={{
-        position: "fixed",
-        top: 0,
+        position: "absolute",
+        bottom: 0,
         left: 0,
         right: 0,
-        height: "3px",
+        height: "2px",
         background:
           "linear-gradient(90deg, var(--color-coral, #7A9DB8), var(--color-teal, #E8936A))",
         transformOrigin: "0%",
         scaleX,
-        zIndex: 60,
+        zIndex: 10,
       }}
     />
   );

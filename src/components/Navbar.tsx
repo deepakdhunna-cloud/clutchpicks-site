@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import ScrollProgress from "./ScrollProgress";
 
 const navLinks = [
   { name: "Features", href: "#features" },
@@ -48,7 +49,7 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
       className={`fixed top-0 left-0 right-0 z-50 overflow-hidden transition-all duration-500 ${
         scrolled
           ? "bg-[#040608]/85 backdrop-blur-2xl border-b border-white/[0.06]"
-          : "bg-transparent"
+          : "bg-[#040608] sm:bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6">
@@ -209,6 +210,9 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Progress bar at bottom of navbar */}
+      <ScrollProgress />
     </motion.nav>
   );
 }
