@@ -2,7 +2,6 @@
 
 import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
 import { useEffect, useRef, useState, useMemo } from "react";
-import DownloadButton from "./DownloadButton";
 
 // ── Animated counter hook ──────────────────────────────────────────
 function useCountUp(end: number, duration = 2, startOnView = true) {
@@ -400,7 +399,7 @@ function StatsBar() {
 // ── Main Hero ─────────────────────────────────────────────────────
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-36 sm:pt-32 pb-20 sm:pb-0">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-44 sm:pt-40 pb-20 sm:pb-0">
       {/* ── Background layers ── */}
       <NeuralDots />
       <GlowOrb />
@@ -437,22 +436,29 @@ export default function Hero() {
               — delivering confidence-rated picks and full breakdowns before tip-off.
             </motion.p>
 
-            {/* CTAs */}
+            {/* CTA */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 1.35 }}
-              className="mt-9 flex flex-wrap items-center gap-4"
+              className="mt-9"
             >
-              <DownloadButton size="small" />
               <a
                 href="#features"
-                className="inline-flex items-center gap-2 px-7 py-4 rounded-full border border-white/10 text-white/80 font-medium hover:border-white/25 hover:bg-white/[0.04] hover:text-white transition-all duration-300"
+                className="group inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/10 text-white font-medium hover:border-[var(--color-coral)]/30 hover:bg-[var(--color-coral)]/[0.06] transition-all duration-300"
               >
                 See How It Works
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <motion.svg
+                  className="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  animate={{ y: [0, 3, 0] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
+                </motion.svg>
               </a>
             </motion.div>
           </div>
