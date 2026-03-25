@@ -58,8 +58,8 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
             scrolled ? "pt-3 pb-2" : "pt-5 pb-3"
           }`}
         >
-          {/* Spotlight — soft dual glow from both sides */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" style={{ width: "700px", height: "160px" }}>
+          {/* Spotlight — soft dual glow from both sides (desktop only) */}
+          <div className="hidden sm:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" style={{ width: "700px", height: "160px" }}>
             {/* Left glow */}
             <div
               className="absolute top-0 left-0 w-[55%] h-full"
