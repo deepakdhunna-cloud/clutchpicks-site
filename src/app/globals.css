@@ -44,14 +44,18 @@
   }
 
   ::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
   }
   ::-webkit-scrollbar-track {
     background: var(--color-bg);
   }
   ::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, var(--color-coral), var(--color-teal));
-    border-radius: 3px;
+    border-radius: 4px;
+    border: 2px solid var(--color-bg);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--color-coral-light), var(--color-teal-light));
   }
 }
 
@@ -115,4 +119,233 @@
   pointer-events: none;
   z-index: 9999;
   opacity: 0.4;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-18px) rotate(3deg);
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 5s ease-in-out infinite;
+}
+
+/* Pulsing glow animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(122, 157, 184, 0.3),
+                0 0 40px rgba(122, 157, 184, 0.15),
+                0 0 80px rgba(122, 157, 184, 0.05);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(122, 157, 184, 0.5),
+                0 0 60px rgba(122, 157, 184, 0.25),
+                0 0 120px rgba(122, 157, 184, 0.1);
+  }
+}
+
+@keyframes pulse-glow-ring {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow-ring {
+  animation: pulse-glow-ring 2.5s ease-in-out infinite;
+}
+
+/* Glitch text effect */
+@keyframes glitch {
+  0% {
+    clip-path: inset(40% 0 61% 0);
+    transform: translate(-2px, 2px);
+  }
+  20% {
+    clip-path: inset(92% 0 1% 0);
+    transform: translate(1px, -1px);
+  }
+  40% {
+    clip-path: inset(43% 0 1% 0);
+    transform: translate(-1px, 2px);
+  }
+  60% {
+    clip-path: inset(25% 0 58% 0);
+    transform: translate(2px, -2px);
+  }
+  80% {
+    clip-path: inset(54% 0 7% 0);
+    transform: translate(-1px, 1px);
+  }
+  100% {
+    clip-path: inset(58% 0 43% 0);
+    transform: translate(2px, -1px);
+  }
+}
+
+@keyframes glitch-2 {
+  0% {
+    clip-path: inset(65% 0 13% 0);
+    transform: translate(2px, -1px);
+  }
+  20% {
+    clip-path: inset(15% 0 62% 0);
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    clip-path: inset(79% 0 2% 0);
+    transform: translate(1px, -2px);
+  }
+  60% {
+    clip-path: inset(2% 0 78% 0);
+    transform: translate(-1px, 1px);
+  }
+  80% {
+    clip-path: inset(31% 0 28% 0);
+    transform: translate(2px, 1px);
+  }
+  100% {
+    clip-path: inset(10% 0 55% 0);
+    transform: translate(-2px, -1px);
+  }
+}
+
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-bg);
+}
+
+.glitch-text::before {
+  color: var(--color-coral);
+  animation: glitch 3s infinite linear alternate-reverse;
+  z-index: -1;
+}
+
+.glitch-text::after {
+  color: var(--color-teal);
+  animation: glitch-2 3s infinite linear alternate-reverse;
+  z-index: -1;
+}
+
+/* Reveal text animation */
+@keyframes reveal-text {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.animate-reveal {
+  animation: reveal-text 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 3D tilt utility */
+.tilt-3d {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.3s ease;
+}
+
+.tilt-3d:hover {
+  transform: rotateX(2deg) rotateY(-2deg) translateZ(10px);
+}
+
+/* Animated checkmark draw-in */
+@keyframes draw-check {
+  0% {
+    stroke-dashoffset: 24;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-check {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+}
+
+.animate-check.drawn {
+  animation: draw-check 0.4s ease forwards;
+}
+
+/* Pro card premium inner glow */
+.pro-inner-glow {
+  box-shadow:
+    inset 0 1px 0 0 rgba(122, 157, 184, 0.15),
+    inset 0 0 40px rgba(122, 157, 184, 0.05),
+    0 20px 60px -10px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(122, 157, 184, 0.1);
+}
+
+/* Shimmer effect for premium elements */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(122, 157, 184, 0.08) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 4s ease-in-out infinite;
 }

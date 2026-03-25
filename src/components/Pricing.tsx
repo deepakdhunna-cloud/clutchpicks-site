@@ -3,171 +3,311 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-const plans = [
-  {
-    name: "FREE",
-    price: "$0",
-    period: "forever",
-    description: "Everything you need to follow your favorite games.",
-    features: [
-      "Live scores across 8 leagues",
-      "Complete schedules & box scores",
-      "Broadcasting info (TV & streaming)",
-      "Pick creation & tracking",
-      "Profile stats card",
-      '"My Arena" game following',
-    ],
-    cta: "Download Free",
-    highlighted: false,
-  },
-  {
-    name: "CLUTCH PRO",
-    price: "$4.99",
-    period: "/month",
-    description: "The full AI advantage. Cancel anytime.",
-    features: [
-      "Everything in Free, plus:",
-      "AI winner predictions with confidence %",
-      "Complete 20-factor breakdown",
-      "Spread & over/under predictions",
-      "Edge & value ratings",
-      "Full pick history access",
-    ],
-    cta: "Go Pro",
-    highlighted: true,
-  },
+const APP_STORE_URL =
+  "https://apps.apple.com/us/app/clutch-picks/id6759183746";
+
+const freeFeatures = [
+  "Live scores across 8 leagues",
+  "Complete schedules & box scores",
+  "Broadcasting info (TV & streaming)",
+  "Pick creation & tracking",
+  "Profile stats card",
+  '"My Arena" game following',
 ];
 
+const proFeatures = [
+  "Everything in Free, plus:",
+  "AI winner predictions with confidence %",
+  "Complete 20-factor breakdown",
+  "Spread & over/under predictions",
+  "Edge & value ratings",
+  "Full pick history access",
+];
+
+function AnimatedCheck({
+  inView,
+  delay,
+  color,
+}: {
+  inView: boolean;
+  delay: number;
+  color: string;
+}) {
+  return (
+    <svg
+      className="w-5 h-5 mt-0.5 shrink-0"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke={color}
+      strokeWidth={2.5}
+    >
+      <motion.path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M4.5 12.75l6 6 9-13.5"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={inView ? { pathLength: 1, opacity: 1 } : {}}
+        transition={{ duration: 0.5, delay, ease: "easeOut" }}
+      />
+    </svg>
+  );
+}
+
+function LockedFeature({ feature }: { feature: string }) {
+  return (
+    <div className="flex items-start gap-3 opacity-40">
+      <svg
+        className="w-5 h-5 mt-0.5 shrink-0 text-[var(--color-text-muted)]"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
+        />
+      </svg>
+      <span className="text-sm text-[var(--color-text-muted)] line-through">
+        {feature}
+      </span>
+    </div>
+  );
+}
+
 export default function Pricing() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const sectionRef = useRef(null);
+  const sectionInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const freeCardRef = useRef(null);
+  const freeCardInView = useInView(freeCardRef, { once: true, margin: "-50px" });
+  const proCardRef = useRef(null);
+  const proCardInView = useInView(proCardRef, { once: true, margin: "-50px" });
+
+  const proOnlyFeatures = proFeatures.slice(1); // skip "Everything in Free, plus:"
 
   return (
-    <section id="pricing" className="relative py-24 sm:py-32">
-      <div className="absolute top-0 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-[var(--color-coral)]/20 to-transparent" />
+    <section id="pricing" className="relative py-28 sm:py-36">
+      {/* Top divider */}
+      <div className="absolute top-0 left-[5%] right-[5%] h-px bg-gradient-to-r from-transparent via-[var(--color-coral)]/20 to-transparent" />
 
-      {/* Background accent */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[var(--color-coral)] opacity-[0.02] blur-[200px]" />
+      {/* Background accents */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[var(--color-coral)] opacity-[0.03] blur-[250px]" />
+      <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full bg-[var(--color-teal)] opacity-[0.03] blur-[200px]" />
 
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6">
+        {/* Section Header */}
         <motion.div
-          ref={ref}
+          ref={sectionRef}
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={sectionInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <span className="text-sm tracking-[0.2em] text-[var(--color-coral)] uppercase font-medium">
+          <span className="text-sm tracking-[0.25em] text-[var(--color-coral)] uppercase font-medium">
             Pricing
           </span>
           <h2
-            className="text-4xl sm:text-5xl md:text-6xl font-bold mt-4 mb-4"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mt-4 mb-4"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             START FREE.{" "}
             <span className="gradient-text">GO PRO.</span>
           </h2>
-          <p className="text-[var(--color-text-muted)] max-w-md mx-auto">
-            No commitment. No credit card required. Upgrade when you&apos;re ready.
+          <p className="text-[var(--color-text-muted)] max-w-lg mx-auto text-lg">
+            No commitment. No credit card required. Upgrade when you&apos;re ready
+            for the full AI advantage.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-          {plans.map((plan, i) => {
-            const cardRef = useRef(null);
-            const cardInView = useInView(cardRef, { once: true, margin: "-50px" });
-
-            return (
-              <motion.div
-                key={plan.name}
-                ref={cardRef}
-                initial={{ opacity: 0, y: 40 }}
-                animate={cardInView ? { opacity: 1, y: 0 } : {}}
-                transition={{
-                  duration: 0.6,
-                  delay: i * 0.15,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className={`relative rounded-2xl p-8 sm:p-10 ${
-                  plan.highlighted
-                    ? "gradient-border glass-card glow-coral"
-                    : "glass-card"
-                }`}
+        {/* Pricing Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-start">
+          {/* FREE Card */}
+          <motion.div
+            ref={freeCardRef}
+            initial={{ opacity: 0, x: -40 }}
+            animate={freeCardInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="glass-card rounded-2xl p-8 sm:p-10"
+          >
+            <div className="mb-8">
+              <h3
+                className="text-xl font-bold tracking-wider mb-4 text-white"
+                style={{ fontFamily: "var(--font-heading)" }}
               >
-                {plan.highlighted && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <span className="px-4 py-1 rounded-full bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral-light)] text-black text-xs font-bold tracking-wider">
-                      MOST POPULAR
-                    </span>
-                  </div>
-                )}
+                FREE
+              </h3>
+              <div className="flex items-baseline gap-2">
+                <span
+                  className="text-6xl font-bold"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  $0
+                </span>
+                <span className="text-[var(--color-text-muted)] text-lg">
+                  forever
+                </span>
+              </div>
+              <p className="text-sm text-[var(--color-text-muted)] mt-3">
+                Everything you need to follow your favorite games.
+              </p>
+            </div>
 
-                <div className="mb-6">
-                  <h3
-                    className={`text-lg font-bold tracking-wider mb-4 ${
-                      plan.highlighted ? "text-[var(--color-coral)]" : "text-white"
-                    }`}
+            {/* Free features with animated checks */}
+            <ul className="space-y-4 mb-8">
+              {freeFeatures.map((feature, i) => (
+                <li key={feature} className="flex items-start gap-3">
+                  <AnimatedCheck
+                    inView={freeCardInView}
+                    delay={0.3 + i * 0.1}
+                    color="var(--color-green)"
+                  />
+                  <span className="text-sm text-[var(--color-text-muted)]">
+                    {feature}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            {/* What you're missing */}
+            <div className="border-t border-white/5 pt-6 mb-8">
+              <p className="text-xs uppercase tracking-wider text-[var(--color-text-muted)] mb-4 font-medium">
+                Upgrade to unlock
+              </p>
+              <div className="space-y-3">
+                {proOnlyFeatures.map((feature) => (
+                  <LockedFeature key={feature} feature={feature} />
+                ))}
+              </div>
+            </div>
+
+            <a
+              href={APP_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full text-center py-4 rounded-full font-semibold transition-all duration-300 border border-white/10 text-white hover:border-white/25 hover:bg-white/5"
+            >
+              Download Free
+            </a>
+          </motion.div>
+
+          {/* PRO Card */}
+          <motion.div
+            ref={proCardRef}
+            initial={{ opacity: 0, x: 40, y: -10 }}
+            animate={proCardInView ? { opacity: 1, x: 0, y: -10 } : {}}
+            transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="relative"
+          >
+            {/* Animated gradient border wrapper */}
+            <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-[var(--color-coral)] via-[var(--color-teal)] to-[var(--color-coral)] bg-[length:200%_200%] animate-[borderShift_4s_ease_infinite] opacity-80" />
+
+            {/* Outer glow */}
+            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-[var(--color-coral)] to-[var(--color-teal)] opacity-[0.08] blur-xl" />
+
+            <div className="relative rounded-2xl bg-[var(--color-bg-card)] p-8 sm:p-10 pro-inner-glow overflow-hidden">
+              {/* Shimmer overlay */}
+              <div className="absolute inset-0 animate-shimmer rounded-2xl pointer-events-none" />
+
+              {/* Most Popular badge */}
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={proCardInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.5, duration: 0.4 }}
+                className="absolute -top-px left-1/2 -translate-x-1/2"
+              >
+                <span className="px-6 py-1.5 rounded-b-lg bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-teal)] text-black text-xs font-bold tracking-widest">
+                  MOST POPULAR
+                </span>
+              </motion.div>
+
+              <div className="mb-8 mt-4">
+                <h3
+                  className="text-xl font-bold tracking-wider mb-4 text-[var(--color-coral)]"
+                  style={{ fontFamily: "var(--font-heading)" }}
+                >
+                  CLUTCH PRO
+                </h3>
+                <div className="flex items-baseline gap-2">
+                  <span
+                    className="text-6xl font-bold gradient-text"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
-                    {plan.name}
-                  </h3>
-                  <div className="flex items-baseline gap-1">
-                    <span
-                      className="text-5xl font-bold"
-                      style={{ fontFamily: "var(--font-heading)" }}
-                    >
-                      {plan.price}
-                    </span>
-                    <span className="text-[var(--color-text-muted)]">
-                      {plan.period}
-                    </span>
-                  </div>
-                  <p className="text-sm text-[var(--color-text-muted)] mt-2">
-                    {plan.description}
-                  </p>
+                    $4.99
+                  </span>
+                  <span className="text-[var(--color-text-muted)] text-lg">
+                    /month
+                  </span>
                 </div>
+                <p className="text-sm text-[var(--color-text-muted)] mt-3">
+                  The full AI advantage. Cancel anytime.
+                </p>
+              </div>
 
-                <ul className="space-y-3 mb-8">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3">
-                      <svg
-                        className={`w-5 h-5 mt-0.5 shrink-0 ${
-                          plan.highlighted
-                            ? "text-[var(--color-coral)]"
-                            : "text-[var(--color-green)]"
-                        }`}
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M4.5 12.75l6 6 9-13.5"
-                        />
-                      </svg>
-                      <span className="text-sm text-[var(--color-text-muted)]">
-                        {feature}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+              {/* Pro features with animated checks */}
+              <ul className="space-y-4 mb-8">
+                {proFeatures.map((feature, i) => (
+                  <li key={feature} className="flex items-start gap-3">
+                    <AnimatedCheck
+                      inView={proCardInView}
+                      delay={0.4 + i * 0.12}
+                      color="var(--color-coral)"
+                    />
+                    <span
+                      className={`text-sm ${
+                        i === 0
+                          ? "text-[var(--color-text-muted)]"
+                          : "text-white/90 font-medium"
+                      }`}
+                    >
+                      {feature}
+                    </span>
+                  </li>
+                ))}
+              </ul>
 
-                <a
-                  href="#download"
-                  className={`block w-full text-center py-3.5 rounded-full font-semibold transition-all duration-300 ${
-                    plan.highlighted
-                      ? "bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral-light)] text-black hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(122,157,184,0.3)]"
-                      : "border border-white/10 text-white hover:border-white/25 hover:bg-white/5"
-                  }`}
-                >
-                  {plan.cta}
-                </a>
+              {/* AI Advantage callout */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={proCardInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ delay: 0.8, duration: 0.5 }}
+                className="rounded-xl bg-gradient-to-br from-[var(--color-coral)]/10 to-[var(--color-teal)]/5 border border-[var(--color-coral)]/15 p-4 mb-8"
+              >
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">🧠</span>
+                  <div>
+                    <p className="text-xs uppercase tracking-wider text-[var(--color-coral)] font-medium">
+                      AI-Powered Edge
+                    </p>
+                    <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
+                      20-factor analysis on every game. Know more than the average fan.
+                    </p>
+                  </div>
+                </div>
               </motion.div>
-            );
-          })}
+
+              <a
+                href={APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative block w-full text-center py-4 rounded-full font-bold transition-all duration-300 bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral-light)] text-black hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(122,157,184,0.35)] overflow-hidden"
+              >
+                <span className="relative z-10">Go Pro</span>
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              </a>
+            </div>
+          </motion.div>
         </div>
+
+        {/* Bottom note */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={sectionInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.8, duration: 0.6 }}
+          className="text-center text-sm text-[var(--color-text-muted)] mt-12"
+        >
+          Both plans available on the App Store &bull; Cancel Pro anytime &bull; No hidden fees
+        </motion.p>
       </div>
     </section>
   );
