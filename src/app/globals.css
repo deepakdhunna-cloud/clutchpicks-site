@@ -64,6 +64,11 @@
   }
 }
 
+/* Safe area for iOS notch/dynamic island */
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
 /* Gradient text utility */
 .gradient-text {
   background: linear-gradient(135deg, var(--color-coral), var(--color-teal));
