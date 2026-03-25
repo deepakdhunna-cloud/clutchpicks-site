@@ -40,8 +40,6 @@
     overflow-x: hidden;
     -webkit-tap-highlight-color: transparent;
     -webkit-text-size-adjust: 100%;
-    /* Safe area insets for notch/dynamic island */
-    padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 
