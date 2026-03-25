@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import ScrollProgress from "./ScrollProgress";
 
 const navLinks = [
@@ -14,7 +14,6 @@ const APP_STORE_URL = "https://apps.apple.com/us/app/clutch-picks/id6759183746";
 
 export default function Navbar({ delay = true }: { delay?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [mounted, setMounted] = useState(false);
 
@@ -96,12 +95,12 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
           </a>
         </div>
 
-        {/* Nav bar — desktop */}
+        {/* Nav pill — same on mobile and desktop */}
         <motion.div
           initial={{ opacity: 0, y: -5 }}
           animate={delay ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.35 }}
-          className={`hidden md:flex justify-center transition-all duration-500 ${
+          className={`flex justify-center transition-all duration-500 ${
             scrolled ? "pb-3" : "pb-4"
           }`}
         >
@@ -112,7 +111,7 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
                 <a
                   key={link.name}
                   href={link.href}
-                  className={`relative px-5 py-1.5 rounded-full text-[13px] font-medium transition-all duration-300 ${
+                  className={`relative px-3 sm:px-5 py-1.5 rounded-full text-[11px] sm:text-[13px] font-medium transition-all duration-300 whitespace-nowrap ${
                     isActive
                       ? "text-white"
                       : "text-[var(--color-text-muted)] hover:text-white"
@@ -131,7 +130,7 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
             })}
 
             {/* Divider */}
-            <div className="w-px h-4 bg-white/[0.08] mx-1" />
+            <div className="w-px h-4 bg-white/[0.08] mx-0.5 sm:mx-1" />
 
             {/* Download — inside the pill, with glow */}
             <div className="relative">
@@ -140,9 +139,9 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
                 href={APP_STORE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral-light)] text-black text-[13px] font-semibold overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(122,157,184,0.4)]"
+                className="group relative flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-1.5 rounded-full bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral-light)] text-black text-[11px] sm:text-[13px] font-semibold overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(122,157,184,0.4)]"
               >
-                <svg className="w-3.5 h-3.5 relative z-10" viewBox="0 0 24 24" fill="currentColor">
+                <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 relative z-10" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
                 </svg>
                 <span className="relative z-10">Download</span>
@@ -151,65 +150,7 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
             </div>
           </div>
         </motion.div>
-
-        {/* Mobile — hamburger */}
-        <div className="flex md:hidden justify-end -mt-10 pb-3">
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="flex flex-col gap-1.5 p-2"
-            aria-label="Toggle menu"
-          >
-            <span className={`block w-5 h-[1.5px] bg-white/80 transition-all duration-300 ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
-            <span className={`block w-5 h-[1.5px] bg-white/80 transition-all duration-300 ${mobileOpen ? "opacity-0" : ""}`} />
-            <span className={`block w-5 h-[1.5px] bg-white/80 transition-all duration-300 ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
-          </button>
-        </div>
       </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden bg-[#040608]/95 backdrop-blur-2xl border-t border-white/[0.06]"
-          >
-            <div className="px-6 py-6 flex flex-col gap-1">
-              {navLinks.map((link, i) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  initial={{ opacity: 0, x: -15 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.06, duration: 0.3 }}
-                  className="text-base text-[var(--color-text-muted)] hover:text-white transition-colors py-3 border-b border-white/[0.04]"
-                >
-                  {link.name}
-                </motion.a>
-              ))}
-              <motion.a
-                href={APP_STORE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setMobileOpen(false)}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.3 }}
-                className="group relative mt-4 flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral-light)] text-black font-semibold text-sm overflow-hidden"
-              >
-                <svg className="w-4 h-4 relative z-10" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-                </svg>
-                <span className="relative z-10">Download on the App Store</span>
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-600" />
-              </motion.a>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Progress bar at bottom of navbar */}
       <ScrollProgress />
