@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import DownloadButton from "./DownloadButton";
 
 const APP_STORE_URL =
   "https://apps.apple.com/us/app/clutch-picks/id6759183746";
@@ -181,14 +182,9 @@ export default function Pricing() {
               </div>
             </div>
 
-            <a
-              href={APP_STORE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full text-center py-4 rounded-full font-semibold transition-all duration-300 border border-white/10 text-white hover:border-white/25 hover:bg-white/5"
-            >
-              Download Free
-            </a>
+            <div className="flex justify-center">
+              <DownloadButton size="small" />
+            </div>
           </motion.div>
 
           {/* PRO Card */}
@@ -286,15 +282,9 @@ export default function Pricing() {
                 </div>
               </motion.div>
 
-              <a
-                href={APP_STORE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative block w-full text-center py-4 rounded-full font-bold transition-all duration-300 bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral-light)] text-black hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(122,157,184,0.35)] overflow-hidden"
-              >
-                <span className="relative z-10">Go Pro</span>
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-              </a>
+              <div className="flex justify-center">
+                <DownloadButton size="small" />
+              </div>
             </div>
           </motion.div>
         </div>

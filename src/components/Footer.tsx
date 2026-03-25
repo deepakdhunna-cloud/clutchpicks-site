@@ -7,12 +7,23 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo */}
           <div>
-            <span
-              className="text-2xl tracking-wider text-white"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              CLUTCH PICKS
-            </span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo.png"
+              alt="Clutch Picks"
+              className="h-8 sm:h-10 w-auto object-contain"
+              onError={(e) => {
+                const el = e.target as HTMLImageElement;
+                el.style.display = "none";
+                const fallback = document.createElement("span");
+                fallback.textContent = "CLUTCH PICKS";
+                fallback.style.fontFamily = "var(--font-heading)";
+                fallback.style.fontSize = "1.5rem";
+                fallback.style.letterSpacing = "0.05em";
+                fallback.style.color = "white";
+                el.parentElement?.appendChild(fallback);
+              }}
+            />
           </div>
 
           {/* Social links */}
