@@ -65,18 +65,22 @@
 }
 
 /* Safe area for iOS notch/dynamic island */
-.safe-top {
-  padding-top: env(safe-area-inset-top, 0px);
+@media (max-width: 639px) {
+  .safe-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
 }
-.safe-top::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: env(safe-area-inset-top, 0px);
-  background: #000000;
-  z-index: 1;
+@media (max-width: 639px) {
+  .safe-top::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: env(safe-area-inset-top, 0px);
+    background: #000000;
+    z-index: 1;
+  }
 }
 
 @media (max-width: 639px) {
