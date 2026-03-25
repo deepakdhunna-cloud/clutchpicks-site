@@ -50,10 +50,10 @@ export default function Leagues() {
           {[...leagues, ...leagues, ...leagues].map((league, i) => (
             <div
               key={`top-${i}`}
-              className="flex-shrink-0 mx-3 sm:mx-5 group"
+              className="flex-shrink-0 mx-2 sm:mx-5 group"
             >
               <div
-                className="relative rounded-2xl border border-white/[0.06] bg-[#080c10]/80 backdrop-blur-sm px-8 sm:px-12 py-5 sm:py-6 flex items-center gap-4 sm:gap-6 transition-all duration-500 hover:border-opacity-40"
+                className="relative rounded-xl sm:rounded-2xl border border-white/[0.06] bg-[#080c10]/80 backdrop-blur-sm px-5 sm:px-12 py-4 sm:py-6 flex items-center gap-3 sm:gap-6 transition-all duration-500 hover:border-opacity-40"
                 style={{
                   ["--league-color" as string]: league.color,
                 }}
@@ -68,7 +68,7 @@ export default function Leagues() {
                 />
 
                 <span
-                  className="relative text-5xl sm:text-6xl md:text-7xl font-bold text-white/40 group-hover:text-white transition-colors duration-300"
+                  className="relative text-3xl sm:text-6xl md:text-7xl font-bold text-white/40 group-hover:text-white transition-colors duration-300"
                   style={{
                     fontFamily: "var(--font-heading)",
                   }}
@@ -101,14 +101,14 @@ export default function Leagues() {
           {[...leagues.slice(4), ...leagues.slice(0, 4), ...leagues, ...leagues.slice(4), ...leagues.slice(0, 4)].map((league, i) => (
             <div
               key={`bot-${i}`}
-              className="flex-shrink-0 mx-3 sm:mx-5 group"
+              className="flex-shrink-0 mx-2 sm:mx-5 group"
             >
               <div
-                className="relative rounded-2xl border border-white/[0.06] bg-[#080c10]/80 backdrop-blur-sm px-8 sm:px-12 py-5 sm:py-6 flex items-center gap-4 sm:gap-6 transition-all duration-500 hover:border-opacity-40"
+                className="relative rounded-xl sm:rounded-2xl border border-white/[0.06] bg-[#080c10]/80 backdrop-blur-sm px-5 sm:px-12 py-4 sm:py-6 flex items-center gap-3 sm:gap-6 transition-all duration-500 hover:border-opacity-40"
               >
                 {/* Hover glow */}
                 <div
-                  className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  className="absolute inset-0 rounded-xl sm:rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                   style={{
                     background: `radial-gradient(circle at center, ${league.color}12 0%, transparent 70%)`,
                     boxShadow: `inset 0 1px 0 ${league.color}25, 0 0 30px ${league.color}10`,
@@ -116,7 +116,7 @@ export default function Leagues() {
                 />
 
                 <span
-                  className="relative text-5xl sm:text-6xl md:text-7xl font-bold text-white/40 group-hover:text-white transition-colors duration-300"
+                  className="relative text-3xl sm:text-6xl md:text-7xl font-bold text-white/40 group-hover:text-white transition-colors duration-300"
                   style={{
                     fontFamily: "var(--font-heading)",
                   }}

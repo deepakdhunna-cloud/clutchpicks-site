@@ -103,7 +103,7 @@ function GameCard({
       className="relative group"
     >
       <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-white/[0.08] to-transparent pointer-events-none" />
-      <div className="relative rounded-2xl bg-[#080c10]/90 backdrop-blur-xl border border-white/[0.04] p-4 sm:p-5 overflow-hidden min-w-[220px]">
+      <div className="relative rounded-2xl bg-[#080c10]/90 backdrop-blur-xl border border-white/[0.04] p-3 sm:p-5 overflow-hidden">
         {/* League badge */}
         <div className="flex items-center justify-between mb-3">
           <span className="text-[10px] font-bold tracking-[0.2em] text-[var(--color-coral)] bg-[var(--color-coral)]/10 px-2 py-0.5 rounded">
@@ -214,7 +214,8 @@ function useMotionValueAnimate(
 // ── Neural-network dots (CSS-only animation) ──────────────────────
 function NeuralDots() {
   const dots = useMemo(() => {
-    return Array.from({ length: 50 }, (_, i) => ({
+    const count = typeof window !== "undefined" && window.innerWidth < 640 ? 20 : 50;
+    return Array.from({ length: count }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
@@ -308,7 +309,7 @@ const HEADLINE_WORDS_2 = ["BEFORE", "THEY", "PLAY"];
 function AnimatedHeadline() {
   return (
     <h1
-      className="text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] xl:text-[8.5rem] font-bold leading-[0.88] tracking-tight"
+      className="text-[2.8rem] sm:text-7xl md:text-8xl lg:text-[7rem] xl:text-[8.5rem] font-bold leading-[0.88] tracking-tight"
       style={{ fontFamily: "var(--font-heading)" }}
     >
       <span className="block overflow-hidden">
@@ -465,7 +466,7 @@ export default function Hero() {
 
           {/* Right — Game cards stack */}
           <div className="relative w-full lg:w-auto flex justify-center lg:justify-end">
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 max-w-[500px]">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 max-w-[500px] w-full">
               {GAMES.map((game, i) => (
                 <GameCard key={game.away.abbr + game.home.abbr} game={game} index={i} />
               ))}

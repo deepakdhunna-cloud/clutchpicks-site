@@ -161,7 +161,7 @@ export default function CTA() {
                 variants={letterReveal}
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
-                className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold leading-[0.95] inline-block"
+                className="text-[2.5rem] sm:text-7xl md:text-8xl lg:text-9xl font-bold leading-[0.95] inline-block"
                 style={{
                   fontFamily: "var(--font-heading)",
                   display: "inline-block",

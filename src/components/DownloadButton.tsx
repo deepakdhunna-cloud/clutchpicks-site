@@ -40,8 +40,8 @@ export default function DownloadButton({ size = "default" }: DownloadButtonProps
         rel="noopener noreferrer"
         className={`group relative inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral-light)] text-black font-bold overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_80px_rgba(122,157,184,0.45)] z-10 ${
           isSmall
-            ? "px-8 py-4 text-base"
-            : "px-12 py-6 text-lg sm:text-xl"
+            ? "px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base"
+            : "px-8 sm:px-12 py-5 sm:py-6 text-base sm:text-lg md:text-xl"
         }`}
       >
         <span className="relative z-10 flex items-center gap-3">
