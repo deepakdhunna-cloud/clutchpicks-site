@@ -59,32 +59,32 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
           }`}
         >
           {/* Spotlight — dual beams from both sides */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none w-full flex items-center justify-center">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" style={{ width: "600px", height: "120px" }}>
             {/* Left beam */}
             <motion.div
-              animate={{ opacity: [0.12, 0.35, 0.12], x: ["-10px", "5px", "-10px"] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute w-[200px] h-[60px] -left-[20px] rounded-full blur-[35px]"
+              animate={{ opacity: [0.15, 0.5, 0.15], x: ["-40px", "20px", "-40px"] }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-1/2 -translate-y-1/2 left-0 w-[300px] h-[80px] rounded-full blur-[50px]"
               style={{
-                background: "radial-gradient(ellipse at right, var(--color-coral) 0%, transparent 70%)",
+                background: "radial-gradient(ellipse at right, var(--color-coral) 0%, transparent 65%)",
               }}
             />
             {/* Right beam */}
             <motion.div
-              animate={{ opacity: [0.12, 0.35, 0.12], x: ["10px", "-5px", "10px"] }}
-              transition={{ duration: 3, delay: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute w-[200px] h-[60px] -right-[20px] rounded-full blur-[35px]"
+              animate={{ opacity: [0.15, 0.5, 0.15], x: ["40px", "-20px", "40px"] }}
+              transition={{ duration: 3.5, delay: 1.75, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-1/2 -translate-y-1/2 right-0 w-[300px] h-[80px] rounded-full blur-[50px]"
               style={{
-                background: "radial-gradient(ellipse at left, var(--color-teal) 0%, transparent 70%)",
+                background: "radial-gradient(ellipse at left, var(--color-teal) 0%, transparent 65%)",
               }}
             />
             {/* Center merge glow */}
             <motion.div
-              animate={{ opacity: [0.1, 0.3, 0.1], scale: [0.95, 1.05, 0.95] }}
+              animate={{ opacity: [0.1, 0.4, 0.1], scale: [0.9, 1.1, 0.9] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute w-[300px] h-[50px] rounded-full blur-[45px]"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[60px] rounded-full blur-[50px]"
               style={{
-                background: "radial-gradient(ellipse, var(--color-coral) 0%, var(--color-teal) 50%, transparent 80%)",
+                background: "radial-gradient(ellipse, var(--color-coral) 0%, var(--color-teal) 50%, transparent 75%)",
               }}
             />
           </div>
