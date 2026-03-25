@@ -52,11 +52,8 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6">
-        {/* Logo — centered, large */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={delay ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.2 }}
+        {/* Logo — centered, large, no entrance animation (splash places it here) */}
+        <div
           className={`flex justify-center relative transition-all duration-500 ${
             scrolled ? "pt-3 pb-2" : "pt-5 pb-3"
           }`}
@@ -83,7 +80,7 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
               }}
             />
           </a>
-        </motion.div>
+        </div>
 
         {/* Nav bar — desktop */}
         <motion.div
