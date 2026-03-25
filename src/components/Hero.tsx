@@ -74,7 +74,7 @@ export default function Hero() {
             href="https://apps.apple.com/us/app/clutch-picks/id6759183746"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative px-8 py-4 rounded-full bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral-light)] text-black font-semibold text-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(232,147,106,0.35)]"
+            className="group relative px-8 py-4 rounded-full bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral-light)] text-black font-semibold text-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(122,157,184,0.35)]"
           >
             <span className="relative z-10 flex items-center gap-2">
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">

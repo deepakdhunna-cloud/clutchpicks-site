@@ -158,7 +158,7 @@ export default function Pricing() {
                   href="#download"
                   className={`block w-full text-center py-3.5 rounded-full font-semibold transition-all duration-300 ${
                     plan.highlighted
-                      ? "bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral-light)] text-black hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(232,147,106,0.3)]"
+                      ? "bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral-light)] text-black hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(122,157,184,0.3)]"
                       : "border border-white/10 text-white hover:border-white/25 hover:bg-white/5"
                   }`}
                 >

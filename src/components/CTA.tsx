@@ -39,7 +39,7 @@ export default function CTA() {
           href="https://apps.apple.com/us/app/clutch-picks/id6759183746"
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-full bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral-light)] text-black font-bold text-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_60px_rgba(232,147,106,0.35)]"
+          className="group relative inline-flex items-center gap-3 px-10 py-5 rounded-full bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral-light)] text-black font-bold text-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_60px_rgba(122,157,184,0.35)]"
         >
           <span className="relative z-10 flex items-center gap-3">
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">

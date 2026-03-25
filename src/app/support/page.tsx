@@ -152,7 +152,7 @@ export default function SupportPage() {
               {/* Submit */}
               <button
                 type="submit"
-                className="w-full py-3.5 rounded-full bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral-light)] text-black font-semibold hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(232,147,106,0.3)] transition-all duration-300"
+                className="w-full py-3.5 rounded-full bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral-light)] text-black font-semibold hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(122,157,184,0.3)] transition-all duration-300"
               >
                 Submit
               </button>
