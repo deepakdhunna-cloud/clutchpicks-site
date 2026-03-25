@@ -27,6 +27,8 @@
     scroll-behavior: smooth;
     scrollbar-width: thin;
     scrollbar-color: var(--color-coral) var(--color-bg);
+    overflow-x: hidden;
+    width: 100%;
   }
 
   body {

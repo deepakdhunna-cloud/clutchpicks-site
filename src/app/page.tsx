@@ -27,7 +27,7 @@ export default function Home() {
       <SplashScreen />
       <ScrollProgress />
       <PageWrapper>
-        <main>
+        <main className="overflow-x-hidden max-w-[100vw]">
           <Navbar delay={splashDone} />
           <motion.div
             initial={{ opacity: 0 }}
