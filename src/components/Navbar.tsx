@@ -50,6 +50,7 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
           ? "sm:bg-[#040608]/85 sm:backdrop-blur-2xl border-b border-white/[0.06]"
           : "sm:bg-transparent sm:border-b-0"
       }`}
+      style={{ paddingTop: "max(env(safe-area-inset-top, 0px), 0px)" }}
     >
       <div className="max-w-7xl mx-auto px-6">
         {/* Logo — centered, large, no entrance animation (splash places it here) */}
