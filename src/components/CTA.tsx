@@ -196,27 +196,6 @@ export default function CTA() {
           </div>
         </div>
 
-        {/* Social proof */}
-        <motion.div
-          variants={glitchVariants}
-          initial="hidden"
-          animate={controls}
-          className="flex items-center justify-center gap-3 mb-6"
-        >
-          <div className="flex -space-x-2">
-            {[...Array(4)].map((_, i) => (
-              <div
-                key={i}
-                className="w-8 h-8 rounded-full border-2 border-[var(--color-bg)] bg-gradient-to-br from-[var(--color-coral)] to-[var(--color-teal)]"
-                style={{ opacity: 1 - i * 0.15 }}
-              />
-            ))}
-          </div>
-          <span className="text-sm text-[var(--color-text-muted)]">
-            Join <span className="text-[var(--color-coral)] font-semibold">thousands</span> of fans making smarter picks
-          </span>
-        </motion.div>
-
         <motion.p
           variants={glitchVariants}
           initial="hidden"
