@@ -58,14 +58,36 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
             scrolled ? "pt-3 pb-2" : "pt-5 pb-3"
           }`}
         >
-          {/* Spotlight */}
-          <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none w-[250px] h-[80px] rounded-full blur-[40px] opacity-20"
-            style={{
-              background: "radial-gradient(ellipse, var(--color-coral) 0%, transparent 70%)",
-              animation: "pulse-glow-ring 4s ease-in-out infinite",
-            }}
-          />
+          {/* Spotlight — dual beams from both sides */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none w-full flex items-center justify-center">
+            {/* Left beam */}
+            <motion.div
+              animate={{ opacity: [0.12, 0.35, 0.12], x: ["-10px", "5px", "-10px"] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute w-[200px] h-[60px] -left-[20px] rounded-full blur-[35px]"
+              style={{
+                background: "radial-gradient(ellipse at right, var(--color-coral) 0%, transparent 70%)",
+              }}
+            />
+            {/* Right beam */}
+            <motion.div
+              animate={{ opacity: [0.12, 0.35, 0.12], x: ["10px", "-5px", "10px"] }}
+              transition={{ duration: 3, delay: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute w-[200px] h-[60px] -right-[20px] rounded-full blur-[35px]"
+              style={{
+                background: "radial-gradient(ellipse at left, var(--color-teal) 0%, transparent 70%)",
+              }}
+            />
+            {/* Center merge glow */}
+            <motion.div
+              animate={{ opacity: [0.1, 0.3, 0.1], scale: [0.95, 1.05, 0.95] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute w-[300px] h-[50px] rounded-full blur-[45px]"
+              style={{
+                background: "radial-gradient(ellipse, var(--color-coral) 0%, var(--color-teal) 50%, transparent 80%)",
+              }}
+            />
+          </div>
 
           <a href="#" className="relative">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -119,19 +141,22 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
             {/* Divider */}
             <div className="w-px h-4 bg-white/[0.08] mx-1" />
 
-            {/* Download — inside the pill, compact */}
-            <a
-              href={APP_STORE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral-light)] text-black text-[13px] font-semibold overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(122,157,184,0.3)]"
-            >
-              <svg className="w-3.5 h-3.5 relative z-10" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-              </svg>
-              <span className="relative z-10">Download</span>
-              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-600" />
-            </a>
+            {/* Download — inside the pill, with glow */}
+            <div className="relative">
+              <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-teal)] opacity-25 blur-md animate-pulse-glow-ring" />
+              <a
+                href={APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-[var(--color-coral)] to-[var(--color-coral-light)] text-black text-[13px] font-semibold overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(122,157,184,0.4)]"
+              >
+                <svg className="w-3.5 h-3.5 relative z-10" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                </svg>
+                <span className="relative z-10">Download</span>
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              </a>
+            </div>
           </div>
         </motion.div>
 
