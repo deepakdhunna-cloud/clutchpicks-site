@@ -90,7 +90,13 @@ export default function Pricing() {
   return (
     <section id="pricing" className="relative py-28 sm:py-36">
       {/* Top divider */}
-      <div className="absolute top-0 left-[5%] right-[5%] h-px bg-gradient-to-r from-transparent via-[var(--color-coral)]/20 to-transparent" />
+      <motion.div
+        className="absolute top-0 left-[5%] right-[5%] h-px bg-gradient-to-r from-transparent via-[var(--color-coral)]/20 to-transparent origin-center"
+        initial={{ scaleX: 0 }}
+        animate={sectionInView ? { scaleX: 1 } : {}}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        style={{ willChange: "transform" }}
+      />
 
       {/* Background accents */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[var(--color-coral)] opacity-[0.03] blur-[250px]" />
@@ -128,8 +134,10 @@ export default function Pricing() {
             ref={freeCardRef}
             initial={{ opacity: 0, x: -40 }}
             animate={freeCardInView ? { opacity: 1, x: 0 } : {}}
+            whileHover={{ scale: 1.02, transition: { type: "spring", stiffness: 350, damping: 28 } }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="glass-card rounded-2xl p-8 sm:p-10"
+            style={{ willChange: "transform" }}
           >
             <div className="mb-8">
               <h3
@@ -192,8 +200,10 @@ export default function Pricing() {
             ref={proCardRef}
             initial={{ opacity: 0, x: 40, y: -10 }}
             animate={proCardInView ? { opacity: 1, x: 0, y: -10 } : {}}
+            whileHover={{ scale: 1.015, transition: { type: "spring", stiffness: 350, damping: 28 } }}
             transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             className="relative"
+            style={{ willChange: "transform" }}
           >
             {/* Animated gradient border wrapper */}
             <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-[var(--color-coral)] via-[var(--color-teal)] to-[var(--color-coral)] bg-[length:200%_200%] animate-[borderShift_4s_ease_infinite] opacity-80" />
