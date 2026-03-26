@@ -80,7 +80,7 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
             />
           </div>
 
-          <a href="#" className="relative">
+          <a href="/" className="relative">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/logo.png"

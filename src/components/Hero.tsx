@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion, useInView, useMotionValue, animate } from "framer-motion";
 import { useEffect, useRef, useState, useMemo } from "react";
 
 // ── Animated counter hook ──────────────────────────────────────────
@@ -75,11 +75,20 @@ function GameCard({
 
   useEffect(() => {
     const delay = index * 400 + 1200;
+    let awayControls: ReturnType<typeof animate> | null = null;
+    let homeControls: ReturnType<typeof animate> | null = null;
 
     const t1 = setTimeout(() => {
-      const awayMv = useMotionValueAnimate(game.away.score, 1.2, setAwayScore);
-      const homeMv = useMotionValueAnimate(game.home.score, 1.2, setHomeScore);
-      return () => { awayMv(); homeMv(); };
+      awayControls = animate(0, game.away.score, {
+        duration: 1.2,
+        ease: "easeOut",
+        onUpdate: (v) => setAwayScore(Math.round(v)),
+      });
+      homeControls = animate(0, game.home.score, {
+        duration: 1.2,
+        ease: "easeOut",
+        onUpdate: (v) => setHomeScore(Math.round(v)),
+      });
     }, delay);
 
     const t2 = setTimeout(() => setBarWidth(game.confidence), delay + 600);
@@ -89,6 +98,8 @@ function GameCard({
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
+      awayControls?.stop();
+      homeControls?.stop();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -194,21 +205,6 @@ function GameCard({
       </div>
     </motion.div>
   );
-}
-
-// Tiny helper — animates a number via framer-motion
-function useMotionValueAnimate(
-  target: number,
-  duration: number,
-  setter: (n: number) => void
-) {
-  const mv = useMotionValue(0);
-  const unsub = mv.on("change", (v) => setter(Math.round(v)));
-  const controls = animate(mv, target, { duration, ease: "easeOut" });
-  return () => {
-    controls.stop();
-    unsub();
-  };
 }
 
 // ── Neural-network dots (CSS-only animation) ──────────────────────
@@ -357,6 +353,7 @@ const HEADLINE_WORDS_2 = ["BEFORE", "THEY", "PLAY"];
 function AnimatedHeadline() {
   return (
     <h1
+      aria-label="KNOW WHO WINS BEFORE THEY PLAY"
       className="text-[2.8rem] sm:text-7xl md:text-8xl lg:text-[7rem] xl:text-[8.5rem] font-bold leading-[0.88] tracking-tight"
       style={{ fontFamily: "var(--font-heading)" }}
     >

@@ -47,7 +47,7 @@ export default function Leagues() {
         <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-l from-[var(--color-bg)] to-transparent z-10 pointer-events-none" />
 
         <div className="flex marquee-left">
-          {[...leagues, ...leagues, ...leagues].map((league, i) => (
+          {[...leagues, ...leagues].map((league, i) => (
             <div
               key={`top-${i}`}
               className="flex-shrink-0 mx-2 sm:mx-5 group"
@@ -98,7 +98,7 @@ export default function Leagues() {
         <div className="absolute right-0 top-0 bottom-0 w-24 sm:w-40 bg-gradient-to-l from-[var(--color-bg)] to-transparent z-10 pointer-events-none" />
 
         <div className="flex marquee-right">
-          {[...leagues.slice(4), ...leagues.slice(0, 4), ...leagues, ...leagues.slice(4), ...leagues.slice(0, 4)].map((league, i) => (
+          {[...leagues, ...leagues].map((league, i) => (
             <div
               key={`bot-${i}`}
               className="flex-shrink-0 mx-2 sm:mx-5 group"
@@ -142,10 +142,10 @@ export default function Leagues() {
       <style jsx>{`
         @keyframes scroll-left {
           0% { transform: translateX(0); }
-          100% { transform: translateX(-33.333%); }
+          100% { transform: translateX(-50%); }
         }
         @keyframes scroll-right {
-          0% { transform: translateX(-33.333%); }
+          0% { transform: translateX(-50%); }
           100% { transform: translateX(0); }
         }
         .marquee-left {
