@@ -58,28 +58,6 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
             scrolled ? "pt-3 pb-2" : "pt-5 pb-3"
           }`}
         >
-          {/* Spotlight — soft dual glow from both sides (desktop only) */}
-          <div className="hidden sm:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" style={{ width: "700px", height: "160px" }}>
-            {/* Left glow */}
-            <div
-              className="absolute top-0 left-0 w-[55%] h-full"
-              style={{
-                filter: "blur(100px)",
-                background: "radial-gradient(ellipse at 70% 50%, var(--color-coral), transparent 70%)",
-                animation: "spotlight-left 4s ease-in-out infinite",
-              }}
-            />
-            {/* Right glow */}
-            <div
-              className="absolute top-0 right-0 w-[55%] h-full"
-              style={{
-                filter: "blur(100px)",
-                background: "radial-gradient(ellipse at 30% 50%, var(--color-teal), transparent 70%)",
-                animation: "spotlight-right 4s ease-in-out infinite",
-              }}
-            />
-          </div>
-
           <a href="/" className="relative">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

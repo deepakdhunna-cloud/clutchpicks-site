@@ -210,139 +210,105 @@ function GameCard({
   );
 }
 
-// ── Neural-network dots (CSS-only animation) ──────────────────────
-function NeuralDots() {
-  const dots = useMemo(() => {
-    const count = typeof window !== "undefined" && window.innerWidth < 640 ? 20 : 50;
-    return Array.from({ length: count }, (_, i) => ({
+// ── Constellation & light-streak background ────────────────────────
+const STREAKS = [
+  { y: "18%", width: 360, duration: 11, delay: 0,  angle: -18 },
+  { y: "43%", width: 260, duration: 15, delay: 5,  angle: -14 },
+  { y: "67%", width: 420, duration:  9, delay: 10, angle: -21 },
+  { y: "31%", width: 190, duration: 18, delay: 15, angle: -16 },
+];
+
+function ConstellationField() {
+  const { stars, edges } = useMemo(() => {
+    const stars = Array.from({ length: 65 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
       y: Math.random() * 100,
-      size: Math.random() * 2 + 1,
-      delay: Math.random() * 8,
-      duration: 12 + Math.random() * 16,
-      driftX: (Math.random() - 0.5) * 60,
-      driftY: (Math.random() - 0.5) * 60,
-      opacity: Math.random() * 0.3 + 0.1,
+      r: Math.random() * 1.2 + 0.5,
+      base: Math.random() * 0.22 + 0.06,
+      dur: 3 + Math.random() * 6,
+      del: Math.random() * 10,
     }));
+
+    const edges: { x1: number; y1: number; x2: number; y2: number; del: number; dur: number }[] = [];
+    const added = new Set<string>();
+    for (let i = 0; i < stars.length && edges.length < 24; i++) {
+      for (let j = i + 1; j < stars.length; j++) {
+        const dx = stars[i].x - stars[j].x;
+        const dy = stars[i].y - stars[j].y;
+        if (dx * dx + dy * dy < 200) {
+          const key = `${i}:${j}`;
+          if (!added.has(key)) {
+            added.add(key);
+            edges.push({
+              x1: stars[i].x, y1: stars[i].y,
+              x2: stars[j].x, y2: stars[j].y,
+              del: Math.random() * 8,
+              dur: 7 + Math.random() * 6,
+            });
+          }
+        }
+      }
+    }
+    return { stars, edges };
   }, []);
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {dots.map((d) => (
+      {/* Stars + constellation lines */}
+      <svg className="absolute inset-0 w-full h-full">
+        {edges.map((e, i) => (
+          <motion.line
+            key={`e-${i}`}
+            x1={`${e.x1}%`} y1={`${e.y1}%`}
+            x2={`${e.x2}%`} y2={`${e.y2}%`}
+            stroke="white"
+            strokeWidth="0.4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0.12, 0.04, 0.1, 0] }}
+            transition={{ duration: e.dur, delay: e.del, repeat: Infinity, ease: "easeInOut" }}
+          />
+        ))}
+        {stars.map((s) => (
+          <motion.circle
+            key={s.id}
+            cx={`${s.x}%`}
+            cy={`${s.y}%`}
+            r={s.r}
+            fill="white"
+            initial={{ opacity: s.base }}
+            animate={{ opacity: [s.base, Math.min(s.base * 4, 0.75), s.base * 0.4, Math.min(s.base * 2.5, 0.5), s.base] }}
+            transition={{ duration: s.dur, delay: s.del, repeat: Infinity, ease: "easeInOut" }}
+            style={{ willChange: "opacity" }}
+          />
+        ))}
+      </svg>
+
+      {/* Diagonal light streaks */}
+      {STREAKS.map((sk, i) => (
         <motion.div
-          key={d.id}
-          className="absolute rounded-full bg-[var(--color-coral)]"
+          key={`sk-${i}`}
+          className="absolute pointer-events-none"
           style={{
-            width: d.size,
-            height: d.size,
-            left: `${d.x}%`,
-            top: `${d.y}%`,
-            opacity: d.opacity,
-            willChange: "transform, opacity",
+            top: sk.y,
+            left: 0,
+            width: sk.width,
+            height: 1,
+            rotate: sk.angle,
+            background:
+              "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 20%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.05) 80%, transparent 100%)",
+            willChange: "transform",
           }}
-          animate={{
-            x: [0, d.driftX, -d.driftX * 0.5, 0],
-            y: [0, d.driftY, -d.driftY * 0.5, 0],
-            opacity: [d.opacity, d.opacity * 1.8, d.opacity * 0.5, d.opacity],
-          }}
+          animate={{ x: ["120vw", "-30vw"] }}
           transition={{
-            duration: d.duration,
-            delay: d.delay,
+            duration: sk.duration,
+            delay: sk.delay,
             repeat: Infinity,
             ease: "linear",
+            repeatDelay: sk.duration * 0.6,
           }}
         />
       ))}
-      {/* Connection lines — SVG for a handful of subtle lines */}
-      <svg className="absolute inset-0 w-full h-full opacity-[0.04]">
-        {dots.slice(0, 18).map((d, i) => {
-          const next = dots[(i + 3) % dots.length];
-          return (
-            <line
-              key={i}
-              x1={`${d.x}%`}
-              y1={`${d.y}%`}
-              x2={`${next.x}%`}
-              y2={`${next.y}%`}
-              stroke="var(--color-coral)"
-              strokeWidth="0.5"
-            />
-          );
-        })}
-      </svg>
-    </div>
-  );
-}
-
-// ── Glowing morphing orbs ─────────────────────────────────────────
-function GlowOrb() {
-  return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {/* Main large orb — coral/teal morphing */}
-      <motion.div
-        className="absolute top-[40%] left-[35%] w-[500px] h-[500px] sm:w-[900px] sm:h-[900px]"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, var(--color-coral) 0%, var(--color-teal) 35%, transparent 65%)",
-          filter: "blur(80px)",
-          willChange: "transform, opacity",
-        }}
-        animate={{
-          opacity: [0.2, 0.35, 0.2],
-          scale: [1, 1.2, 0.95, 1.1, 1],
-          x: ["-50%", "-45%", "-55%", "-48%", "-50%"],
-          y: ["-50%", "-45%", "-55%", "-52%", "-50%"],
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-      />
-      {/* Secondary orb — coral, offset left */}
-      <motion.div
-        className="absolute top-[30%] left-[10%] w-[350px] h-[350px] sm:w-[500px] sm:h-[500px]"
-        style={{
-          background:
-            "radial-gradient(circle, var(--color-coral) 0%, transparent 55%)",
-          filter: "blur(70px)",
-          willChange: "transform, opacity",
-        }}
-        animate={{
-          opacity: [0.15, 0.3, 0.15],
-          scale: [1, 1.15, 1],
-          y: ["0%", "-8%", "5%", "0%"],
-        }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-      />
-      {/* Third orb — teal/orange, offset right */}
-      <motion.div
-        className="absolute top-[45%] right-[5%] w-[300px] h-[300px] sm:w-[500px] sm:h-[500px]"
-        style={{
-          background:
-            "radial-gradient(circle, var(--color-teal) 0%, transparent 55%)",
-          filter: "blur(70px)",
-          willChange: "transform, opacity",
-        }}
-        animate={{
-          opacity: [0.12, 0.28, 0.12],
-          scale: [1, 1.1, 0.95, 1],
-          y: ["0%", "6%", "-5%", "0%"],
-        }}
-        transition={{ duration: 9, delay: 2, repeat: Infinity, ease: "easeInOut" }}
-      />
-      {/* Top accent — warm glow */}
-      <motion.div
-        className="absolute -top-[10%] left-[40%] w-[400px] h-[250px] sm:w-[700px] sm:h-[400px]"
-        style={{
-          background:
-            "radial-gradient(ellipse, var(--color-coral) 0%, transparent 55%)",
-          filter: "blur(90px)",
-          willChange: "transform, opacity",
-        }}
-        animate={{
-          opacity: [0.1, 0.22, 0.1],
-          x: ["-50%", "-45%", "-55%", "-50%"],
-        }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-      />
     </div>
   );
 }
@@ -450,8 +416,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-x-hidden overflow-y-visible pt-48 sm:pt-44 pb-20 sm:pb-0 max-w-[100vw]">
       {/* ── Background layers ── */}
-      <NeuralDots />
-      <GlowOrb />
+      <ConstellationField />
 
       {/* Subtle grid */}
       <div
