@@ -252,16 +252,16 @@ function StepPanel({
       animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
       transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
       className="relative h-full"
+      style={{ willChange: "transform, opacity" }}
     >
-      <motion.div
-        animate={{
-          borderColor: isActive
-            ? "rgba(122, 157, 184, 0.2)"
-            : "rgba(255, 255, 255, 0.04)",
-        }}
-        transition={{ duration: 0.4 }}
-        className="relative rounded-3xl border overflow-hidden bg-[var(--color-bg-card)] p-8 sm:p-10 md:p-12 h-full min-h-[420px] flex flex-col"
-      >
+      <div className="relative rounded-3xl border border-white/[0.04] overflow-hidden bg-[var(--color-bg-card)] p-8 sm:p-10 md:p-12 h-full min-h-[420px] flex flex-col">
+        {/* Active border overlay — opacity-only transition, no repaint per frame */}
+        <motion.div
+          animate={{ opacity: isActive ? 1 : 0 }}
+          transition={{ duration: 0.4 }}
+          className="absolute inset-0 rounded-3xl border border-[rgba(122,157,184,0.2)] pointer-events-none"
+          style={{ willChange: "opacity" }}
+        />
         {/* Background gradient glow when active */}
         <motion.div
           animate={{ opacity: isActive ? 1 : 0 }}
@@ -322,8 +322,9 @@ function StepPanel({
           animate={{ scaleX: isActive ? 1 : 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[var(--color-coral)] via-[var(--color-teal)] to-transparent origin-left"
+          style={{ willChange: "transform" }}
         />
-      </motion.div>
+      </div>
     </motion.div>
   );
 }

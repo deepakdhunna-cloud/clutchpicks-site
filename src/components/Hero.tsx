@@ -112,6 +112,7 @@ function GameCard({
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.7, delay: 0.8 + index * 0.2, ease: [0.16, 1, 0.3, 1] }}
       className="relative group"
+      style={{ willChange: "transform" }}
     >
       <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-white/[0.08] to-transparent pointer-events-none" />
       <div className="relative rounded-xl sm:rounded-2xl bg-[#080c10]/90 backdrop-blur-xl border border-white/[0.04] p-3 sm:p-5 overflow-hidden">
@@ -175,11 +176,13 @@ function GameCard({
           </div>
           <div className="h-1 sm:h-1.5 rounded-full bg-white/5 overflow-hidden">
             <motion.div
-              className="h-full rounded-full"
-              initial={{ width: 0 }}
-              animate={{ width: `${barWidth}%` }}
+              className="h-full w-full rounded-full"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: barWidth / 100 }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
               style={{
+                transformOrigin: "left center",
+                willChange: "transform",
                 background: `linear-gradient(90deg, var(--color-coral), ${game.confidence >= 80 ? "var(--color-green)" : "var(--color-teal)"})`,
               }}
             />
@@ -236,6 +239,7 @@ function NeuralDots() {
             left: `${d.x}%`,
             top: `${d.y}%`,
             opacity: d.opacity,
+            willChange: "transform, opacity",
           }}
           animate={{
             x: [0, d.driftX, -d.driftX * 0.5, 0],
@@ -282,19 +286,13 @@ function GlowOrb() {
           background:
             "radial-gradient(ellipse at center, var(--color-coral) 0%, var(--color-teal) 35%, transparent 65%)",
           filter: "blur(80px)",
+          willChange: "transform, opacity",
         }}
         animate={{
           opacity: [0.2, 0.35, 0.2],
           scale: [1, 1.2, 0.95, 1.1, 1],
           x: ["-50%", "-45%", "-55%", "-48%", "-50%"],
           y: ["-50%", "-45%", "-55%", "-52%", "-50%"],
-          borderRadius: [
-            "50% 50% 50% 50%",
-            "40% 60% 55% 45%",
-            "55% 45% 40% 60%",
-            "45% 55% 60% 40%",
-            "50% 50% 50% 50%",
-          ],
         }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
       />
@@ -305,6 +303,7 @@ function GlowOrb() {
           background:
             "radial-gradient(circle, var(--color-coral) 0%, transparent 55%)",
           filter: "blur(70px)",
+          willChange: "transform, opacity",
         }}
         animate={{
           opacity: [0.15, 0.3, 0.15],
@@ -320,6 +319,7 @@ function GlowOrb() {
           background:
             "radial-gradient(circle, var(--color-teal) 0%, transparent 55%)",
           filter: "blur(70px)",
+          willChange: "transform, opacity",
         }}
         animate={{
           opacity: [0.12, 0.28, 0.12],
@@ -335,6 +335,7 @@ function GlowOrb() {
           background:
             "radial-gradient(ellipse, var(--color-coral) 0%, transparent 55%)",
           filter: "blur(90px)",
+          willChange: "transform, opacity",
         }}
         animate={{
           opacity: [0.1, 0.22, 0.1],
@@ -369,6 +370,7 @@ function AnimatedHeadline() {
               delay: 0.3 + i * 0.12,
               ease: [0.16, 1, 0.3, 1],
             }}
+            style={{ willChange: "transform, opacity" }}
           >
             {word}
           </motion.span>
@@ -386,6 +388,7 @@ function AnimatedHeadline() {
               delay: 0.66 + i * 0.12,
               ease: [0.16, 1, 0.3, 1],
             }}
+            style={{ willChange: "transform, opacity" }}
           >
             {word}
           </motion.span>

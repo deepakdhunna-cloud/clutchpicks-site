@@ -166,6 +166,8 @@ export default function CTA() {
                   fontFamily: "var(--font-heading)",
                   display: "inline-block",
                   whiteSpace: char === " " ? "pre" : "normal",
+                  willChange: "transform, opacity",
+                  backfaceVisibility: "hidden",
                 }}
               >
                 {char}
@@ -188,6 +190,8 @@ export default function CTA() {
                   fontFamily: "var(--font-heading)",
                   display: "inline-block",
                   whiteSpace: char === " " ? "pre" : "normal",
+                  willChange: "transform, opacity",
+                  backfaceVisibility: "hidden",
                 }}
               >
                 {char}
