@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useInView, useMotionValue, animate } from "framer-motion";
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // ── Animated counter hook ──────────────────────────────────────────
 function useCountUp(end: number, duration = 2, startOnView = true) {
@@ -210,104 +210,116 @@ function GameCard({
   );
 }
 
-// ── Constellation & light-streak background ────────────────────────
-const STREAKS = [
-  { y: "18%", width: 360, duration: 11, delay: 0,  angle: -18 },
-  { y: "43%", width: 260, duration: 15, delay: 5,  angle: -14 },
-  { y: "67%", width: 420, duration:  9, delay: 10, angle: -21 },
-  { y: "31%", width: 190, duration: 18, delay: 15, angle: -16 },
+// ── Sports AI data field ───────────────────────────────────────────
+// Network nodes: deterministic positions, alternating brand colors
+const NET_NODES = [
+  { id: 0,  x:  8, y: 20, c: "coral" }, { id: 1,  x: 22, y:  9, c: "teal"  },
+  { id: 2,  x: 38, y: 26, c: "coral" }, { id: 3,  x: 16, y: 44, c: "teal"  },
+  { id: 4,  x: 52, y: 14, c: "coral" }, { id: 5,  x: 66, y: 31, c: "teal"  },
+  { id: 6,  x: 79, y: 17, c: "coral" }, { id: 7,  x: 91, y: 11, c: "teal"  },
+  { id: 8,  x: 11, y: 67, c: "teal"  }, { id: 9,  x: 27, y: 57, c: "coral" },
+  { id: 10, x: 43, y: 73, c: "teal"  }, { id: 11, x: 60, y: 51, c: "coral" },
+  { id: 12, x: 74, y: 64, c: "teal"  }, { id: 13, x: 87, y: 75, c: "coral" },
+  { id: 14, x: 94, y: 45, c: "teal"  }, { id: 15, x: 39, y: 87, c: "coral" },
+  { id: 16, x: 57, y: 90, c: "teal"  }, { id: 17, x: 76, y: 83, c: "coral" },
+] as const;
+
+// Edges — each fires in sequence, creating a cascading "data flow" wave
+const NET_EDGES: { a: number; b: number; d: number }[] = [
+  { a: 0, b: 1, d: 0.0 }, { a: 1, b: 2, d: 0.5 }, { a: 2, b: 4, d: 1.0 },
+  { a: 4, b: 5, d: 1.5 }, { a: 5, b: 6, d: 2.0 }, { a: 6, b: 7, d: 2.5 },
+  { a: 7, b: 14,d: 3.0 }, { a: 14,b:11, d: 3.5 }, { a: 11,b: 5, d: 4.0 },
+  { a: 5, b:12, d: 4.5 }, { a: 12,b:13, d: 5.0 }, { a: 13,b:17, d: 5.5 },
+  { a: 17,b:16, d: 6.0 }, { a: 16,b:15, d: 6.5 }, { a: 15,b:10, d: 7.0 },
+  { a: 10,b: 9, d: 7.5 }, { a: 9, b: 8, d: 8.0 }, { a: 8, b: 3, d: 8.5 },
+  { a: 3, b: 2, d: 9.0 }, { a: 2, b: 9, d: 9.5 }, { a: 9, b:11, d:10.0 },
+  { a: 4, b:11, d:10.5 },
 ];
 
-function ConstellationField() {
-  const { stars, edges } = useMemo(() => {
-    const stars = Array.from({ length: 65 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      r: Math.random() * 1.2 + 0.5,
-      base: Math.random() * 0.22 + 0.06,
-      dur: 3 + Math.random() * 6,
-      del: Math.random() * 10,
-    }));
+// Floating live-score / stat chips
+const CHIPS = [
+  { text: "LAL 108  ·  BOS 114", x: "4%",  y: "28%", d: 0,  dur: 13 },
+  { text: "CONF  87%",            x: "68%", y: "18%", d: 4,  dur: 11 },
+  { text: "ELO  Δ +4.2",          x: "20%", y: "72%", d: 8,  dur: 14 },
+  { text: "KC 24  ·  BUF 21",    x: "54%", y: "78%", d: 2,  dur: 10 },
+  { text: "W–STK  7",             x: "83%", y: "54%", d: 10, dur: 12 },
+  { text: "NYY 5  ·  LAD 3",     x: "33%", y: "12%", d: 6,  dur:  9 },
+  { text: "AI PICK: BOS  ✓",     x: "11%", y: "53%", d: 14, dur: 15 },
+  { text: "QBR  94.2",            x: "88%", y: "36%", d: 18, dur: 11 },
+];
 
-    const edges: { x1: number; y1: number; x2: number; y2: number; del: number; dur: number }[] = [];
-    const added = new Set<string>();
-    for (let i = 0; i < stars.length && edges.length < 24; i++) {
-      for (let j = i + 1; j < stars.length; j++) {
-        const dx = stars[i].x - stars[j].x;
-        const dy = stars[i].y - stars[j].y;
-        if (dx * dx + dy * dy < 200) {
-          const key = `${i}:${j}`;
-          if (!added.has(key)) {
-            added.add(key);
-            edges.push({
-              x1: stars[i].x, y1: stars[i].y,
-              x2: stars[j].x, y2: stars[j].y,
-              del: Math.random() * 8,
-              dur: 7 + Math.random() * 6,
-            });
-          }
-        }
-      }
-    }
-    return { stars, edges };
-  }, []);
+const CORAL = "rgba(122,157,184,VAR)";
+const TEAL  = "rgba(232,147,106,VAR)";
+function nc(c: string, a: number) {
+  return (c === "coral" ? CORAL : TEAL).replace("VAR", String(a));
+}
 
+function SportDataField() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Stars + constellation lines */}
+      {/* Neural network SVG */}
       <svg className="absolute inset-0 w-full h-full">
-        {edges.map((e, i) => (
-          <motion.line
-            key={`e-${i}`}
-            x1={`${e.x1}%`} y1={`${e.y1}%`}
-            x2={`${e.x2}%`} y2={`${e.y2}%`}
-            stroke="white"
-            strokeWidth="0.4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.12, 0.04, 0.1, 0] }}
-            transition={{ duration: e.dur, delay: e.del, repeat: Infinity, ease: "easeInOut" }}
-          />
-        ))}
-        {stars.map((s) => (
-          <motion.circle
-            key={s.id}
-            cx={`${s.x}%`}
-            cy={`${s.y}%`}
-            r={s.r}
-            fill="white"
-            initial={{ opacity: s.base }}
-            animate={{ opacity: [s.base, Math.min(s.base * 4, 0.75), s.base * 0.4, Math.min(s.base * 2.5, 0.5), s.base] }}
-            transition={{ duration: s.dur, delay: s.del, repeat: Infinity, ease: "easeInOut" }}
-            style={{ willChange: "opacity" }}
-          />
-        ))}
+        {/* Edges — cascade activation every 12s */}
+        {NET_EDGES.map((e, i) => {
+          const A = NET_NODES[e.a], B = NET_NODES[e.b];
+          const color = A.c === "coral" ? "rgba(122,157,184,1)" : "rgba(232,147,106,1)";
+          return (
+            <motion.line
+              key={`e${i}`}
+              x1={`${A.x}%`} y1={`${A.y}%`}
+              x2={`${B.x}%`} y2={`${B.y}%`}
+              stroke={color}
+              strokeWidth="0.6"
+              initial={{ opacity: 0.03 }}
+              animate={{ opacity: [0.03, 0.03, 0.35, 0.55, 0.35, 0.06, 0.03] }}
+              transition={{ duration: 12, delay: e.d, repeat: Infinity, ease: "easeInOut" }}
+            />
+          );
+        })}
+        {/* Nodes — glow when adjacent edges fire */}
+        {NET_NODES.map((n, i) => {
+          const delay = (NET_EDGES.find(e => e.a === n.id || e.b === n.id)?.d ?? 0) + 0.2;
+          return (
+            <motion.circle
+              key={`n${i}`}
+              cx={`${n.x}%`} cy={`${n.y}%`} r={2.8}
+              fill={nc(n.c, 0.6)}
+              initial={{ opacity: 0.2, scale: 1 }}
+              animate={{ opacity: [0.2, 0.2, 0.8, 1, 0.8, 0.25, 0.2], scale: [1, 1, 1.6, 2, 1.6, 1.1, 1] }}
+              transition={{ duration: 12, delay, repeat: Infinity, ease: "easeInOut" }}
+              style={{ willChange: "opacity, transform", transformOrigin: `${n.x}% ${n.y}%` }}
+            />
+          );
+        })}
       </svg>
 
-      {/* Diagonal light streaks */}
-      {STREAKS.map((sk, i) => (
+      {/* Floating score / stat chips */}
+      {CHIPS.map((chip, i) => (
         <motion.div
-          key={`sk-${i}`}
-          className="absolute pointer-events-none"
+          key={`chip${i}`}
+          className="absolute font-mono text-[10px] sm:text-[11px] tracking-widest whitespace-nowrap px-2.5 py-1 rounded"
           style={{
-            top: sk.y,
-            left: 0,
-            width: sk.width,
-            height: 1,
-            rotate: sk.angle,
-            background:
-              "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 20%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.05) 80%, transparent 100%)",
-            willChange: "transform",
+            left: chip.x, top: chip.y,
+            color: "rgba(255,255,255,0.28)",
+            background: "rgba(255,255,255,0.03)",
+            border: "1px solid rgba(255,255,255,0.06)",
+            willChange: "transform, opacity",
           }}
-          animate={{ x: ["120vw", "-30vw"] }}
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: [0, 0, 0.9, 1, 0.9, 0],
+            y: [0, 0, -6, -12, -18, -24],
+          }}
           transition={{
-            duration: sk.duration,
-            delay: sk.delay,
+            duration: chip.dur,
+            delay: chip.d,
             repeat: Infinity,
-            ease: "linear",
-            repeatDelay: sk.duration * 0.6,
+            ease: "easeInOut",
+            repeatDelay: chip.dur * 0.4,
           }}
-        />
+        >
+          {chip.text}
+        </motion.div>
       ))}
     </div>
   );
@@ -416,7 +428,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-x-hidden overflow-y-visible pt-48 sm:pt-44 pb-20 sm:pb-0 max-w-[100vw]">
       {/* ── Background layers ── */}
-      <ConstellationField />
+      <SportDataField />
 
       {/* Subtle grid */}
       <div
