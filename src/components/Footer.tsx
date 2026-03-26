@@ -38,7 +38,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer ref={ref} className="relative border-t border-white/5 py-12">
+    <footer ref={ref} className="relative border-t border-white/[0.08] py-16">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -81,7 +81,7 @@ export default function Footer() {
                 whileHover={{ scale: 1.25, color: "var(--color-coral)" }}
                 whileTap={{ scale: 0.9 }}
                 transition={{ duration: 0.5, delay: 0.1 + i * 0.08, type: "spring", stiffness: 400, damping: 20 }}
-                className="text-[var(--color-text-muted)]"
+                className="text-white/50"
                 style={{ willChange: "transform" }}
               >
                 {social.icon}
@@ -116,21 +116,21 @@ export default function Footer() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.7, delay: 0.4 }}
-          className="mt-10 pt-8 border-t border-white/5 text-center"
+          className="mt-12 pt-8 border-t border-white/[0.06] text-center"
         >
-          <p className="text-xs text-[var(--color-text-muted)]/50 max-w-2xl mx-auto mb-4">
+          <p className="text-xs text-white/50 max-w-2xl mx-auto mb-3 leading-relaxed">
             All predictions and analysis provided by Clutch Picks are for
             entertainment and informational purposes only. Sports outcomes are
             inherently unpredictable and no guarantee of accuracy is made.
           </p>
-          <p className="text-xs text-[var(--color-text-muted)]/30 mb-8">
+          <p className="text-xs text-white/40 mb-8">
             &copy; 2026 Clutch Picks LLC. All rights reserved.
           </p>
         </motion.div>
 
         {/* No gambling disclaimer */}
-        <div className="pt-6 border-t border-white/5 text-center">
-          <p className="text-[11px] text-[var(--color-text-muted)]/40 max-w-3xl mx-auto leading-relaxed">
+        <div className="pt-6 border-t border-white/[0.06] text-center">
+          <p className="text-[11px] text-white/40 max-w-3xl mx-auto leading-relaxed">
             Clutch Picks does not facilitate, promote, or condone gambling,
             wagering, or betting of any kind. This app does not accept bets,
             process wagers, or enable real-money transactions. All features,
