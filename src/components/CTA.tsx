@@ -4,22 +4,107 @@ import { motion, useInView, useAnimation } from "framer-motion";
 import { useRef, useEffect } from "react";
 import DownloadButton from "./DownloadButton";
 
-const floatingElements = [
-  { icon: "🏀", size: 36, x: "8%", y: "15%", delay: 0, duration: 5 },
-  { icon: "⚾", size: 28, x: "85%", y: "20%", delay: 1.2, duration: 6 },
-  { icon: "🏈", size: 32, x: "12%", y: "75%", delay: 0.8, duration: 5.5 },
-  { icon: "⚽", size: 30, x: "90%", y: "70%", delay: 1.5, duration: 4.5 },
-  { icon: "🏒", size: 26, x: "25%", y: "10%", delay: 2, duration: 6.5 },
-  { icon: "📊", size: 28, x: "78%", y: "85%", delay: 0.5, duration: 5 },
-  { icon: "🎯", size: 32, x: "5%", y: "45%", delay: 1.8, duration: 5.8 },
-  { icon: "🔥", size: 26, x: "92%", y: "45%", delay: 0.3, duration: 4.8 },
-];
-
-const statsCards = [
-  { label: "87% CONF", value: "+4.5", x: "3%", y: "30%", delay: 0.6, duration: 5.5 },
-  { label: "ACCURACY", value: "92%", x: "88%", y: "35%", delay: 1.4, duration: 6 },
-  { label: "PICK", value: "W", x: "6%", y: "65%", delay: 1.0, duration: 5 },
-  { label: "VALUE", value: "A+", x: "85%", y: "60%", delay: 2.2, duration: 6.2 },
+// SVG sport icons — crisp vector, brand colors, no emoji blur
+const SPORT_ICONS = [
+  {
+    label: "Basketball",
+    svg: (
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+        <circle cx="24" cy="24" r="19" />
+        <path d="M5 24h38" />
+        <path d="M24 5v38" />
+        <path d="M9.5 9.5 Q16 16 16 24 Q16 32 9.5 38.5" />
+        <path d="M38.5 9.5 Q32 16 32 24 Q32 32 38.5 38.5" />
+      </svg>
+    ),
+    color: "var(--color-coral)", size: 44, x: "6%",  y: "22%", delay: 0,   dur: 5.2,
+  },
+  {
+    label: "Baseball",
+    svg: (
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+        <circle cx="24" cy="24" r="19" />
+        <path d="M14 11 Q18 18 18 24 Q18 30 14 37" />
+        <path d="M34 11 Q30 18 30 24 Q30 30 34 37" />
+      </svg>
+    ),
+    color: "var(--color-teal)", size: 36, x: "84%", y: "20%", delay: 1.2, dur: 6.0,
+  },
+  {
+    label: "Football",
+    svg: (
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+        <ellipse cx="24" cy="24" rx="18" ry="13" />
+        <line x1="24" y1="11" x2="24" y2="37" />
+        <line x1="16" y1="20" x2="32" y2="20" />
+        <line x1="16" y1="24" x2="32" y2="24" />
+        <line x1="16" y1="28" x2="32" y2="28" />
+      </svg>
+    ),
+    color: "var(--color-coral)", size: 40, x: "10%", y: "70%", delay: 0.8, dur: 5.5,
+  },
+  {
+    label: "Soccer",
+    svg: (
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="24" cy="24" r="19" />
+        <polygon points="24,13 29,19 27,25 21,25 19,19" fill="currentColor" opacity="0.25" />
+        <line x1="19" y1="19" x2="9"  y2="23" />
+        <line x1="29" y1="19" x2="39" y2="23" />
+        <line x1="27" y1="25" x2="31" y2="35" />
+        <line x1="21" y1="25" x2="17" y2="35" />
+      </svg>
+    ),
+    color: "var(--color-teal)", size: 38, x: "88%", y: "66%", delay: 1.5, dur: 4.8,
+  },
+  {
+    label: "Stats",
+    svg: (
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+        <line x1="8" y1="40" x2="40" y2="40" />
+        <rect x="11" y="28" width="7" height="12" rx="1.5" fill="currentColor" opacity="0.35" />
+        <rect x="20" y="18" width="7" height="22" rx="1.5" fill="currentColor" opacity="0.55" />
+        <rect x="29" y="10" width="7" height="30" rx="1.5" fill="currentColor" opacity="0.75" />
+      </svg>
+    ),
+    color: "var(--color-coral)", size: 36, x: "23%", y: "11%", delay: 2.0, dur: 6.5,
+  },
+  {
+    label: "Target",
+    svg: (
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <circle cx="24" cy="24" r="19" />
+        <circle cx="24" cy="24" r="12" />
+        <circle cx="24" cy="24" r="5" fill="currentColor" opacity="0.45" />
+        <line x1="24" y1="5"  x2="24" y2="43" strokeWidth="0.9" opacity="0.35" />
+        <line x1="5"  y1="24" x2="43" y2="24" strokeWidth="0.9" opacity="0.35" />
+      </svg>
+    ),
+    color: "var(--color-teal)", size: 40, x: "76%", y: "80%", delay: 0.5, dur: 5.0,
+  },
+  {
+    label: "Trophy",
+    svg: (
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 8 L30 8 L30 24 Q30 33 24 35 Q18 33 18 24 Z" />
+        <path d="M18 12 Q10 12 10 20 Q10 27 18 27" />
+        <path d="M30 12 Q38 12 38 20 Q38 27 30 27" />
+        <line x1="24" y1="35" x2="24" y2="41" />
+        <line x1="16" y1="41" x2="32" y2="41" />
+      </svg>
+    ),
+    color: "var(--color-coral)", size: 34, x: "3%",  y: "45%", delay: 1.8, dur: 5.8,
+  },
+  {
+    label: "Lightning",
+    svg: (
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M27 5 L13 27 L23 27 L21 43 L35 21 L25 21 Z" fill="currentColor" opacity="0.2" />
+        <path d="M27 5 L13 27 L23 27 L21 43 L35 21 L25 21 Z" />
+      </svg>
+    ),
+    color: "var(--color-teal)", size: 34, x: "90%", y: "42%", delay: 0.3, dur: 4.8,
+  },
 ];
 
 export default function CTA() {
@@ -81,78 +166,44 @@ export default function CTA() {
         style={{ willChange: "transform" }}
       />
 
-      {/* Background glows */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[800px] rounded-full bg-[var(--color-coral)] opacity-[0.06] blur-[250px]" />
-      <div className="absolute top-1/3 left-1/3 w-[600px] h-[400px] rounded-full bg-[var(--color-teal)] opacity-[0.04] blur-[200px]" />
+      {/* Background glows — very subtle so text stays sharp */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[800px] rounded-full bg-[var(--color-coral)] opacity-[0.04] blur-[280px]" />
+      <div className="absolute top-1/3 left-1/3 w-[600px] h-[400px] rounded-full bg-[var(--color-teal)] opacity-[0.025] blur-[240px]" />
 
-      {/* Floating emoji elements */}
-      {floatingElements.map((el, i) => (
+      {/* Sport icon field — crisp SVG, smooth float, no rotation blur */}
+      {SPORT_ICONS.map((el) => (
         <motion.div
-          key={i}
+          key={el.label}
           className="absolute pointer-events-none select-none"
           style={{
             left: el.x,
             top: el.y,
-            fontSize: el.size,
+            width: el.size,
+            height: el.size,
+            color: el.color,
+            willChange: "transform, opacity",
+            backfaceVisibility: "hidden",
           }}
-          initial={{ opacity: 0, scale: 0 }}
+          initial={{ opacity: 0 }}
           animate={
             isInView
               ? {
-                  opacity: [0, 0.25, 0.15, 0.25],
-                  scale: 1,
-                  y: [0, -15, 0, -15],
-                  rotate: [0, 5, -3, 5],
+                  opacity: 0.55,
+                  y: [0, -14, 0],
                 }
               : {}
           }
           transition={{
-            opacity: { duration: 2, delay: el.delay, repeat: Infinity, repeatType: "reverse" },
-            scale: { duration: 0.6, delay: el.delay },
-            y: { duration: el.duration, delay: el.delay, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
-            rotate: { duration: el.duration * 1.2, delay: el.delay, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
+            opacity: { duration: 1.2, delay: el.delay },
+            y: {
+              duration: el.dur,
+              delay: el.delay + 0.6,
+              repeat: Infinity,
+              ease: "easeInOut",
+            },
           }}
         >
-          {el.icon}
-        </motion.div>
-      ))}
-
-      {/* Floating stat cards */}
-      {statsCards.map((card, i) => (
-        <motion.div
-          key={`stat-${i}`}
-          className="absolute pointer-events-none hidden sm:block"
-          style={{ left: card.x, top: card.y }}
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={
-            isInView
-              ? {
-                  opacity: [0, 0.4, 0.25, 0.4],
-                  scale: 1,
-                  y: [0, -10, 0, -10],
-                }
-              : {}
-          }
-          transition={{
-            opacity: { duration: 3, delay: card.delay, repeat: Infinity, repeatType: "reverse" },
-            scale: { duration: 0.5, delay: card.delay },
-            y: { duration: card.duration, delay: card.delay, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
-          }}
-        >
-          <div className="glass-card rounded-lg px-3 py-2 text-center border border-white/5">
-            <div
-              className="text-[10px] tracking-wider text-[var(--color-text-muted)]"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              {card.label}
-            </div>
-            <div
-              className="text-sm font-bold text-[var(--color-coral)]"
-              style={{ fontFamily: "var(--font-heading)" }}
-            >
-              {card.value}
-            </div>
-          </div>
+          {el.svg}
         </motion.div>
       ))}
 
@@ -167,7 +218,7 @@ export default function CTA() {
                 variants={letterReveal}
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
-                className="text-[2.5rem] sm:text-7xl md:text-8xl lg:text-9xl font-bold leading-[0.95] inline-block"
+                className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold leading-[0.95] inline-block"
                 style={{
                   fontFamily: "var(--font-heading)",
                   display: "inline-block",
