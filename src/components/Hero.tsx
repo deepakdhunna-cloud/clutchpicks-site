@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 function useCountUp(end: number, duration = 2, startOnView = true) {
   const [value, setValue] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.5 });
+  const inView = useInView(ref, { once: true, amount: 0.2 });
   const motionVal = useMotionValue(0);
 
   useEffect(() => {
@@ -108,11 +108,16 @@ function GameCard({
 
   return (
     <motion.div
+      animate={{ y: [0, -5, 0] }}
+      whileHover={{ scale: 1.04, transition: { type: "spring", stiffness: 350, damping: 28 } }}
+      transition={{ duration: 3.5 + index * 0.5, repeat: Infinity, ease: "easeInOut", delay: 1.5 + index * 0.3 }}
+      style={{ willChange: "transform", cursor: "default" }}
+    >
+    <motion.div
       initial={{ opacity: 0, y: 30, scale: 0.95 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.7, delay: 0.8 + index * 0.2, ease: [0.16, 1, 0.3, 1] }}
       className="relative group"
-      style={{ willChange: "transform" }}
     >
       <div className="absolute -inset-px rounded-2xl bg-gradient-to-b from-white/[0.08] to-transparent pointer-events-none" />
       <div className="relative rounded-xl sm:rounded-2xl bg-[#080c10]/90 backdrop-blur-xl border border-white/[0.04] p-3 sm:p-5 overflow-hidden">
@@ -207,6 +212,7 @@ function GameCard({
         )}
       </div>
     </motion.div>
+    </motion.div>
   );
 }
 
@@ -238,12 +244,12 @@ const NET_EDGES: { a: number; b: number; d: number }[] = [
 
 // Floating live-score / stat chips
 const CHIPS = [
-  { text: "LAL 108  ·  BOS 114", x: "4%",  y: "28%", d: 0,  dur: 13 },
-  { text: "CONF  87%",            x: "68%", y: "18%", d: 4,  dur: 11 },
+  { text: "LAL 108  ·  BOS 114", x: "4%",  y: "32%", d: 0,  dur: 13 },
+  { text: "CONF  87%",            x: "68%", y: "26%", d: 4,  dur: 11 },
   { text: "ELO  Δ +4.2",          x: "20%", y: "72%", d: 8,  dur: 14 },
   { text: "KC 24  ·  BUF 21",    x: "54%", y: "78%", d: 2,  dur: 10 },
   { text: "W–STK  7",             x: "83%", y: "54%", d: 10, dur: 12 },
-  { text: "NYY 5  ·  LAD 3",     x: "33%", y: "12%", d: 6,  dur:  9 },
+  { text: "NYY 5  ·  LAD 3",     x: "33%", y: "22%", d: 6,  dur:  9 },
   { text: "AI PICK: BOS  ✓",     x: "11%", y: "53%", d: 14, dur: 15 },
   { text: "QBR  94.2",            x: "88%", y: "36%", d: 18, dur: 11 },
 ];
@@ -256,7 +262,7 @@ function nc(c: string, a: number) {
 
 function SportDataField() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 0 }}>
       {/* Neural network SVG */}
       <svg className="absolute inset-0 w-full h-full">
         {/* Edges — cascade activation every 12s */}
@@ -396,7 +402,8 @@ function StatsBar() {
       transition={{ duration: 0.9, delay: 1.8, ease: [0.16, 1, 0.3, 1] }}
       className="mt-16 sm:mt-20"
     >
-      <div className="relative rounded-2xl bg-white/[0.02] border border-white/[0.05] backdrop-blur-sm">
+      <div className="relative rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-md overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-white/[0.04] to-transparent pointer-events-none" />
         <div className="grid grid-cols-2 sm:grid-cols-4">
           {stats.map((stat, i) => (
             <div
@@ -469,9 +476,12 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 1.35 }}
               className="mt-9"
             >
-              <a
+              <motion.a
                 href="#features"
-                className="group inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/10 text-white font-medium hover:border-[var(--color-coral)]/30 hover:bg-[var(--color-coral)]/[0.06] transition-all duration-300"
+                whileHover={{ scale: 1.04, boxShadow: "0 0 28px rgba(122,157,184,0.18)" }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                className="group inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/10 text-white font-medium hover:border-[var(--color-coral)]/30 hover:bg-[var(--color-coral)]/[0.06] transition-colors duration-300"
               >
                 See How It Works
                 <motion.svg
@@ -485,7 +495,7 @@ export default function Hero() {
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                 </motion.svg>
-              </a>
+              </motion.a>
             </motion.div>
           </div>
 

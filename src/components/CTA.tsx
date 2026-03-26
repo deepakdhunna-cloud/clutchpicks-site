@@ -73,7 +73,13 @@ export default function CTA() {
       className="relative py-32 sm:py-40 overflow-hidden"
     >
       {/* Top divider */}
-      <div className="absolute top-0 left-[5%] right-[5%] h-px bg-gradient-to-r from-transparent via-[var(--color-teal)]/30 to-transparent" />
+      <motion.div
+        className="absolute top-0 left-[5%] right-[5%] h-px bg-gradient-to-r from-transparent via-[var(--color-teal)]/30 to-transparent origin-center"
+        initial={{ scaleX: 0 }}
+        animate={isInView ? { scaleX: 1 } : {}}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        style={{ willChange: "transform" }}
+      />
 
       {/* Background glows */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[800px] rounded-full bg-[var(--color-coral)] opacity-[0.06] blur-[250px]" />

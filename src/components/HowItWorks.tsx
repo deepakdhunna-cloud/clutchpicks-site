@@ -141,7 +141,13 @@ export default function HowItWorks() {
       className="relative py-24 sm:py-32 overflow-hidden"
     >
       {/* Top divider */}
-      <div className="absolute top-0 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-[var(--color-teal)]/20 to-transparent" />
+      <motion.div
+        className="absolute top-0 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-[var(--color-teal)]/20 to-transparent origin-center"
+        initial={{ scaleX: 0 }}
+        animate={headerInView ? { scaleX: 1 } : {}}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        style={{ willChange: "transform" }}
+      />
 
       {/* Parallax background orbs */}
       <motion.div
@@ -216,7 +222,7 @@ export default function HowItWorks() {
                     ? "linear-gradient(135deg, var(--color-coral), var(--color-teal))"
                     : "rgba(255,255,255,0.15)",
               }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+              transition={{ type: "spring", stiffness: 320, damping: 28 }}
             />
           </button>
         ))}

@@ -300,11 +300,8 @@ function BentoCard({
           rotateY: tiltStyle.rotateY,
           transformStyle: "preserve-3d",
         }}
-        className={`
-          group relative h-full rounded-2xl overflow-hidden
-          transition-[box-shadow] duration-500
-          ${hovering ? "shadow-[0_0_40px_rgba(122,157,184,0.12),0_0_80px_rgba(122,157,184,0.05)]" : ""}
-        `}
+        whileHover={{ scale: 1.015 }}
+        className="group relative h-full rounded-2xl overflow-hidden"
       >
         {/* Glass background */}
         <div
@@ -315,6 +312,14 @@ function BentoCard({
             WebkitBackdropFilter: "blur(24px)",
             border: "1px solid rgba(255,255,255,0.06)",
           }}
+        />
+
+        {/* Shadow glow — opacity only, GPU-composited */}
+        <motion.div
+          className="absolute inset-0 rounded-2xl pointer-events-none"
+          animate={{ opacity: hovering ? 1 : 0 }}
+          transition={{ duration: 0.4 }}
+          style={{ boxShadow: "0 0 50px rgba(122,157,184,0.14), 0 0 100px rgba(122,157,184,0.06)", willChange: "opacity" }}
         />
 
         {/* Hover border glow */}
@@ -409,7 +414,13 @@ export default function Features() {
   return (
     <section id="features" className="relative py-24 sm:py-32">
       {/* Section divider */}
-      <div className="absolute top-0 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-[var(--color-coral)]/20 to-transparent" />
+      <motion.div
+        className="absolute top-0 left-[10%] right-[10%] h-px bg-gradient-to-r from-transparent via-[var(--color-coral)]/20 to-transparent origin-center"
+        initial={{ scaleX: 0 }}
+        animate={isInView ? { scaleX: 1 } : {}}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        style={{ willChange: "transform" }}
+      />
 
       <div className="max-w-7xl mx-auto px-6">
         {/* Section header */}
