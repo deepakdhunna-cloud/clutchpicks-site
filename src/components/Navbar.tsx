@@ -45,9 +45,9 @@ export default function Navbar({ delay = true }: { delay?: boolean }) {
       initial={{ opacity: 0 }}
       animate={delay ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 0.6, delay: 0.1 }}
-      className={`fixed top-0 left-0 right-0 z-50 overflow-x-hidden transition-all duration-500 bg-[#050d1a] ${
+      className={`fixed top-0 left-0 right-0 z-50 overflow-x-hidden transition-all duration-500 bg-[#040608] ${
         scrolled
-          ? "sm:bg-[#050d1a]/90 sm:backdrop-blur-2xl border-b border-white/[0.06]"
+          ? "sm:bg-[#040608]/85 sm:backdrop-blur-2xl border-b border-white/[0.06]"
           : "sm:bg-transparent sm:border-b-0"
       }`}
     >
