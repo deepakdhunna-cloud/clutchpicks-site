@@ -16,7 +16,7 @@ export default function SupportPage() {
     <main>
       <Navbar />
 
-      <section className="pt-32 pb-20 px-6">
+      <section className="pt-40 pb-20 px-6">
         <div className="max-w-2xl mx-auto">
           <h1
             className="text-4xl sm:text-5xl tracking-wider mb-4 text-center"
