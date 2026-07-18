@@ -150,7 +150,7 @@ export default function CTA() {
   };
 
   const line1 = "STOP GUESSING.";
-  const line2 = "START KNOWING.";
+  const line2 = "START ANALYZING.";
 
   return (
     <section

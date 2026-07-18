@@ -332,13 +332,13 @@ function SportDataField() {
 }
 
 // ── Headline word-by-word animation ───────────────────────────────
-const HEADLINE_WORDS_1 = ["KNOW", "WHO", "WINS"];
+const HEADLINE_WORDS_1 = ["REVIEW", "THE", "DATA"];
 const HEADLINE_WORDS_2 = ["BEFORE", "THEY", "PLAY"];
 
 function AnimatedHeadline() {
   return (
     <h1
-      aria-label="KNOW WHO WINS BEFORE THEY PLAY"
+      aria-label="REVIEW THE DATA BEFORE THEY PLAY"
       className="text-[2.8rem] sm:text-7xl md:text-8xl lg:text-[7rem] xl:text-[8.5rem] font-bold leading-[0.88] tracking-tight"
       style={{ fontFamily: "var(--font-heading)" }}
     >
@@ -386,12 +386,10 @@ function AnimatedHeadline() {
 function StatsBar() {
   const s1 = useCountUp(8, 1.5);
   const s2 = useCountUp(20, 2);
-  const s3 = useCountUp(92, 2.5);
-
   const stats = [
     { ref: s1.ref, value: s1.value.toString(), label: "Leagues Covered" },
     { ref: s2.ref, value: s2.value.toString(), label: "Factors Analyzed" },
-    { ref: s3.ref, value: `${s3.value}%`, label: "Prediction Rate" },
+    { ref: null, value: "AI", label: "Confidence Ratings" },
     { ref: null, value: "FREE", label: "Live Scores" },
   ];
 

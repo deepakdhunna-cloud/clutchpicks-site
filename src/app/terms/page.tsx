@@ -20,7 +20,7 @@ export default function TermsPage() {
             Terms and Conditions
           </h1>
           <p className="text-sm text-[var(--color-text-muted)] mb-12">
-            Last Updated: March 2026
+            Last Updated: July 18, 2026
           </p>
 
           <div className="space-y-10 text-[var(--color-text-muted)] leading-relaxed text-sm sm:text-base">
@@ -98,26 +98,34 @@ export default function TermsPage() {
                 7. Subscription Terms
               </h2>
               <p className="mb-3">
-                Clutch Picks offers an optional auto-renewable subscription (Clutch Pro)
-                that provides access to AI predictions, confidence ratings, and detailed
-                game analysis.
+                Clutch Picks offers an optional auto-renewable monthly subscription
+                (Clutch Picks Pro) that provides access to AI predictions, confidence
+                ratings, and detailed game analysis. Eligible new subscribers may
+                receive a 3-day free trial when shown on the purchase sheet.
               </p>
               <p className="mb-3">
-                Payment is charged to your Apple ID account at confirmation of purchase.
-                The subscription automatically renews unless canceled at least 24 hours
-                before the end of the current billing period. Your account will be
-                charged for renewal within 24 hours prior to the end of the current
-                period at the same price.
+                Payment is charged to your Apple ID account at confirmation of purchase
+                or after the free trial ends. The subscription automatically renews
+                monthly unless canceled at least 24 hours before the end of the current
+                billing period. Your account will be charged for renewal within 24 hours
+                prior to the end of the current period at the price presented by Apple
+                for that renewal, subject to Apple&apos;s applicable notice and consent
+                rules.
               </p>
               <p className="mb-3">
                 You can manage and cancel your subscription in your device Settings under
                 your Apple ID, then Subscriptions. Cancellation takes effect at the end
-                of the current billing period. No refunds are provided for partial
-                billing periods.
+                of the current billing period. Refund requests and eligibility are
+                handled by Apple under its policies and applicable law.
+              </p>
+              <p className="mb-3">
+                Deleting your Clutch Picks account does not cancel your App Store
+                subscription. You must separately manage or cancel it through your Apple
+                account settings.
               </p>
               <p>
-                Current pricing: $4.99 per month. Prices may vary by region and are
-                subject to change.
+                Current pricing is shown on the paywall and App Store purchase sheet.
+                Prices may vary by region and are subject to change.
               </p>
             </div>
 

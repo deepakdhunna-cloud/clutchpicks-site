@@ -239,14 +239,14 @@ export default function Pricing() {
                     className="text-6xl font-bold gradient-text"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
-                    $4.99
+                    Local
                   </span>
                   <span className="text-[var(--color-text-muted)] text-lg">
-                    /month
+                    App Store price
                   </span>
                 </div>
                 <p className="text-sm text-[var(--color-text-muted)] mt-3">
-                  The full AI advantage. Cancel anytime.
+                  Your current price and terms are shown before purchase.
                 </p>
               </div>
 
@@ -306,7 +306,7 @@ export default function Pricing() {
           transition={{ delay: 0.8, duration: 0.6 }}
           className="text-center text-sm text-[var(--color-text-muted)] mt-12"
         >
-          Both plans available on the App Store &bull; Cancel Pro anytime &bull; No hidden fees
+          Both plans available on the App Store &bull; Current local terms shown before purchase
         </motion.p>
       </div>
     </section>
