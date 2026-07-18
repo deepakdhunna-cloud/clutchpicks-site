@@ -13,7 +13,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "CLUTCH PICKS | AI Sports Predictions",
   description:
-    "AI-powered sports predictions analyzing 20 factors per game across 8 leagues. Know who wins before they play.",
+    "AI-powered sports predictions, confidence ratings, and matchup analysis across major leagues.",
   keywords: "sports predictions, AI, NBA, NFL, MLB, NHL, MLS, EPL, NCAAF, NCAAB",
   appleWebApp: {
     capable: true,
@@ -25,14 +25,14 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "CLUTCH PICKS | AI Sports Predictions",
-    description: "Know who wins before they play. AI analyzes 20 factors per game across 8 leagues.",
+    description: "Review data-driven sports predictions, confidence ratings, and matchup analysis.",
     type: "website",
     url: "https://clutchpicksapp.com",
   },
   twitter: {
     card: "summary_large_image",
     title: "CLUTCH PICKS | AI Sports Predictions",
-    description: "Know who wins before they play.",
+    description: "Data-driven sports predictions and matchup analysis.",
   },
 };
 
