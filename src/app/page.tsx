@@ -25,8 +25,8 @@ export default function Home() {
         <Leagues />
         <Pricing />
         <StickyStatement />
-        <FooterCta />
       </main>
+      <FooterCta />
     </PageWrapper>
   );
 }

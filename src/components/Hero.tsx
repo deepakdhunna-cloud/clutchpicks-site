@@ -4,16 +4,15 @@ import { useRef } from "react";
 import {
   motion,
   useMotionValue,
-  useReducedMotion,
   useSpring,
   useTransform,
 } from "framer-motion";
 import { EASE, LEAGUES } from "@/lib/site";
-import { MaskLines } from "./Reveal";
+import { MaskLines, useReducedSafe } from "./Reveal";
 
 /** Stacked 3D logo with gentle float + mouse parallax tilt. */
 function FloatingLogo() {
-  const reduced = useReducedMotion();
+  const reduced = useReducedSafe();
   const ref = useRef<HTMLDivElement>(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);

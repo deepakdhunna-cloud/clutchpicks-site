@@ -1,8 +1,21 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { EASE } from "@/lib/site";
+
+/**
+ * SSR-safe reduced-motion flag. useReducedMotion() is null at build time but
+ * true on a reduced-motion client's first render, which changes rendered
+ * markup and breaks hydration against the static export. Always render the
+ * non-reduced tree first, then swap after mount.
+ */
+export function useReducedSafe() {
+  const prefers = useReducedMotion();
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => setReduced(!!prefers), [prefers]);
+  return reduced;
+}
 
 const MOTION_TAGS = {
   div: motion.div,
@@ -35,7 +48,7 @@ export function MaskLines({
   as?: keyof typeof MOTION_TAGS;
   once?: boolean;
 }) {
-  const reduced = useReducedMotion();
+  const reduced = useReducedSafe();
   const MotionTag = MOTION_TAGS[as];
   const lineVariants = {
     hidden: reduced ? { opacity: 0 } : { y: "110%" },
@@ -79,7 +92,7 @@ export function Fade({
   y?: number;
   once?: boolean;
 }) {
-  const reduced = useReducedMotion();
+  const reduced = useReducedSafe();
   return (
     <motion.div
       className={className}

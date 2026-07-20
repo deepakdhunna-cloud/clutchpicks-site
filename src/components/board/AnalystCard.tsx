@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useReducedSafe } from "../Reveal";
 
 const TEAL = "#7A9DB8";
 const MAROON = "#8B0A1F";
@@ -11,6 +12,7 @@ const FORM: ("W" | "L")[] = ["W", "W", "L", "W", "W", "W", "L", "W", "W", "W"];
 
 /** Shareable Analyst Card — after the app's profile hero. */
 export default function AnalystCard() {
+  const reduced = useReducedSafe();
   return (
     <div
       className="relative overflow-hidden rounded-[24px] border p-5"
@@ -92,7 +94,7 @@ export default function AnalystCard() {
             initial={{ width: "0%" }}
             whileInView={{ width: "62.5%" }}
             viewport={{ once: true }}
-            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
+            transition={{ duration: reduced ? 0 : 1.1, ease: [0.22, 1, 0.36, 1], delay: reduced ? 0 : 0.25 }}
           />
         </div>
 

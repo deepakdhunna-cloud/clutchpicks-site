@@ -96,7 +96,7 @@ export default function FooterCta() {
           </div>
         </div>
 
-        <div className="flex flex-col justify-between gap-2 border-t border-line pt-4 font-mono text-[11px] uppercase tracking-[0.1em] text-l4 lg:flex-row lg:items-center">
+        <div className="flex flex-col justify-between gap-2 border-t border-line pt-4 font-mono text-[11px] uppercase tracking-[0.1em] text-l3 lg:flex-row lg:items-center">
           <div className="flex items-center gap-1">
             {LEGAL.map((l) => (
               <a
@@ -111,7 +111,7 @@ export default function FooterCta() {
           <span className="p-2">© 2026 Clutch Picks LLC. All rights reserved.</span>
         </div>
 
-        <p className="max-w-4xl px-2 font-mono text-[10px] uppercase leading-relaxed tracking-[0.08em] text-l4">
+        <p className="max-w-4xl px-2 font-mono text-[10px] uppercase leading-relaxed tracking-[0.08em] text-l3">
           All predictions are AI-generated for entertainment purposes only —
           not gambling advice. Clutch Picks does not accept wagers, process
           betting payments, or facilitate real-money betting of any kind.

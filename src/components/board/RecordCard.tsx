@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Jersey } from "./icons";
+import { useReducedSafe } from "../Reveal";
 
 const TEAL = "#7A9DB8";
 const TEAL_DARK = "#5A7A8A";
@@ -24,7 +25,7 @@ const PICKS: Pick[] = [
   },
   {
     team: "Yankees",
-    colors: { primary: "#0C2340", secondary: "#C4CED3" },
+    colors: { primary: "#0C2340", secondary: "#FFFFFF" },
     meta: "vs Dodgers · Final",
     result: "L",
   },
@@ -96,6 +97,7 @@ function StatRing({
   color: string;
   gradient?: boolean;
 }) {
+  const reduced = useReducedSafe();
   const r = 22;
   const c = 2 * Math.PI * r;
   const stroke = gradient ? "url(#rate-gradient)" : color;
@@ -131,7 +133,7 @@ function StatRing({
             initial={{ strokeDashoffset: c }}
             whileInView={{ strokeDashoffset: c * (1 - frac) }}
             viewport={{ once: true }}
-            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+            transition={{ duration: reduced ? 0 : 1.1, ease: [0.22, 1, 0.36, 1], delay: reduced ? 0 : 0.2 }}
           />
         </svg>
         <span className="absolute inset-0 flex items-center justify-center text-[15px] font-extrabold text-white tabular">

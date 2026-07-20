@@ -190,7 +190,7 @@ export default function Engine() {
 
       {/* Data sources */}
       <Fade className="col-span-12">
-        <p className="font-mono text-[11px] uppercase leading-relaxed tracking-[0.14em] text-l4">
+        <p className="font-mono text-[11px] uppercase leading-relaxed tracking-[0.14em] text-l3">
           Data — ESPN · MLB StatsAPI · stats.nba.com · FBref &amp; Understat xG
           · UmpScorecards · Open-Meteo weather · SharpAPI market consensus ·
           SportsDataIO — verified feeds only, never mock data

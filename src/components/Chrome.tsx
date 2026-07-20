@@ -109,10 +109,9 @@ export default function Chrome() {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, delay: 1.35, ease: "easeOut" }}
       className="pointer-events-none fixed inset-0 z-50 flex flex-col justify-between font-mono text-[13px]"
-      aria-label="Site chrome"
     >
       {/* Top bar */}
-      <header className="flex items-center justify-between px-4 py-4 lg:px-14 lg:py-6">
+      <header className="flex items-center justify-between bg-gradient-to-b from-bg/85 via-bg/40 to-transparent px-4 py-4 lg:px-14 lg:py-6">
         <a
           href="#top"
           className="dotted-hover pointer-events-auto p-2"
@@ -151,14 +150,17 @@ export default function Chrome() {
         </a>
       </header>
 
-      {/* Bottom bar */}
-      <footer className="flex items-center justify-between px-4 py-4 text-xs uppercase tracking-[0.12em] text-l3 lg:px-14 lg:py-6">
+      {/* Bottom bar — ambient data, hidden from assistive tech */}
+      <div
+        className="flex items-center justify-between bg-gradient-to-t from-bg/85 via-bg/40 to-transparent px-4 py-4 text-xs uppercase tracking-[0.12em] text-l3 lg:px-14 lg:py-6"
+        aria-hidden="true"
+      >
         <span className="p-2 tabular">ET {time}</span>
-        <span className="hidden p-2 tabular lg:inline" aria-hidden="true">
+        <span className="hidden p-2 tabular lg:inline">
           {pad(x, 4)} X {pad(y, 4)} Y
         </span>
         <span className="p-2 tabular">Scroll {pad(pct, 3)}%</span>
-      </footer>
+      </div>
     </motion.div>
   );
 }

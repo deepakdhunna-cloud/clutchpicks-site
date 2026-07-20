@@ -3,11 +3,11 @@
 import { useRef } from "react";
 import {
   motion,
-  useReducedMotion,
   useScroll,
   useTransform,
   type MotionValue,
 } from "framer-motion";
+import { useReducedSafe } from "./Reveal";
 
 const WORDS: { text: string; className: string }[] = [
   { text: "Built", className: "text-l1" },
@@ -42,7 +42,7 @@ function Word({
 /** Scroll-pinned center statement (after haoqi's "Innovate with purpose"). */
 export default function StickyStatement() {
   const ref = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion();
+  const reduced = useReducedSafe();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],

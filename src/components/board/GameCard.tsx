@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useReducedSafe } from "../Reveal";
 import Shell, { SportPill } from "./Shell";
 import {
   ClockIcon,
@@ -50,6 +51,7 @@ function TeamColumn({
 
 /** Faithful replica of the app's pregame GameCard (premium prediction state). */
 export default function GameCard() {
+  const reduced = useReducedSafe();
   return (
     <Shell away={BOS.accent} home={MIA.accent}>
       {/* Header pills */}
@@ -125,7 +127,7 @@ export default function GameCard() {
             initial={{ width: "50%" }}
             whileInView={{ width: "62%" }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+            transition={{ duration: reduced ? 0 : 0.9, ease: [0.22, 1, 0.36, 1], delay: reduced ? 0 : 0.3 }}
             style={{ backgroundColor: BOS.accent }}
           />
           <div className="w-[2px] bg-black/90" />

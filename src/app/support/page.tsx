@@ -47,7 +47,7 @@ export default function SupportPage() {
               The button below opens your email app. Include the email address tied to
               your Clutch Picks account and a brief description of the issue.
             </p>
-            <p className="text-sm text-[var(--color-text-muted)]/70 mb-8">
+            <p className="text-sm text-[var(--color-text-muted)] mb-8">
               Never send passwords, verification codes, or full payment-card details.
             </p>
             <a

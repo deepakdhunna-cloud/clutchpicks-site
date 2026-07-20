@@ -5,7 +5,7 @@ import { SUPPORT_EMAIL } from "@/lib/site";
 export default function Footer() {
   return (
     <footer className="mt-24 border-t border-line px-4 py-12 lg:px-14">
-      <div className="mx-auto flex max-w-3xl flex-col gap-6 font-mono text-[11px] uppercase tracking-[0.1em] text-l4">
+      <div className="mx-auto flex max-w-3xl flex-col gap-6 font-mono text-[11px] uppercase tracking-[0.1em] text-l3">
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
           <Link href="/privacy-policy" className="transition-colors hover:text-l2">
             Privacy

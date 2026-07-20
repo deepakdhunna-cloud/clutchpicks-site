@@ -1,11 +1,11 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { MaskLines, Fade } from "./Reveal";
+import { motion } from "framer-motion";
+import { MaskLines, Fade, useReducedSafe } from "./Reveal";
 
 /** Hand-drawn goalpost + swoosh, drawing itself on scroll (teal stroke). */
 function DrawnSign() {
-  const reduced = useReducedMotion();
+  const reduced = useReducedSafe();
   const paths = [
     // goalpost: crossbar, uprights, center post, base
     "M116 78 L204 78 M124 78 L124 22 M196 78 L196 22 M160 78 L160 142 M144 142 L176 142",

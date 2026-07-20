@@ -49,7 +49,7 @@ function LeagueRow({
           />
           {name}
         </span>
-        <span className="col-span-5 hidden text-right font-mono text-[11px] uppercase tracking-[0.08em] text-l4 transition-colors duration-300 group-hover:text-l3 lg:block">
+        <span className="col-span-5 hidden text-right font-mono text-[11px] uppercase tracking-[0.08em] text-l3 transition-colors duration-300 group-hover:text-l2 lg:block">
           {notes}
         </span>
       </div>
@@ -64,6 +64,7 @@ export default function Leagues() {
       id="leagues"
       className="grid w-full grid-cols-12 px-4 py-24 lg:px-14 lg:py-32"
     >
+      <h2 className="sr-only">The Leagues</h2>
       <Eyebrow
         index="03"
         title="The Leagues"

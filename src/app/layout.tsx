@@ -73,6 +73,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${archivo.variable} ${plexMono.variable} ${vt323.variable}`}
     >
       <body className="noise">{children}</body>

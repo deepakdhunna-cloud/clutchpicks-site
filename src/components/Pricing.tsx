@@ -143,7 +143,7 @@ export default function Pricing() {
           11 leagues · 20 factors · 24/7 updates — every game, every league,
           every AI prediction.
         </p>
-        <p className="max-w-3xl font-mono text-[11px] leading-relaxed uppercase tracking-[0.08em] text-l4">
+        <p className="max-w-3xl font-mono text-[11px] leading-relaxed uppercase tracking-[0.08em] text-l3">
           Eligible users receive a 3-day free trial, then $6.99/month. App
           Store confirms final terms before purchase. Auto-renews unless
           canceled at least 24 hours before the end of the period — cancel in

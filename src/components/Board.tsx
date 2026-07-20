@@ -56,6 +56,7 @@ export default function Board() {
       id="board"
       className="grid w-full grid-cols-12 gap-x-6 gap-y-16 px-4 py-24 lg:px-14 lg:py-32"
     >
+      <h2 className="sr-only">The Board</h2>
       <Eyebrow
         index="01"
         title="The Board"

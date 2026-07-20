@@ -19,7 +19,7 @@ export interface League {
 
 /** The 11 marketed leagues (WELCOME_LEAGUE_PILLS order), colors from SPORT_META. */
 export const LEAGUES: League[] = [
-  { abbr: "NBA", name: "NBA Basketball", color: "#8B0A1F", notes: "Possession proxy · Recency-weighted net rating · Live 3P%" },
+  { abbr: "NBA", name: "NBA Basketball", color: "#8B0A1F", notes: "Possession proxy · Recency-weighted net rating · Usage-tier injury impact" },
   { abbr: "NFL", name: "NFL Football", color: "#2E4A5E", notes: "Drive & tempo proxies · Starting QB status · Weather" },
   { abbr: "MLB", name: "MLB Baseball", color: "#9FABB8", notes: "Pitcher FIP/ERA · Umpire zones · Ballpark run environment" },
   { abbr: "NHL", name: "NHL Hockey", color: "#3D5A6F", notes: "Confirmed starting goalies · Special-teams matchup" },
@@ -29,7 +29,7 @@ export const LEAGUES: League[] = [
   { abbr: "T20", name: "T20 Cricket", color: "#D7A21E", notes: "Venue & toss splits · Run-rate context" },
   { abbr: "TENNIS", name: "ATP & WTA Tennis", color: "#7A9DB8", notes: "Surface win rates · Match-format context" },
   { abbr: "CFB", name: "College Football", color: "#5A7A8A", notes: "Drive proxies · Bye & short weeks" },
-  { abbr: "CBB", name: "College Basketball", color: "#D98E76", notes: "Three-point regression · Elite home court" },
+  { abbr: "CBB", name: "College Basketball", color: "#D98E76", notes: "Star player availability · Elite home court" },
 ];
 
 export interface ConfidenceTier {
