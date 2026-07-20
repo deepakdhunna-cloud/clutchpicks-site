@@ -182,7 +182,11 @@ export default function PrivacyPolicyPage() {
                       Apify (public sports-news and source ingestion; we do not
                       intentionally send account or profile data)
                     </li>
-                    <li>RevenueCat (subscription and payment processing)</li>
+                    <li>
+                      RevenueCat (subscription and payment processing, including the
+                      account identifier, email address, and display name used to match
+                      and support your customer record)
+                    </li>
                     <li>
                       Apple (authentication, subscriptions, age assurance, and any
                       applicable system permission)
