@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState, type ReactNode } from "react";
 import { EASE } from "@/lib/site";
+import LedText from "./LedText";
 
 /**
  * SSR-safe reduced-motion flag. useReducedMotion() is null at build time but
@@ -106,7 +107,7 @@ export function Fade({
   );
 }
 
-/** Mono uppercase section eyebrow row: index left, meta right. */
+/** Section eyebrow row — jumbotron LED index + title left, mono meta right. */
 export function Eyebrow({
   index,
   title,
@@ -120,12 +121,20 @@ export function Eyebrow({
 }) {
   return (
     <Fade
-      className={`col-span-12 mb-10 flex items-baseline justify-between border-t border-line pt-3 font-mono text-xs uppercase tracking-[0.14em] lg:mb-14 ${className}`}
+      className={`col-span-12 mb-10 flex items-center justify-between border-t border-line pt-4 lg:mb-14 ${className}`}
     >
-      <span className="text-l2">
-        <span className="text-teal">{index}</span> / {title}
+      <span className="flex items-center gap-3">
+        <span className="sr-only">
+          {index} / {title}
+        </span>
+        <LedText text={index} color="teal" height={18} />
+        <LedText text={`/ ${title.toUpperCase()}`} height={18} />
       </span>
-      {meta ? <span className="hidden text-l4 sm:inline">{meta}</span> : null}
+      {meta ? (
+        <span className="hidden font-mono text-xs uppercase tracking-[0.14em] text-l4 sm:inline">
+          {meta}
+        </span>
+      ) : null}
     </Fade>
   );
 }
