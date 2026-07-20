@@ -20,18 +20,26 @@ const STRONG = "#CBD5E1"; // Strong Pick tier (67–74%)
 function TeamColumn({
   colors,
   name,
+  abbr,
   record,
   picked = false,
 }: {
   colors: { primary: string; secondary: string };
   name: string;
+  abbr: string;
   record: string;
   picked?: boolean;
 }) {
   return (
     <div className="flex flex-col items-center gap-1.5">
       <div className={picked ? "-translate-y-[3px]" : ""}>
-        <Jersey primary={colors.primary} secondary={colors.secondary} size={52} />
+        <Jersey
+          variant="basketball"
+          abbr={abbr}
+          primary={colors.primary}
+          secondary={colors.secondary}
+          size={52}
+        />
       </div>
       {picked && (
         <span
@@ -77,7 +85,7 @@ export default function GameCard() {
 
       {/* Teams row */}
       <div className="mb-3 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-        <TeamColumn colors={BOS} name="Celtics" record="44-18" picked />
+        <TeamColumn colors={BOS} name="Celtics" abbr="BOS" record="44-18" picked />
         <div
           className="flex w-[92px] flex-col items-center rounded-[10px] border border-white/[0.13] py-2.5"
           style={{ backgroundColor: "rgba(2,3,8,0.88)" }}
@@ -85,7 +93,7 @@ export default function GameCard() {
           <span className="text-[14px] font-bold text-white">VS</span>
           <span className="mt-0.5 text-[10px] text-white/40">Tonight</span>
         </div>
-        <TeamColumn colors={MIA} name="Heat" record="37-25" />
+        <TeamColumn colors={MIA} name="Heat" abbr="MIA" record="37-25" />
       </div>
 
       {/* Community picks */}

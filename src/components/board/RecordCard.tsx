@@ -11,6 +11,8 @@ const MAROON_DEEP = "#6A0818";
 
 interface Pick {
   team: string;
+  abbr: string;
+  variant: "basketball" | "football" | "baseball";
   colors: { primary: string; secondary: string };
   meta: string;
   result: "W" | "L";
@@ -19,18 +21,24 @@ interface Pick {
 const PICKS: Pick[] = [
   {
     team: "Celtics",
+    abbr: "BOS",
+    variant: "basketball",
     colors: { primary: "#007A33", secondary: "#BA9653" },
     meta: "vs Heat · Final",
     result: "W",
   },
   {
     team: "Yankees",
+    abbr: "NYY",
+    variant: "baseball",
     colors: { primary: "#0C2340", secondary: "#FFFFFF" },
     meta: "vs Dodgers · Final",
     result: "L",
   },
   {
     team: "Bills",
+    abbr: "BUF",
+    variant: "football",
     colors: { primary: "#00338D", secondary: "#C60C30" },
     meta: "vs Chiefs · Final",
     result: "W",
@@ -69,6 +77,8 @@ function PickRow({ pick }: { pick: Pick }) {
         style={{ backgroundColor: accent }}
       />
       <Jersey
+        variant={pick.variant}
+        abbr={pick.abbr}
         primary={pick.colors.primary}
         secondary={pick.colors.secondary}
         size={34}

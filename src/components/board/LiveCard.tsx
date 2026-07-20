@@ -8,19 +8,27 @@ const BUF = { primary: "#00338D", secondary: "#C60C30" };
 function TeamRow({
   colors,
   name,
+  abbr,
   record,
   score,
   leading,
 }: {
   colors: { primary: string; secondary: string };
   name: string;
+  abbr: string;
   record: string;
   score: number;
   leading: boolean;
 }) {
   return (
     <div className="flex items-center gap-3">
-      <Jersey primary={colors.primary} secondary={colors.secondary} size={40} />
+      <Jersey
+        variant="football"
+        abbr={abbr}
+        primary={colors.primary}
+        secondary={colors.secondary}
+        size={40}
+      />
       <div className="flex min-w-0 flex-1 flex-col">
         <span
           className={`truncate text-[14px] leading-tight ${
@@ -69,8 +77,8 @@ export default function LiveCard() {
 
       {/* Teams */}
       <div className="flex flex-col gap-3">
-        <TeamRow colors={KC} name="Chiefs" record="11-3" score={20} leading={false} />
-        <TeamRow colors={BUF} name="Bills" record="12-2" score={24} leading />
+        <TeamRow colors={KC} name="Chiefs" abbr="KC" record="11-3" score={20} leading={false} />
+        <TeamRow colors={BUF} name="Bills" abbr="BUF" record="12-2" score={24} leading />
       </div>
 
       {/* Bottom bar */}
