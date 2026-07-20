@@ -43,45 +43,36 @@ export function ChevronRightIcon({ className = "" }: { className?: string }) {
   );
 }
 
-/** Simple team jersey in team colors (after the app's JerseyIcon). */
+import {
+  MiniJerseyModel,
+  type JerseyModelVariant,
+} from "./jerseyVisuals";
+
+/** The app's real jersey renderer (ported MiniJerseyModel). */
 export function Jersey({
   primary,
   secondary,
+  abbr,
+  teamName,
+  variant = "football",
   size = 44,
-  className = "",
 }: {
   primary: string;
   secondary: string;
+  abbr: string;
+  teamName?: string;
+  variant?: JerseyModelVariant;
   size?: number;
-  className?: string;
 }) {
   return (
-    <svg
-      viewBox="0 0 64 64"
-      width={size}
-      height={size}
-      className={className}
-      aria-hidden="true"
-    >
-      {/* body + sleeves */}
-      <path
-        d="M22 7 C25 12 39 12 42 7 L57 15 L51 30 L45 26 L45 57 L19 57 L19 26 L13 30 L7 15 Z"
-        fill={primary}
-        stroke="rgba(0,0,0,0.35)"
-        strokeWidth="1.5"
-      />
-      {/* sleeve trim */}
-      <path d="M7 15 L13 30 L15.5 28.5 L10 13.5 Z" fill={secondary} />
-      <path d="M57 15 L51 30 L48.5 28.5 L54 13.5 Z" fill={secondary} />
-      {/* collar */}
-      <path
-        d="M22 7 C25 12 39 12 42 7"
-        fill="none"
-        stroke={secondary}
-        strokeWidth="3"
-      />
-      {/* hem stripe */}
-      <rect x="19" y="50" width="26" height="3.5" fill={secondary} opacity={0.85} />
-    </svg>
+    <MiniJerseyModel
+      variant={variant}
+      primary={primary}
+      secondary={secondary}
+      accent="#FFFFFF"
+      abbr={abbr}
+      teamName={teamName}
+      size={size}
+    />
   );
 }

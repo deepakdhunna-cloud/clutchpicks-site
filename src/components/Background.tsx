@@ -28,7 +28,8 @@ export default function Background() {
           top: "-20%",
           left: "-14%",
           background:
-            "radial-gradient(circle, rgba(122,157,184,0.15) 0%, rgba(122,157,184,0.05) 45%, transparent 70%)",
+            "radial-gradient(circle closest-side, rgba(122,157,184,0.16) 0%, rgba(122,157,184,0.13) 20%, rgba(122,157,184,0.09) 40%, rgba(122,157,184,0.05) 58%, rgba(122,157,184,0.022) 74%, rgba(122,157,184,0.008) 88%, rgba(122,157,184,0) 100%)",
+          filter: "blur(64px)",
         }}
       />
 
@@ -41,7 +42,8 @@ export default function Background() {
           bottom: "-22%",
           right: "-12%",
           background:
-            "radial-gradient(circle, rgba(139,10,31,0.13) 0%, rgba(139,10,31,0.045) 45%, transparent 70%)",
+            "radial-gradient(circle closest-side, rgba(139,10,31,0.14) 0%, rgba(139,10,31,0.11) 20%, rgba(139,10,31,0.075) 40%, rgba(139,10,31,0.04) 58%, rgba(139,10,31,0.018) 74%, rgba(139,10,31,0.006) 88%, rgba(139,10,31,0) 100%)",
+          filter: "blur(64px)",
         }}
       />
 
@@ -54,7 +56,8 @@ export default function Background() {
           top: "30%",
           left: "30%",
           background:
-            "radial-gradient(circle, rgba(192,200,208,0.07) 0%, rgba(192,200,208,0.02) 45%, transparent 70%)",
+            "radial-gradient(circle closest-side, rgba(192,200,208,0.08) 0%, rgba(192,200,208,0.06) 25%, rgba(192,200,208,0.035) 50%, rgba(192,200,208,0.015) 72%, rgba(192,200,208,0.005) 88%, rgba(192,200,208,0) 100%)",
+          filter: "blur(56px)",
         }}
       />
 
