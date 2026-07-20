@@ -235,11 +235,11 @@ body {
     transform: translate3d(0, 0, 0) scale(1);
   }
   50% {
-    transform: translate3d(7vw, 5vh, 0) scale(1.12);
+    transform: translate3d(12vw, 9vh, 0) scale(1.18);
   }
 }
 .bg-drift-a {
-  animation: drift-a 46s ease-in-out infinite;
+  animation: drift-a 20s ease-in-out infinite;
   will-change: transform;
 }
 
@@ -249,11 +249,11 @@ body {
     transform: translate3d(0, 0, 0) scale(1);
   }
   50% {
-    transform: translate3d(-6vw, -6vh, 0) scale(1.08);
+    transform: translate3d(-11vw, -9vh, 0) scale(1.12);
   }
 }
 .bg-drift-b {
-  animation: drift-b 58s ease-in-out infinite;
+  animation: drift-b 26s ease-in-out infinite;
   will-change: transform;
 }
 
@@ -263,14 +263,14 @@ body {
     transform: translate3d(0, 0, 0);
   }
   33% {
-    transform: translate3d(-8vw, 6vh, 0);
+    transform: translate3d(-12vw, 9vh, 0);
   }
   66% {
-    transform: translate3d(6vw, -4vh, 0);
+    transform: translate3d(9vw, -7vh, 0);
   }
 }
 .bg-drift-c {
-  animation: drift-c 72s ease-in-out infinite;
+  animation: drift-c 34s ease-in-out infinite;
   will-change: transform;
 }
 
@@ -283,7 +283,7 @@ body {
   }
 }
 .bg-grid-pan {
-  animation: grid-pan 48s linear infinite;
+  animation: grid-pan 16s linear infinite;
   will-change: transform;
 }
 
