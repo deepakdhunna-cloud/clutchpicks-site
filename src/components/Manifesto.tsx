@@ -78,8 +78,8 @@ export default function Manifesto() {
         />
         <Fade delay={0.3}>
           <p className="font-mono text-xs uppercase tracking-[0.16em] text-l4">
-            v3.0 unified simulation engine · 50,000 runs per game ·
-            market-aware, never market-led
+            The Clutch engine · 50,000 runs per game · every league,
+            every day
           </p>
         </Fade>
       </div>

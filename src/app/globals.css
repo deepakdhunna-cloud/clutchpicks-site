@@ -228,10 +228,73 @@ body {
   animation: float-slow 7s ease-in-out infinite;
 }
 
+/* Ambient background drift (Background.tsx) */
+@keyframes drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(7vw, 5vh, 0) scale(1.12);
+  }
+}
+.bg-drift-a {
+  animation: drift-a 46s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-6vw, -6vh, 0) scale(1.08);
+  }
+}
+.bg-drift-b {
+  animation: drift-b 58s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes drift-c {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  33% {
+    transform: translate3d(-8vw, 6vh, 0);
+  }
+  66% {
+    transform: translate3d(6vw, -4vh, 0);
+  }
+}
+.bg-drift-c {
+  animation: drift-c 72s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes grid-pan {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(72px, 72px, 0);
+  }
+}
+.bg-grid-pan {
+  animation: grid-pan 48s linear infinite;
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee,
   .animate-live-pulse,
-  .animate-float-slow {
+  .animate-float-slow,
+  .bg-drift-a,
+  .bg-drift-b,
+  .bg-drift-c,
+  .bg-grid-pan {
     animation: none;
   }
   html {
