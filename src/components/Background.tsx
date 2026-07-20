@@ -28,8 +28,7 @@ export default function Background() {
           top: "-20%",
           left: "-14%",
           background:
-            "radial-gradient(circle closest-side, rgba(122,157,184,0.16) 0%, rgba(122,157,184,0.13) 20%, rgba(122,157,184,0.09) 40%, rgba(122,157,184,0.05) 58%, rgba(122,157,184,0.022) 74%, rgba(122,157,184,0.008) 88%, rgba(122,157,184,0) 100%)",
-          filter: "blur(64px)",
+            "radial-gradient(circle closest-side, rgba(122,157,184,0.15) 0%, rgba(122,157,184,0.135) 12%, rgba(122,157,184,0.115) 24%, rgba(122,157,184,0.09) 36%, rgba(122,157,184,0.065) 48%, rgba(122,157,184,0.045) 60%, rgba(122,157,184,0.028) 71%, rgba(122,157,184,0.015) 81%, rgba(122,157,184,0.006) 90%, rgba(122,157,184,0) 100%)",
         }}
       />
 
@@ -42,8 +41,7 @@ export default function Background() {
           bottom: "-22%",
           right: "-12%",
           background:
-            "radial-gradient(circle closest-side, rgba(139,10,31,0.14) 0%, rgba(139,10,31,0.11) 20%, rgba(139,10,31,0.075) 40%, rgba(139,10,31,0.04) 58%, rgba(139,10,31,0.018) 74%, rgba(139,10,31,0.006) 88%, rgba(139,10,31,0) 100%)",
-          filter: "blur(64px)",
+            "radial-gradient(circle closest-side, rgba(139,10,31,0.13) 0%, rgba(139,10,31,0.115) 12%, rgba(139,10,31,0.095) 24%, rgba(139,10,31,0.073) 36%, rgba(139,10,31,0.052) 48%, rgba(139,10,31,0.034) 60%, rgba(139,10,31,0.02) 71%, rgba(139,10,31,0.01) 81%, rgba(139,10,31,0.004) 90%, rgba(139,10,31,0) 100%)",
         }}
       />
 
@@ -56,8 +54,7 @@ export default function Background() {
           top: "30%",
           left: "30%",
           background:
-            "radial-gradient(circle closest-side, rgba(192,200,208,0.08) 0%, rgba(192,200,208,0.06) 25%, rgba(192,200,208,0.035) 50%, rgba(192,200,208,0.015) 72%, rgba(192,200,208,0.005) 88%, rgba(192,200,208,0) 100%)",
-          filter: "blur(56px)",
+            "radial-gradient(circle closest-side, rgba(192,200,208,0.07) 0%, rgba(192,200,208,0.06) 18%, rgba(192,200,208,0.047) 34%, rgba(192,200,208,0.033) 50%, rgba(192,200,208,0.02) 65%, rgba(192,200,208,0.01) 78%, rgba(192,200,208,0.004) 89%, rgba(192,200,208,0) 100%)",
         }}
       />
 
