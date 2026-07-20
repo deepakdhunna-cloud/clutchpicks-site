@@ -108,7 +108,7 @@ export default function Chrome() {
       {/* Top bar */}
       <header className="flex items-center justify-between bg-gradient-to-b from-bg/85 via-bg/40 to-transparent px-4 py-4 lg:px-14 lg:py-6">
         {/* App icon + blue LED download, together on the left */}
-        <div className="pointer-events-auto flex items-center gap-1">
+        <div className="pointer-events-auto flex items-center gap-2">
           <a
             href={APP_STORE_URL}
             target="_blank"
@@ -125,12 +125,12 @@ export default function Chrome() {
             className="dotted-hover dotted-hover-teal p-2 opacity-90 transition-opacity hover:opacity-100"
             aria-label="Download on the App Store"
           >
-            <LedText text="DOWNLOAD" color="teal" height={11} />
+            <LedText text="DOWNLOAD" color="teal" height={15} />
           </a>
         </div>
 
         {/* Jumbotron nav */}
-        <nav className="pointer-events-auto hidden items-center gap-x-2 lg:flex">
+        <nav className="pointer-events-auto hidden items-center gap-x-4 lg:flex">
           {NAV.map((item) => (
             <a
               key={item.href}
@@ -138,7 +138,7 @@ export default function Chrome() {
               className="dotted-hover p-2 opacity-75 transition-opacity hover:opacity-100"
               aria-label={item.label}
             >
-              <LedText text={item.label.toUpperCase()} height={11} />
+              <LedText text={item.label.toUpperCase()} height={15} />
             </a>
           ))}
         </nav>
