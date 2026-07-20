@@ -19,7 +19,7 @@ export default function Home() {
       <Background />
       <Loader />
       <Chrome />
-      <main className="relative overflow-x-clip">
+      <main className="relative z-10 overflow-x-clip">
         <Hero />
         <Manifesto />
         <Board />

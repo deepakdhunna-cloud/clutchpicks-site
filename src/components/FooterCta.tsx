@@ -23,7 +23,7 @@ export default function FooterCta() {
   return (
     <footer
       id="download"
-      className="relative flex min-h-svh w-full flex-col justify-center px-4 pb-28 pt-24 lg:px-14 lg:pb-32"
+      className="relative z-10 flex min-h-svh w-full flex-col justify-center px-4 pb-28 pt-24 lg:px-14 lg:pb-32"
     >
       {/* Giant staggered statement — one row per grid, like the reference */}
       <div className="flex flex-col gap-2">
