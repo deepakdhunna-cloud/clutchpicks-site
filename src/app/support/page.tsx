@@ -9,8 +9,7 @@ export default function SupportPage() {
       <section className="pt-40 pb-20 px-6">
         <div className="max-w-2xl mx-auto">
           <h1
-            className="text-4xl sm:text-5xl tracking-wider mb-4 text-center"
-            style={{ fontFamily: "var(--font-heading)" }}
+            className="text-4xl sm:text-5xl font-black uppercase font-wide mb-4 text-center"
           >
             Clutch Support
           </h1>
@@ -48,7 +47,7 @@ export default function SupportPage() {
               The button below opens your email app. Include the email address tied to
               your Clutch Picks account and a brief description of the issue.
             </p>
-            <p className="text-sm text-[var(--color-text-muted)]/70 mb-8">
+            <p className="text-sm text-[var(--color-text-muted)] mb-8">
               Never send passwords, verification codes, or full payment-card details.
             </p>
             <a
