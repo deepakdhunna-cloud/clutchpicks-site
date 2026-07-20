@@ -9,8 +9,7 @@ export default function SupportPage() {
       <section className="pt-40 pb-20 px-6">
         <div className="max-w-2xl mx-auto">
           <h1
-            className="text-4xl sm:text-5xl tracking-wider mb-4 text-center"
-            style={{ fontFamily: "var(--font-heading)" }}
+            className="text-4xl sm:text-5xl font-black uppercase font-wide mb-4 text-center"
           >
             Clutch Support
           </h1>

@@ -1,38 +1,67 @@
 import type { Metadata, Viewport } from "next";
+import { Archivo, IBM_Plex_Mono, VT323 } from "next/font/google";
 import "./globals.css";
+
+const archivo = Archivo({
+  subsets: ["latin"],
+  axes: ["wdth"],
+  variable: "--font-archivo",
+  display: "swap",
+});
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-plex",
+  display: "swap",
+});
+
+const vt323 = VT323({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-vt323",
+  display: "swap",
+});
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-  viewportFit: "auto",
-  themeColor: "#000000",
+  themeColor: "#040608",
 };
 
 export const metadata: Metadata = {
-  title: "CLUTCH PICKS | AI Sports Predictions",
+  metadataBase: new URL("https://clutchpicksapp.com"),
+  title: "Clutch Picks — AI Sports Predictions & Live Scores",
   description:
-    "AI-powered sports predictions, confidence ratings, and matchup analysis across major leagues.",
-  keywords: "sports predictions, AI, NBA, NFL, MLB, NHL, MLS, EPL, NCAAF, NCAAB",
+    "AI-powered sports picks, live scores, matchup analysis, and personal pick tracking across 11 leagues. 50,000 simulations per game. Free on the App Store.",
+  keywords:
+    "sports, picks, predictions, football, basketball, baseball, hockey, soccer, NFL, NBA, MLB, NHL, analysis, stats",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent",
     title: "Clutch Picks",
   },
   formatDetection: {
     telephone: false,
   },
+  icons: {
+    icon: "/app-icon.png",
+    apple: "/app-icon.png",
+  },
   openGraph: {
-    title: "CLUTCH PICKS | AI Sports Predictions",
-    description: "Review data-driven sports predictions, confidence ratings, and matchup analysis.",
+    title: "Clutch Picks — AI Sports Predictions & Live Scores",
+    description:
+      "AI-powered sports picks, live scores, matchup analysis, and personal pick tracking across 11 leagues.",
     type: "website",
     url: "https://clutchpicksapp.com",
+    images: [{ url: "/app-icon.png", width: 512, height: 512 }],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "CLUTCH PICKS | AI Sports Predictions",
-    description: "Data-driven sports predictions and matchup analysis.",
+    card: "summary",
+    title: "Clutch Picks — AI Sports Predictions & Live Scores",
+    description:
+      "AI-powered sports picks, live scores, and matchup analysis across 11 leagues.",
+    images: ["/app-icon.png"],
   },
 };
 
@@ -42,24 +71,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
-          rel="stylesheet"
-        />
-        <meta name="theme-color" content="#000000" />
-        <link rel="apple-touch-icon" href="/logo.png" />
-      </head>
-      <body className="noise">
-        {children}
-      </body>
+    <html
+      lang="en"
+      className={`${archivo.variable} ${plexMono.variable} ${vt323.variable}`}
+    >
+      <body className="noise">{children}</body>
     </html>
   );
 }
