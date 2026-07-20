@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, type ReactNode } from "react";
+import { MotionConfig } from "framer-motion";
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 
@@ -12,9 +13,13 @@ export default function PageWrapper({ children }: PageWrapperProps) {
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    // Skip Lenis on touch devices — iOS Safari has its own smooth momentum scroll
+    // Skip Lenis on touch devices — iOS Safari has its own smooth momentum
+    // scroll — and for users who prefer reduced motion.
     const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-    if (isTouchDevice) return;
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (isTouchDevice || reducedMotion) return;
 
     const lenis = new Lenis({
       duration: 1.2,
@@ -37,5 +42,5 @@ export default function PageWrapper({ children }: PageWrapperProps) {
     };
   }, []);
 
-  return <>{children}</>;
+  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
 }

@@ -14,8 +14,7 @@ export default function TermsPage() {
       <section className="pt-40 pb-20 px-6">
         <div className="max-w-3xl mx-auto">
           <h1
-            className="text-4xl sm:text-5xl tracking-wider mb-2"
-            style={{ fontFamily: "var(--font-heading)" }}
+            className="text-4xl sm:text-5xl font-black uppercase font-wide mb-2"
           >
             Terms and Conditions
           </h1>
