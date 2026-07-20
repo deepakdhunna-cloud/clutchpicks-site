@@ -73,25 +73,18 @@ function useScrollPercent() {
 
 const pad = (n: number, len: number) => String(n).padStart(len, "0");
 
-/** Brand wordmark: CLUTCH + the app's PICKS badge chip. */
-export function Wordmark({ small = false }: { small?: boolean }) {
+/** Brand mark: the real app icon, linking to the App Store. */
+export function BrandIcon({ small = false }: { small?: boolean }) {
   return (
-    <span className="flex items-baseline gap-1.5">
-      <span
-        className={`font-sans font-black uppercase leading-none tracking-wide text-l1 font-wide ${
-          small ? "text-sm" : "text-base"
-        }`}
-      >
-        Clutch
-      </span>
-      <span
-        className={`rounded-[5px] border-2 border-teal-deep bg-teal-dark px-1 py-px font-sans font-extrabold uppercase leading-none tracking-[0.18em] text-white shadow-[0_2px_8px_rgba(0,0,0,0.7)] ${
-          small ? "text-[8px]" : "text-[9px]"
-        }`}
-      >
-        Picks
-      </span>
-    </span>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/app-icon.png"
+      alt="Clutch Picks app icon"
+      className={`rounded-[10px] border border-white/10 shadow-[0_8px_16px_rgba(0,0,0,0.6)] transition-transform duration-300 ${
+        small ? "h-9 w-9" : "h-10 w-10 lg:h-11 lg:w-11"
+      }`}
+      draggable={false}
+    />
   );
 }
 
@@ -113,11 +106,13 @@ export default function Chrome() {
       {/* Top bar */}
       <header className="flex items-center justify-between bg-gradient-to-b from-bg/85 via-bg/40 to-transparent px-4 py-4 lg:px-14 lg:py-6">
         <a
-          href="#top"
-          className="dotted-hover pointer-events-auto p-2"
-          aria-label="Clutch Picks — back to top"
+          href={APP_STORE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="dotted-hover pointer-events-auto p-1.5 hover:scale-[1.04]"
+          aria-label="Download Clutch Picks on the App Store"
         >
-          <Wordmark />
+          <BrandIcon />
         </a>
 
         <nav className="pointer-events-auto hidden items-center gap-x-2 lg:flex">
