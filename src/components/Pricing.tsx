@@ -63,7 +63,7 @@ export default function Pricing() {
       </div>
 
       {/* Free card */}
-      <Fade className="col-span-12 lg:col-span-5" y={24}>
+      <Fade className="col-span-12 max-lg:order-2 lg:col-span-5" y={24}>
         <div className="flex h-full flex-col rounded-2xl border border-line bg-white/[0.02] p-6 lg:p-8">
           <span className="font-mono text-xs uppercase tracking-[0.2em] text-l3">
             Free forever
@@ -90,9 +90,13 @@ export default function Pricing() {
       </Fade>
 
       {/* Pro card */}
-      <Fade className="col-span-12 lg:col-span-6 lg:col-start-7" y={24} delay={0.08}>
+      <Fade
+        className="col-span-12 max-lg:order-1 lg:col-span-6 lg:col-start-7"
+        y={24}
+        delay={0.08}
+      >
         <div
-          className="relative flex h-full flex-col overflow-hidden rounded-2xl border p-6 lg:p-8"
+          className="relative flex h-full flex-col overflow-hidden rounded-2xl border p-6 shadow-[0_0_80px_rgba(122,157,184,0.09)] lg:p-8"
           style={{
             borderColor: "rgba(122,157,184,0.3)",
             background:
@@ -138,7 +142,7 @@ export default function Pricing() {
       </Fade>
 
       {/* Paywall stats + disclosures */}
-      <Fade className="col-span-12 flex flex-col gap-3 border-t border-line pt-8">
+      <Fade className="col-span-12 flex flex-col gap-3 border-t border-line pt-8 max-lg:order-3">
         <p className="font-mono text-xs uppercase tracking-[0.16em] text-l3">
           11 leagues · 20 factors · 24/7 updates — every game, every league,
           every AI prediction.

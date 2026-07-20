@@ -54,7 +54,7 @@ function FloatingLogo() {
         <img
           src="/logo-stacked.png"
           alt="Clutch Picks logo"
-          className="w-[min(58vw,300px)] select-none lg:w-[24vw] lg:max-w-[420px]"
+          className="w-[min(48vw,250px)] select-none lg:w-[19vw] lg:max-w-[340px]"
           style={{
             filter:
               "drop-shadow(0 24px 48px rgba(0,0,0,0.85)) drop-shadow(0 0 64px rgba(122,157,184,0.16))",
@@ -84,7 +84,7 @@ function LeagueTicker() {
         {items.map((l, i) => (
           <span
             key={`${l.abbr}-${i}`}
-            className="flex items-center gap-2.5 whitespace-nowrap font-mono text-xs uppercase tracking-[0.16em] text-l3"
+            className="flex items-center gap-2.5 whitespace-nowrap font-mono text-xs uppercase tracking-[0.16em] text-l4"
           >
             <span
               className="inline-block h-1.5 w-1.5 rounded-full"
@@ -104,36 +104,26 @@ export default function Hero() {
       id="top"
       className="relative grid min-h-svh w-full grid-cols-12 content-between gap-y-10 px-4 pb-14 pt-24 lg:px-14 lg:pb-20 lg:pt-28"
     >
-      {/* Meta row */}
-      <div className="col-span-12 grid grid-cols-12 gap-y-8 font-sans">
+      {/* Meta — one quiet cluster, top-left */}
+      <div className="col-span-12 max-w-xs font-sans">
         <MaskLines
           as="p"
-          className="col-span-8 text-[5.4svw] font-semibold leading-tight sm:text-2xl lg:col-span-3 lg:text-3xl"
+          className="text-[5.4svw] font-semibold leading-tight sm:text-2xl lg:text-3xl"
           lines={["AI Sports", "Predictions"]}
           delay={1.35}
         />
-        <MaskLines
-          as="p"
-          className="hidden text-sm leading-relaxed text-l2 lg:col-span-2 lg:col-start-5 lg:block"
-          lines={["Calibrated confidence.", "Built for game day."]}
-          delay={1.5}
-        />
         <motion.p
-          className="col-span-12 max-w-md text-[15px] leading-relaxed text-l2 lg:col-span-4 lg:col-start-9"
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
+          className="mt-4 font-mono text-xs uppercase tracking-[0.16em] text-l3"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.8, ease: EASE, delay: 1.6 }}
         >
-          Clutch Picks is the AI sports companion for iOS —{" "}
-          <span className="text-l1">live scores</span>,{" "}
-          <span className="text-l1">projections</span> and{" "}
-          <span className="text-l1">confidence-rated picks</span> across 11
-          leagues, from an engine that never inflates its edge.
+          Free on the App Store
         </motion.p>
       </div>
 
-      {/* Floating logo — anchored right on desktop, centered on mobile */}
-      <div className="pointer-events-none col-span-12 flex justify-center lg:absolute lg:right-[7vw] lg:top-1/2 lg:-translate-y-1/2 lg:justify-end">
+      {/* Floating logo — secondary element, upper right, clear of the statement */}
+      <div className="pointer-events-none col-span-12 flex justify-center lg:absolute lg:right-[8vw] lg:top-[14vh] lg:justify-end">
         <FloatingLogo />
       </div>
 
