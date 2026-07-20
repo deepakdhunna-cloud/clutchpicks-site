@@ -8,7 +8,7 @@ import { Eyebrow, Fade, MaskLines } from "./Reveal";
 const PIPELINE = [
   "Factors",
   "Rating Delta",
-  "50K Monte Carlo",
+  "50K Simulations",
   "Probability + Scores",
   "Market Calibration",
   "Confidence Cap",

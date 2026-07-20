@@ -60,8 +60,8 @@ export default function Manifesto() {
           className="text-2xl font-medium leading-[1.18] text-l1 md:text-[3.4svw] md:leading-[1.1]"
           lines={[
             "Every matchup runs through",
-            "50,000 Monte Carlo simulations",
-            "before a pick reaches your screen.",
+            "50,000 simulations before",
+            "a pick reaches your screen.",
           ]}
           stagger={0.12}
         />
@@ -78,7 +78,7 @@ export default function Manifesto() {
         />
         <Fade delay={0.3}>
           <p className="font-mono text-xs uppercase tracking-[0.16em] text-l4">
-            v3.0 unified simulation engine · deterministic 50K Monte Carlo ·
+            v3.0 unified simulation engine · 50,000 runs per game ·
             market-aware, never market-led
           </p>
         </Fade>
