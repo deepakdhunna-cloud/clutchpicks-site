@@ -128,8 +128,8 @@ export default function PrivacyPolicyPage() {
                 </li>
                 <li>
                   Determine whether age or permission requirements apply, enforce the
-                  minimum age and applicable parent or guardian permission requirements,
-                  and respond to a valid consent withdrawal.
+                  minimum age and any specific system permission Apple identifies as
+                  legally required, and respond to a valid consent withdrawal.
                 </li>
                 <li>
                   Personalize your experience, including showing relevant games, teams,
@@ -184,8 +184,8 @@ export default function PrivacyPolicyPage() {
                     </li>
                     <li>RevenueCat (subscription and payment processing)</li>
                     <li>
-                      Apple (authentication, subscriptions, age assurance, and applicable
-                      parent or guardian permission)
+                      Apple (authentication, subscriptions, age assurance, and any
+                      applicable system permission)
                     </li>
                     <li>Resend (email verification and service emails)</li>
                     <li>Expo (push notification delivery)</li>
@@ -339,11 +339,13 @@ export default function PrivacyPolicyPage() {
               <p className="mb-3">
                 The App is not intended for children under 13 (or the minimum age required
                 in your jurisdiction), and users identified as under 13 are not permitted
-                to use it. Users ages 13 through 17 may use the App only when Apple&apos;s
-                applicable parent or guardian permission requirements are satisfied.
+                to use it. Users ages 13 through 17 may use the App without a general
+                parent or guardian permission requirement. On supported Apple devices,
+                we still enforce any specific system permission Apple identifies as
+                legally required for the account or region.
               </p>
               <p className="mb-3">
-                Access remains restricted when a required age or permission result is
+                Access remains restricted when such a required age or permission result is
                 declined, denied, pending, unknown, unavailable, conflicting, or rescinded,
                 unless and until eligibility is validly restored.
               </p>

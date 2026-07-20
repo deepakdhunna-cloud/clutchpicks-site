@@ -89,16 +89,17 @@ export default function TermsPage() {
               </h2>
               <p className="mb-3">
                 You must be at least 13 years of age to use this App. Users ages 13
-                through 17 may use the App only when Apple&apos;s applicable parent or
-                guardian permission requirements are satisfied. Users 18 or older may
-                use the App subject to these Terms.
+                through 17 may use the App without a general parent or guardian
+                permission requirement. Users 18 or older may use the App subject to
+                these Terms.
               </p>
               <p>
-                On supported Apple devices, you must complete any system age-assurance,
-                parent or guardian permission, or adult acknowledgment step that applies.
-                Access remains restricted when a required result is declined, denied,
-                pending, unknown, unavailable, conflicting, or rescinded, unless and
-                until eligibility is validly restored.
+                On supported Apple devices, you must still complete any specific system
+                age-assurance, permission, or adult acknowledgment step that Apple
+                identifies as legally required for your account or region. Access remains
+                restricted when such a required result is declined, denied, pending,
+                unknown, unavailable, conflicting, or rescinded, unless and until
+                eligibility is validly restored.
               </p>
             </div>
 
