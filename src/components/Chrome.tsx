@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { APP_STORE_URL } from "@/lib/site";
 import { introDelay } from "./Loader";
+import LedText from "./LedText";
 
 const NAV = [
   { label: "Board", href: "#board" },
@@ -106,44 +107,41 @@ export default function Chrome() {
     >
       {/* Top bar */}
       <header className="flex items-center justify-between bg-gradient-to-b from-bg/85 via-bg/40 to-transparent px-4 py-4 lg:px-14 lg:py-6">
-        <a
-          href={APP_STORE_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="dotted-hover pointer-events-auto p-1.5 hover:scale-[1.04]"
-          aria-label="Download Clutch Picks on the App Store"
-        >
-          <BrandIcon />
-        </a>
+        {/* App icon + blue LED download, together on the left */}
+        <div className="pointer-events-auto flex items-center gap-1">
+          <a
+            href={APP_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="dotted-hover p-1.5 hover:scale-[1.04]"
+            aria-label="Download Clutch Picks on the App Store"
+          >
+            <BrandIcon />
+          </a>
+          <a
+            href={APP_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="dotted-hover dotted-hover-teal p-2 opacity-90 transition-opacity hover:opacity-100"
+            aria-label="Download on the App Store"
+          >
+            <LedText text="DOWNLOAD" color="teal" height={11} />
+          </a>
+        </div>
 
+        {/* Jumbotron nav */}
         <nav className="pointer-events-auto hidden items-center gap-x-2 lg:flex">
           {NAV.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="dotted-hover p-2 uppercase tracking-[0.1em] text-l2 transition-colors hover:text-l1"
+              className="dotted-hover p-2 opacity-75 transition-opacity hover:opacity-100"
+              aria-label={item.label}
             >
-              {item.label}
+              <LedText text={item.label.toUpperCase()} height={11} />
             </a>
           ))}
-          <a
-            href={APP_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="dotted-hover dotted-hover-teal p-2 uppercase tracking-[0.1em] text-teal"
-          >
-            Download[↓]
-          </a>
         </nav>
-
-        <a
-          href={APP_STORE_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="dotted-hover pointer-events-auto p-2 uppercase tracking-[0.1em] text-teal lg:hidden"
-        >
-          Get App
-        </a>
       </header>
 
       {/* Bottom bar — ambient data, hidden from assistive tech */}
