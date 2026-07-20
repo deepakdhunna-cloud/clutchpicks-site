@@ -20,7 +20,7 @@ export default function TermsPage() {
             Terms and Conditions
           </h1>
           <p className="text-sm text-[var(--color-text-muted)] mb-12">
-            Last Updated: July 18, 2026
+            Last Updated: July 20, 2026
           </p>
 
           <div className="space-y-10 text-[var(--color-text-muted)] leading-relaxed text-sm sm:text-base">
@@ -87,9 +87,18 @@ export default function TermsPage() {
               <h2 className="text-lg text-white font-semibold mb-3">
                 6. Age Requirement
               </h2>
+              <p className="mb-3">
+                You must be at least 13 years of age to use this App. Users ages 13
+                through 17 may use the App only when Apple&apos;s applicable parent or
+                guardian permission requirements are satisfied. Users 18 or older may
+                use the App subject to these Terms.
+              </p>
               <p>
-                You must be at least 13 years of age to use this App. By using this App,
-                you confirm that you meet this requirement.
+                On supported Apple devices, you must complete any system age-assurance,
+                parent or guardian permission, or adult acknowledgment step that applies.
+                Access remains restricted when a required result is declined, denied,
+                pending, unknown, unavailable, conflicting, or rescinded, unless and
+                until eligibility is validly restored.
               </p>
             </div>
 
