@@ -7,10 +7,10 @@ import { MaskLines, Fade, useReducedSafe } from "./Reveal";
 function DrawnSign() {
   const reduced = useReducedSafe();
   const paths = [
-    // goalpost: crossbar, uprights, center post, base
-    "M116 78 L204 78 M124 78 L124 22 M196 78 L196 22 M160 78 L160 142 M144 142 L176 142",
-    // football above the crossbar
-    "M142 46 C 149 32, 171 32, 178 46 C 171 60, 149 60, 142 46 Z M152 46 L168 46",
+    // the logo's goalpost-U: uprights curving into the dropped center stem
+    "M128 20 L128 82 C128 96 137 102 148 102 L172 102 C183 102 192 96 192 82 L192 20 M160 102 L160 144",
+    // football floating in the U's opening, laces across
+    "M141 52 C 149 36, 171 36, 179 52 C 171 68, 149 68, 141 52 Z M151 52 L169 52",
     // swooping underline with end curl
     "M12 162 C 84 190, 200 184, 284 138 C 300 128, 296 112, 280 116 C 262 121, 262 146, 292 148",
   ];
