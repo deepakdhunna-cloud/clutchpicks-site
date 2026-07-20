@@ -1,6 +1,5 @@
 /* Shared constants for the Clutch Picks marketing site.
- * League colors and engine facts mirror the app repo
- * (src/types/sports.ts SPORT_META, backend/src/prediction). */
+ * League colors mirror the app repo (src/types/sports.ts SPORT_META). */
 
 export const APP_STORE_URL =
   "https://apps.apple.com/us/app/clutch-picks/id6759183746";
@@ -14,22 +13,21 @@ export interface League {
   abbr: string;
   name: string;
   color: string;
-  notes: string;
 }
 
 /** The 11 marketed leagues (WELCOME_LEAGUE_PILLS order), colors from SPORT_META. */
 export const LEAGUES: League[] = [
-  { abbr: "NBA", name: "NBA Basketball", color: "#8B0A1F", notes: "Possession proxy · Recency-weighted net rating · Usage-tier injury impact" },
-  { abbr: "NFL", name: "NFL Football", color: "#2E4A5E", notes: "Drive & tempo proxies · Starting QB status · Weather" },
-  { abbr: "MLB", name: "MLB Baseball", color: "#9FABB8", notes: "Pitcher FIP/ERA · Umpire zones · Ballpark run environment" },
-  { abbr: "NHL", name: "NHL Hockey", color: "#3D5A6F", notes: "Confirmed starting goalies · Special-teams matchup" },
-  { abbr: "MLS", name: "MLS Soccer", color: "#C9BDA8", notes: "xG differential · Fixture congestion" },
-  { abbr: "EPL", name: "Premier League", color: "#6A0818", notes: "xG differential · Dixon-Coles draw model" },
-  { abbr: "UCL", name: "Champions League", color: "#1A2A6C", notes: "UEFA coefficients · Continental travel" },
-  { abbr: "T20", name: "T20 Cricket", color: "#D7A21E", notes: "Venue & toss splits · Run-rate context" },
-  { abbr: "TENNIS", name: "ATP & WTA Tennis", color: "#7A9DB8", notes: "Surface win rates · Match-format context" },
-  { abbr: "CFB", name: "College Football", color: "#5A7A8A", notes: "Drive proxies · Bye & short weeks" },
-  { abbr: "CBB", name: "College Basketball", color: "#D98E76", notes: "Star player availability · Elite home court" },
+  { abbr: "NBA", name: "NBA Basketball", color: "#8B0A1F" },
+  { abbr: "NFL", name: "NFL Football", color: "#2E4A5E" },
+  { abbr: "MLB", name: "MLB Baseball", color: "#9FABB8" },
+  { abbr: "NHL", name: "NHL Hockey", color: "#3D5A6F" },
+  { abbr: "MLS", name: "MLS Soccer", color: "#C9BDA8" },
+  { abbr: "EPL", name: "Premier League", color: "#6A0818" },
+  { abbr: "UCL", name: "Champions League", color: "#1A2A6C" },
+  { abbr: "T20", name: "T20 Cricket", color: "#D7A21E" },
+  { abbr: "TENNIS", name: "ATP & WTA Tennis", color: "#7A9DB8" },
+  { abbr: "CFB", name: "College Football", color: "#5A7A8A" },
+  { abbr: "CBB", name: "College Basketball", color: "#D98E76" },
 ];
 
 export interface ConfidenceTier {

@@ -1,6 +1,7 @@
 "use client";
 
 import PageWrapper from "@/components/PageWrapper";
+import Background from "@/components/Background";
 import Loader from "@/components/Loader";
 import Chrome from "@/components/Chrome";
 import Hero from "@/components/Hero";
@@ -15,6 +16,7 @@ import FooterCta from "@/components/FooterCta";
 export default function Home() {
   return (
     <PageWrapper>
+      <Background />
       <Loader />
       <Chrome />
       <main className="relative overflow-x-clip">

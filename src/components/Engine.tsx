@@ -5,22 +5,11 @@ import { motion, useInView, useReducedMotion } from "framer-motion";
 import { CONFIDENCE_TIERS } from "@/lib/site";
 import { Eyebrow, Fade, MaskLines } from "./Reveal";
 
-const PIPELINE = [
-  "Factors",
-  "Rating Delta",
-  "50K Simulations",
-  "Probability + Scores",
-  "Market Calibration",
-  "Confidence Cap",
-];
-
 const RULES = [
-  "No confidence floor above 50%",
-  "No sigmoid scaling multipliers",
+  "No inflated confidence",
   "No fabricated data — ever",
-  "Missing data lowers confidence",
-  "Predictions lock before tip-off",
-  "Market can calibrate, never override",
+  "Picks lock before tip-off",
+  "When data is thin, we say so",
 ];
 
 function CountUp({
@@ -107,7 +96,7 @@ export default function Engine() {
       <Eyebrow
         index="02"
         title="The Engine"
-        meta="v3.0 Unified Simulation Architecture"
+        meta="Confidence you can read at a glance"
       />
 
       {/* Statement */}
@@ -119,12 +108,11 @@ export default function Engine() {
         />
         <Fade delay={0.2}>
           <p className="mt-6 max-w-md text-[15px] leading-relaxed text-l2">
-            Win probability and projected scores come from the{" "}
-            <span className="text-l1">same simulation pass</span> — so the
-            number and the score line always agree. Confidence is the model&apos;s
-            true probability, and missing data{" "}
-            <span className="text-l1">reduces</span> it. The engine knows what
-            it doesn&apos;t know.
+            Every pick carries a{" "}
+            <span className="text-l1">confidence rating that means what it
+            says</span>. When the numbers are strong, you&apos;ll know — and
+            when they aren&apos;t, Clutch tells you that too, instead of
+            pretending. <span className="text-l1">No hype. No hedging.</span>
           </p>
         </Fade>
 
@@ -141,31 +129,13 @@ export default function Engine() {
         </Fade>
       </div>
 
-      {/* Ladder + pipeline */}
+      {/* Ladder */}
       <div className="col-span-12 flex flex-col gap-10 lg:col-span-6 lg:col-start-7">
         <Fade>
           <p className="mb-4 font-mono text-xs uppercase tracking-[0.16em] text-l4">
             Confidence tiers — straight from the app
           </p>
           <Ladder />
-        </Fade>
-
-        <Fade delay={0.1}>
-          <p className="mb-4 font-mono text-xs uppercase tracking-[0.16em] text-l4">
-            Every game, one pipeline
-          </p>
-          <div className="flex flex-wrap items-center gap-y-3 font-mono text-xs uppercase tracking-[0.08em]">
-            {PIPELINE.map((step, i) => (
-              <span key={step} className="flex items-center">
-                <span className="border border-line px-2.5 py-1.5 text-l2">
-                  {step}
-                </span>
-                {i < PIPELINE.length - 1 && (
-                  <span className="px-1.5 text-l4">→</span>
-                )}
-              </span>
-            ))}
-          </div>
         </Fade>
       </div>
 
@@ -187,15 +157,6 @@ export default function Engine() {
           </Fade>
         ))}
       </div>
-
-      {/* Data sources */}
-      <Fade className="col-span-12">
-        <p className="font-mono text-[11px] uppercase leading-relaxed tracking-[0.14em] text-l3">
-          Data — ESPN · MLB StatsAPI · stats.nba.com · FBref &amp; Understat xG
-          · UmpScorecards · Open-Meteo weather · SharpAPI market consensus ·
-          SportsDataIO — verified feeds only, never mock data
-        </p>
-      </Fade>
     </section>
   );
 }
