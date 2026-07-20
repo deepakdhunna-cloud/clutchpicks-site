@@ -21,9 +21,10 @@ export default function PageWrapper({ children }: PageWrapperProps) {
     ).matches;
     if (isTouchDevice || reducedMotion) return;
 
+    const easing = (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t));
     const lenis = new Lenis({
       duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      easing,
       smoothWheel: true,
     });
     lenisRef.current = lenis;
@@ -35,7 +36,23 @@ export default function PageWrapper({ children }: PageWrapperProps) {
     }
     raf = requestAnimationFrame(update);
 
+    // Route in-page anchors through Lenis so nav clicks glide with the
+    // same easing as wheel scrolling instead of the browser's default.
+    const onClick = (e: MouseEvent) => {
+      const anchor = (e.target as HTMLElement).closest?.('a[href^="#"]');
+      if (!anchor) return;
+      const href = anchor.getAttribute("href");
+      if (!href || href === "#") return;
+      const target =
+        href === "#top" ? 0 : (document.querySelector(href) as HTMLElement);
+      if (target !== 0 && !target) return;
+      e.preventDefault();
+      lenis.scrollTo(target, { duration: 1.5, easing });
+    };
+    document.addEventListener("click", onClick);
+
     return () => {
+      document.removeEventListener("click", onClick);
       cancelAnimationFrame(raf);
       lenis.destroy();
       lenisRef.current = null;

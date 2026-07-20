@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 import { EASE, LEAGUES } from "@/lib/site";
 import { MaskLines, useReducedSafe } from "./Reveal";
+import { introDelay } from "./Loader";
 
 /** Stacked 3D logo with gentle float + mouse parallax tilt. */
 function FloatingLogo() {
@@ -42,7 +43,7 @@ function FloatingLogo() {
       }}
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1.1, ease: EASE, delay: 1.5 }}
+      transition={{ duration: 1.1, ease: EASE, delay: introDelay(1.5) }}
       style={{ perspective: 900 }}
       className="pointer-events-auto"
     >
@@ -52,7 +53,8 @@ function FloatingLogo() {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/logo-stacked.png"
+          src="/logo-stacked.webp"
+          fetchPriority="high"
           alt="Clutch Picks logo"
           className="w-[min(48vw,250px)] select-none lg:w-[19vw] lg:max-w-[340px]"
           style={{
@@ -110,13 +112,13 @@ export default function Hero() {
           as="p"
           className="text-[5.4svw] font-semibold leading-tight sm:text-2xl lg:text-3xl"
           lines={["AI Sports", "Predictions"]}
-          delay={1.35}
+          delay={introDelay(1.35)}
         />
         <motion.p
           className="mt-4 font-mono text-xs uppercase tracking-[0.16em] text-l3"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, ease: EASE, delay: 1.6 }}
+          transition={{ duration: 0.8, ease: EASE, delay: introDelay(1.6) }}
         >
           Free on the App Store
         </motion.p>
@@ -139,7 +141,7 @@ export default function Hero() {
             </span>,
             "simulations",
           ]}
-          delay={1.45}
+          delay={introDelay(1.45)}
         />
         <LeagueTicker />
       </div>

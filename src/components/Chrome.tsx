@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { APP_STORE_URL } from "@/lib/site";
+import { introDelay } from "./Loader";
 
 const NAV = [
   { label: "Board", href: "#board" },
@@ -78,7 +79,7 @@ export function BrandIcon({ small = false }: { small?: boolean }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/app-icon.png"
+      src="/app-icon.webp"
       alt="Clutch Picks app icon"
       className={`rounded-[10px] border border-white/10 shadow-[0_8px_16px_rgba(0,0,0,0.6)] transition-transform duration-300 ${
         small ? "h-9 w-9" : "h-10 w-10 lg:h-11 lg:w-11"
@@ -100,7 +101,7 @@ export default function Chrome() {
       ref={ref}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.6, delay: 1.35, ease: "easeOut" }}
+      transition={{ duration: 0.6, delay: introDelay(1.35), ease: "easeOut" }}
       className="pointer-events-none fixed inset-0 z-50 flex flex-col justify-between font-mono text-[13px]"
     >
       {/* Top bar */}
