@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { APP_STORE_URL } from "@/lib/site";
 import { introDelay } from "./Loader";
@@ -75,6 +75,27 @@ function useScrollPercent() {
 
 const pad = (n: number, len: number) => String(n).padStart(len, "0");
 
+/* Per-frame data lives in leaf components so state churn (clock ticks,
+ * mousemove, scroll) never re-renders the LED nav above. */
+const EasternClock = memo(function EasternClock() {
+  const time = useEasternClock();
+  return <span className="p-2 tabular">ET {time}</span>;
+});
+
+const CursorCoords = memo(function CursorCoords() {
+  const { x, y } = useCursorCoords();
+  return (
+    <span className="hidden p-2 tabular lg:inline">
+      {pad(x, 4)} X {pad(y, 4)} Y
+    </span>
+  );
+});
+
+const ScrollPercent = memo(function ScrollPercent() {
+  const pct = useScrollPercent();
+  return <span className="p-2 tabular">Scroll {pad(pct, 3)}%</span>;
+});
+
 /** Brand mark: the real app icon, linking to the App Store. */
 export function BrandIcon({ small = false }: { small?: boolean }) {
   return (
@@ -92,9 +113,6 @@ export function BrandIcon({ small = false }: { small?: boolean }) {
 
 /** Fixed header + footer chrome overlaying the scrolling page. */
 export default function Chrome() {
-  const time = useEasternClock();
-  const { x, y } = useCursorCoords();
-  const pct = useScrollPercent();
   const ref = useRef<HTMLDivElement>(null);
 
   return (
@@ -149,11 +167,9 @@ export default function Chrome() {
         className="flex items-center justify-between bg-gradient-to-t from-bg/85 via-bg/40 to-transparent px-4 py-4 text-xs uppercase tracking-[0.12em] text-l3 lg:px-14 lg:py-6"
         aria-hidden="true"
       >
-        <span className="p-2 tabular">ET {time}</span>
-        <span className="hidden p-2 tabular lg:inline">
-          {pad(x, 4)} X {pad(y, 4)} Y
-        </span>
-        <span className="p-2 tabular">Scroll {pad(pct, 3)}%</span>
+        <EasternClock />
+        <CursorCoords />
+        <ScrollPercent />
       </div>
     </motion.div>
   );
