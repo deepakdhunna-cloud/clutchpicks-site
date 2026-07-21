@@ -8,6 +8,7 @@ export default function Background() {
   return (
     <div
       className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+      style={{ transform: "translateZ(0)" }}
       aria-hidden="true"
     >
       {/* base atmosphere (app background gradient stops) */}
