@@ -1,6 +1,6 @@
 "use client";
 
-import { useId } from "react";
+import { memo, useId } from "react";
 
 /**
  * Jumbotron dot-matrix lettering — the app's ArenaScoreboard LED face
@@ -53,7 +53,7 @@ const PALETTES = {
   teal: { stops: ["#dff0fc", "#9bc2dc", "#6c93ae"], bloom: "#9bc2dc" },
 } as const;
 
-export default function LedText({
+export default memo(function LedText({
   text,
   height = 12,
   color = "white",
@@ -111,4 +111,4 @@ export default function LedText({
       ))}
     </svg>
   );
-}
+});

@@ -21,6 +21,13 @@ export default function PageWrapper({ children }: PageWrapperProps) {
     ).matches;
     if (isTouchDevice || reducedMotion) return;
 
+    // CSS smooth scroll-behavior must be off while Lenis drives the scroll:
+    // otherwise every per-frame programmatic scroll gets its own browser
+    // animation and the two fight (rubbery, laggy scrolling).
+    const html = document.documentElement;
+    const prevBehavior = html.style.scrollBehavior;
+    html.style.scrollBehavior = "auto";
+
     const easing = (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t));
     const lenis = new Lenis({
       duration: 1.2,
@@ -56,6 +63,7 @@ export default function PageWrapper({ children }: PageWrapperProps) {
       cancelAnimationFrame(raf);
       lenis.destroy();
       lenisRef.current = null;
+      html.style.scrollBehavior = prevBehavior;
     };
   }, []);
 
