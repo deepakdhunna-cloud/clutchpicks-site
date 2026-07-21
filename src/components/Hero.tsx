@@ -104,7 +104,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative grid min-h-svh w-full grid-cols-12 content-between gap-y-10 px-4 pb-14 pt-24 lg:px-14 lg:pb-20 lg:pt-28"
+      className="hero-pad relative grid min-h-svh w-full grid-cols-12 content-between gap-y-10 px-4 pb-14 lg:px-14 lg:pb-20"
     >
       {/* Meta — one quiet cluster, top-left */}
       <div className="col-span-12 max-w-xs font-sans">

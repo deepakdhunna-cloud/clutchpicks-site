@@ -156,6 +156,16 @@ body {
   outline-offset: 2px;
 }
 
+/* Hero top padding — clears the safe-area chrome on phones */
+.hero-pad {
+  padding-top: calc(max(0.75rem, env(safe-area-inset-top)) + 4.75rem);
+}
+@media (min-width: 1024px) {
+  .hero-pad {
+    padding-top: 7rem;
+  }
+}
+
 /* Glass panels (app GLASS_* tokens) */
 .glass {
   background: rgba(255, 255, 255, 0.02);
