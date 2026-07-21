@@ -134,7 +134,7 @@ export default function Chrome() {
     >
       {/* Top bar — padded below the notch/status bar on phones */}
       <header
-        className="flex items-center justify-between border-b border-line bg-bg/85 backdrop-blur-md px-4 pb-3 lg:border-b-0 lg:bg-transparent lg:backdrop-blur-none lg:bg-gradient-to-b lg:from-bg/90 lg:via-bg/45 lg:to-transparent lg:px-14 lg:py-6"
+        className="flex items-center justify-between border-b border-line bg-bg px-4 pb-3 lg:border-b-0 lg:bg-transparent lg:bg-gradient-to-b lg:from-bg/90 lg:via-bg/45 lg:to-transparent lg:px-14 lg:py-6"
         style={{ paddingTop: "max(0.75rem, calc(env(safe-area-inset-top) + 0.25rem))" }}
       >
         {/* App icon + blue LED download, together on the left */}
@@ -206,7 +206,7 @@ export default function Chrome() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="pointer-events-auto fixed inset-0 z-[70] flex flex-col bg-bg/95 backdrop-blur-xl lg:hidden"
+            className="pointer-events-auto fixed inset-0 z-[70] flex flex-col bg-bg lg:hidden"
           >
             <div
               className="flex items-center justify-between px-4 pb-3"
