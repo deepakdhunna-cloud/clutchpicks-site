@@ -5,8 +5,8 @@ import DownloadButton from "./DownloadButton";
 import { Fade, MaskLines } from "./Reveal";
 
 const SOCIALS = [
-  { label: "Instagram", href: "https://instagram.com/clutchpicksapp" },
-  { label: "TikTok", href: "https://tiktok.com/@clutchpicksapp" },
+  { label: "Instagram", href: "https://www.instagram.com/clutchpicksapp/" },
+  { label: "TikTok", href: "https://www.tiktok.com/@clutchpicksapp" },
   { label: "X", href: "https://x.com/clutchpicksapp" },
 ];
 
