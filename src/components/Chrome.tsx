@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { APP_STORE_URL } from "@/lib/site";
 import { introDelay } from "./Loader";
 import LedText from "./LedText";
@@ -114,6 +114,15 @@ export function BrandIcon({ small = false }: { small?: boolean }) {
 /** Fixed header + footer chrome overlaying the scrolling page. */
 export default function Chrome() {
   const ref = useRef<HTMLDivElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Lock page scroll while the mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   return (
     <motion.div
@@ -123,8 +132,11 @@ export default function Chrome() {
       transition={{ duration: 0.6, delay: introDelay(1.35), ease: "easeOut" }}
       className="pointer-events-none fixed inset-0 z-50 flex flex-col justify-between font-mono text-[13px]"
     >
-      {/* Top bar */}
-      <header className="flex items-center justify-between bg-gradient-to-b from-bg/85 via-bg/40 to-transparent px-4 py-4 lg:px-14 lg:py-6">
+      {/* Top bar — padded below the notch/status bar on phones */}
+      <header
+        className="flex items-center justify-between bg-gradient-to-b from-bg/90 via-bg/45 to-transparent px-4 pb-3 lg:px-14 lg:py-6"
+        style={{ paddingTop: "max(0.75rem, calc(env(safe-area-inset-top) + 0.25rem))" }}
+      >
         {/* App icon + blue LED download, together on the left */}
         <div className="pointer-events-auto flex items-center gap-2">
           <a
@@ -147,7 +159,7 @@ export default function Chrome() {
           </a>
         </div>
 
-        {/* Jumbotron nav */}
+        {/* Jumbotron nav (desktop) */}
         <nav className="pointer-events-auto hidden items-center gap-x-4 lg:flex">
           {NAV.map((item) => (
             <a
@@ -160,17 +172,117 @@ export default function Chrome() {
             </a>
           ))}
         </nav>
+
+        {/* Hamburger (mobile) */}
+        <button
+          type="button"
+          onClick={() => setMenuOpen(true)}
+          className="dotted-hover pointer-events-auto flex h-11 w-11 flex-col items-center justify-center gap-[5px] lg:hidden"
+          aria-label="Open menu"
+          aria-expanded={menuOpen}
+        >
+          <span className="h-[2px] w-5 rounded-full bg-l1" />
+          <span className="h-[2px] w-5 rounded-full bg-l1" />
+          <span className="h-[2px] w-5 rounded-full bg-l1" />
+        </button>
       </header>
 
       {/* Bottom bar — ambient data, hidden from assistive tech */}
       <div
-        className="flex items-center justify-between bg-gradient-to-t from-bg/85 via-bg/40 to-transparent px-4 py-4 text-xs uppercase tracking-[0.12em] text-l3 lg:px-14 lg:py-6"
+        className="flex items-center justify-between bg-gradient-to-t from-bg/85 via-bg/40 to-transparent px-4 pt-4 text-xs uppercase tracking-[0.12em] text-l3 lg:px-14 lg:py-6"
+        style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
         aria-hidden="true"
       >
         <EasternClock />
         <CursorCoords />
         <ScrollPercent />
       </div>
+
+      {/* Full-screen mobile menu */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="pointer-events-auto fixed inset-0 z-[70] flex flex-col bg-bg/95 backdrop-blur-xl lg:hidden"
+          >
+            <div
+              className="flex items-center justify-between px-4 pb-3"
+              style={{
+                paddingTop: "max(0.75rem, calc(env(safe-area-inset-top) + 0.25rem))",
+              }}
+            >
+              <a
+                href={APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="dotted-hover p-1.5"
+                aria-label="Download Clutch Picks on the App Store"
+              >
+                <BrandIcon small />
+              </a>
+              <button
+                type="button"
+                onClick={() => setMenuOpen(false)}
+                className="dotted-hover relative flex h-11 w-11 items-center justify-center"
+                aria-label="Close menu"
+              >
+                <span className="absolute h-[2px] w-6 rotate-45 rounded-full bg-l1" />
+                <span className="absolute h-[2px] w-6 -rotate-45 rounded-full bg-l1" />
+              </button>
+            </div>
+
+            <nav className="flex flex-1 flex-col justify-center gap-3 px-6">
+              {NAV.map((item, i) => (
+                <motion.a
+                  key={item.href}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMenuOpen(false);
+                    setTimeout(() => {
+                      document
+                        .querySelector(item.href)
+                        ?.scrollIntoView({ behavior: "smooth" });
+                    }, 80);
+                  }}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.35, delay: 0.06 + i * 0.06 }}
+                  className="dotted-hover w-fit p-3"
+                  aria-label={item.label}
+                >
+                  <LedText text={item.label.toUpperCase()} height={26} />
+                </motion.a>
+              ))}
+              <motion.a
+                href={APP_STORE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMenuOpen(false)}
+                initial={{ opacity: 0, x: -16 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.35, delay: 0.06 + NAV.length * 0.06 }}
+                className="dotted-hover dotted-hover-teal mt-4 w-fit p-3"
+                aria-label="Download on the App Store"
+              >
+                <LedText text="DOWNLOAD" color="teal" height={26} />
+              </motion.a>
+            </nav>
+
+            <p
+              className="px-6 font-mono text-[11px] uppercase tracking-[0.16em] text-l4"
+              style={{
+                paddingBottom: "max(1.5rem, env(safe-area-inset-bottom))",
+              }}
+            >
+              Free on the App Store · iOS 15.1+
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
