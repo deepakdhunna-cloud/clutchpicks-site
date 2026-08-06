@@ -27,7 +27,7 @@ function Word({
   progress: MotionValue<number>;
   index: number;
 }) {
-  const start = 0.1 + index * 0.13;
+  const start = 0.16 + index * 0.13;
   const opacity = useTransform(progress, [start, start + 0.12], [0, 1]);
   const y = useTransform(progress, [start, start + 0.12], [46, 0]);
   const scale = useTransform(progress, [start, start + 0.13], [2.7, 1]);
@@ -76,7 +76,7 @@ export default function StickyStatement() {
   }
 
   return (
-    <div ref={ref} id="signoff" className="relative h-[190svh]">
+    <div ref={ref} id="signoff" className="relative h-[170svh]">
       <div className="sticky top-0 flex h-svh flex-col items-center justify-center">
         {WORDS.map((w, i) => (
           <Word

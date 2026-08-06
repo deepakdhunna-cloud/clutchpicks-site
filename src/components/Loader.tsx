@@ -21,10 +21,11 @@ export function introSeen(): boolean {
 /**
  * Scale an intro reveal delay down to near-zero on repeat visits.
  * Base values are authored against the original 1.25s loader; the sign-on
- * sequence holds ~1.3s longer, so first-visit reveals shift by that much.
+ * sequence (bars + ON AIR + collapse) holds ~1.75s longer, so first-visit
+ * reveals shift by that much and nothing plays behind the boot screen.
  */
 export function introDelay(base: number): number {
-  return introSeen() ? Math.min(base, 0.15) : base + 1.3;
+  return introSeen() ? Math.min(base, 0.15) : base + 1.75;
 }
 
 function statusFor(lit: number): string {

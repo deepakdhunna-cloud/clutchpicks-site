@@ -132,9 +132,10 @@ const ChannelOSD = memo(function ChannelOSD() {
         initial={{ opacity: 0, scaleY: 2.1, filter: "brightness(2.4)" }}
         animate={{ opacity: 1, scaleY: 1, filter: "brightness(1)" }}
         transition={{ duration: 0.22, ease: "easeOut" }}
-        className="p-2 text-l2 tabular"
+        className="whitespace-nowrap p-2 text-l2 tabular"
       >
-        CH {ch} · {label}
+        CH {ch}
+        <span className="hidden sm:inline"> · {label}</span>
       </motion.span>
       {flash && (
         <span

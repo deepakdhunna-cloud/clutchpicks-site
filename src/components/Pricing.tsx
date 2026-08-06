@@ -167,7 +167,7 @@ export default function Pricing() {
           }
           viewport={{ once: true, margin: "-18% 0px" }}
           transition={SPRING}
-          className="will-change-transform lg:mr-[-10px] lg:mt-5"
+          className="will-change-transform lg:mr-[-22px] lg:mt-6"
         >
           <FreeCard />
         </motion.div>
@@ -179,7 +179,7 @@ export default function Pricing() {
           }
           viewport={{ once: true, margin: "-18% 0px" }}
           transition={{ ...SPRING, delay: 0.08 }}
-          className="will-change-transform lg:ml-[-10px]"
+          className="relative z-[1] will-change-transform lg:ml-[-22px]"
         >
           <ProCard />
         </motion.div>
@@ -195,7 +195,7 @@ export default function Pricing() {
             reduced ? { opacity: 1 } : { opacity: 1, scale: 1, rotate: -6 }
           }
           viewport={{ once: true, margin: "-18% 0px" }}
-          transition={{ ...SPRING, delay: 0.22 }}
+          transition={{ ...SPRING, delay: 0.26 }}
           className="pointer-events-none absolute left-1/2 top-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 lg:block"
         >
           <span

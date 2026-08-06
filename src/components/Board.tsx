@@ -143,7 +143,7 @@ function BoardTheater() {
     target: ref,
     offset: ["start start", "end end"],
   });
-  const x = useTransform(p, [0.05, 0.95], ["3vw", "-104vw"]);
+  const x = useTransform(p, [0.05, 0.95], ["3vw", "-102vw"]);
   const ghostX = useTransform(p, [0, 1], ["4vw", "-30vw"]);
   const [reel, setReel] = useState(1);
   useMotionValueEvent(p, "change", (v) => {
@@ -158,13 +158,13 @@ function BoardTheater() {
         <motion.span
           aria-hidden="true"
           style={{ x: ghostX }}
-          className="text-ghost pointer-events-none absolute top-[11svh] left-0 whitespace-nowrap font-serif text-[15vw] font-semibold italic leading-none"
+          className="text-ghost pointer-events-none absolute top-[15svh] left-0 whitespace-nowrap font-serif text-[15vw] font-semibold italic leading-none"
         >
           The Board · The Board
         </motion.span>
 
         {/* eyebrow pinned at the top of the scene */}
-        <div className="absolute inset-x-0 top-[9svh] grid grid-cols-12 px-14">
+        <div className="absolute inset-x-0 top-[max(9svh,5.5rem)] grid grid-cols-12 px-14">
           <Eyebrow
             index="02"
             title="The Board"
@@ -173,7 +173,7 @@ function BoardTheater() {
         </div>
 
         {/* reel counter */}
-        <div className="absolute bottom-[9svh] right-14 font-led text-lg text-l3 tabular">
+        <div className="absolute bottom-[10svh] right-14 font-led text-lg text-l3 tabular">
           REEL 0{reel} / 04
         </div>
 

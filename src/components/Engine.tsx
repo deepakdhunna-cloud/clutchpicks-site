@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
+  easeOut,
   motion,
   useInView,
   useMotionValueEvent,
@@ -79,9 +80,13 @@ function MeterBar({
   const a = 0.36 + index * 0.075;
   const b = a + 0.09;
   const fromLeft = index % 2 === 0;
-  const x = useTransform(p, [a, b], [fromLeft ? "-70vw" : "70vw", "0vw"]);
-  const opacity = useTransform(p, [a, b], [0, 1]);
-  const fill = useTransform(p, [a + 0.03, b + 0.05], [0, tier.width / 100]);
+  const x = useTransform(p, [a, b], [fromLeft ? "-70vw" : "70vw", "0vw"], {
+    ease: easeOut,
+  });
+  const opacity = useTransform(p, [a, a + 0.05], [0, 1]);
+  const fill = useTransform(p, [a + 0.03, b + 0.05], [0, tier.width / 100], {
+    ease: easeOut,
+  });
 
   return (
     <motion.div
@@ -116,21 +121,23 @@ function EngineScene() {
     offset: ["start start", "end end"],
   });
 
-  const stOpacity = useTransform(p, [0.02, 0.1, 0.24, 0.33], [0, 1, 1, 0]);
-  const stScale = useTransform(p, [0.02, 0.12, 0.24, 0.33], [0.94, 1, 1, 0.6]);
-  const stY = useTransform(p, [0.24, 0.33], ["0svh", "-26svh"]);
+  const stOpacity = useTransform(p, [0.02, 0.1, 0.24, 0.35], [0, 1, 1, 0]);
+  const stScale = useTransform(p, [0.02, 0.12, 0.24, 0.35], [0.94, 1, 1, 0.62]);
+  const stY = useTransform(p, [0.24, 0.35], ["0svh", "-24svh"], {
+    ease: easeOut,
+  });
 
   const [statsOn, setStatsOn] = useState(false);
   useMotionValueEvent(p, "change", (v) => setStatsOn(v > 0.72));
 
-  const wallOpacity = useTransform(p, [0.33, 0.38], [0, 1]);
-  const rulesOpacity = useTransform(p, [0.8, 0.88], [0, 1]);
+  const wallOpacity = useTransform(p, [0.31, 0.37], [0, 1]);
+  const rulesOpacity = useTransform(p, [0.78, 0.86], [0, 1]);
 
   return (
     <section ref={ref} id="engine" className="relative h-[340svh]">
       <div className="sticky top-0 h-svh overflow-hidden">
         {/* eyebrow pinned top */}
-        <div className="absolute inset-x-0 top-[9svh] grid grid-cols-12 px-14">
+        <div className="absolute inset-x-0 top-[max(9svh,5.5rem)] grid grid-cols-12 px-14">
           <Eyebrow
             index="03"
             title="The Engine Room"
@@ -170,11 +177,19 @@ function EngineScene() {
         {/* the gauge wall */}
         <motion.div
           style={{ opacity: wallOpacity }}
-          className="absolute inset-x-0 bottom-[17svh] top-[26svh] flex flex-col justify-center gap-[2svh]"
+          className="absolute inset-x-0 bottom-[16svh] top-[25svh] flex flex-col justify-center gap-[2svh]"
         >
-          <p className="px-[6vw] font-led text-lg tracking-[0.1em] text-l4">
-            CONFIDENCE READOUT — STRAIGHT FROM THE APP
-          </p>
+          <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-1 px-[6vw]">
+            <p className="font-led text-lg tracking-[0.1em] text-l4">
+              CONFIDENCE READOUT — STRAIGHT FROM THE APP
+            </p>
+            <motion.p
+              style={{ opacity: rulesOpacity }}
+              className="font-led text-base tracking-[0.08em] text-l4"
+            >
+              HOUSE RULES — {RULES.map((r) => r.toUpperCase()).join(" · ")}
+            </motion.p>
+          </div>
           {CONFIDENCE_TIERS.map((tier, i) => (
             <MeterBar key={tier.label} p={p} tier={tier} index={i} />
           ))}
@@ -191,12 +206,12 @@ function EngineScene() {
                 transition={{ duration: 0.5, delay: i * 0.09, ease: EASE_OUT }}
                 className={`absolute flex flex-col gap-1 ${
                   i === 0
-                    ? "left-[5vw] top-[20svh]"
+                    ? "left-[5vw] top-[19svh]"
                     : i === 1
-                      ? "right-[5vw] top-[20svh] items-end"
+                      ? "right-[5vw] top-[19svh] items-end"
                       : i === 2
-                        ? "bottom-[8svh] left-[5vw]"
-                        : "bottom-[8svh] right-[5vw] items-end"
+                        ? "bottom-[9svh] left-[5vw]"
+                        : "bottom-[9svh] right-[5vw] items-end"
                 }`}
               >
                 <span className="glow-serif font-serif text-5xl font-semibold tracking-tight">
@@ -210,13 +225,6 @@ function EngineScene() {
           </>
         )}
 
-        {/* house rules ticker line */}
-        <motion.p
-          style={{ opacity: rulesOpacity }}
-          className="absolute inset-x-0 bottom-[3svh] text-center font-led text-base tracking-[0.1em] text-l4"
-        >
-          HOUSE RULES — {RULES.map((r) => r.toUpperCase()).join(" — ")}
-        </motion.p>
       </div>
     </section>
   );

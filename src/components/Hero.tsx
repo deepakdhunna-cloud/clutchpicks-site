@@ -2,9 +2,11 @@
 
 import { useRef, type CSSProperties, type ReactNode } from "react";
 import {
+  easeOut,
   motion,
   useMotionTemplate,
   useScroll,
+  useSpring,
   useTransform,
   type MotionValue,
 } from "framer-motion";
@@ -97,11 +99,15 @@ function SceneWord({
   delay: number;
   children: ReactNode;
 }) {
-  const x = useTransform(p, [0.26, 0.5], ["0vw", scatter.x]);
-  const y = useTransform(p, [0, 0.26, 0.5], ["0svh", "-2svh", scatter.y]);
-  const r = useTransform(p, [0.26, 0.5], [rotate, rotate + scatter.r]);
-  const opacity = useTransform(p, [0.28, 0.46], [1, 0]);
-  const blur = useTransform(p, [0.28, 0.46], [0, 16]);
+  const x = useTransform(p, [0.3, 0.52], ["0vw", scatter.x], { ease: easeOut });
+  const y = useTransform(p, [0, 0.3, 0.52], ["0svh", "-2svh", scatter.y], {
+    ease: [easeOut, easeOut],
+  });
+  const r = useTransform(p, [0.3, 0.52], [rotate, rotate + scatter.r], {
+    ease: easeOut,
+  });
+  const opacity = useTransform(p, [0.32, 0.5], [1, 0]);
+  const blur = useTransform(p, [0.32, 0.5], [0, 12]);
   const filter = useMotionTemplate`blur(${blur}px)`;
   return (
     <motion.span
@@ -131,10 +137,11 @@ export default function Hero() {
     offset: ["start start", "end end"],
   });
 
-  /* scene drivers */
-  const zoom = useTransform(p, [0.42, 0.9], [0, 1]);
-  const uiOpacity = useTransform(p, [0.2, 0.34], [1, 0]);
-  const staticOpacity = useTransform(p, [0.78, 0.92], [0, 1]);
+  /* scene drivers — the dolly rides a spring so scrubbing feels weighted */
+  const zoomRaw = useTransform(p, [0.46, 0.88], [0, 1]);
+  const zoom = useSpring(zoomRaw, { stiffness: 90, damping: 24 });
+  const uiOpacity = useTransform(p, [0.24, 0.38], [1, 0]);
+  const staticOpacity = useTransform(p, [0.8, 0.94], [0, 1]);
 
   /* stacked-fallback drivers (mobile) */
   const rigY = useTransform(p, [0, 1], [0, -110]);
@@ -193,32 +200,10 @@ export default function Hero() {
             </SceneWord>
           </div>
 
-          {/* quiet meta + scroll cue + ticker */}
+          {/* bottom-left stack: cue + meta, balancing "Simulations" opposite */}
           <motion.div
             style={{ opacity: uiOpacity }}
-            className="pointer-events-none absolute inset-x-0 top-[11.5svh] z-10 flex flex-col items-center gap-1.5"
-          >
-            <motion.p
-              className="font-serif text-xl font-medium italic text-l2"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: introDelay(1.35) }}
-            >
-              AI Sports Predictions
-            </motion.p>
-            <motion.p
-              className="font-led text-base tracking-[0.14em] text-l3"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: introDelay(1.5) }}
-            >
-              FREE ON THE APP STORE
-            </motion.p>
-          </motion.div>
-
-          <motion.div
-            style={{ opacity: uiOpacity }}
-            className="pointer-events-none absolute inset-x-0 bottom-[8.5svh] z-10 flex justify-center"
+            className="pointer-events-none absolute bottom-[10.5svh] left-[6vw] z-10 flex flex-col gap-2.5"
           >
             <motion.p
               className="flex items-center gap-4 font-serif text-xl text-l2"
@@ -232,11 +217,19 @@ export default function Hero() {
                 <FoamFinger delay={0.18} />
               </span>
             </motion.p>
+            <motion.p
+              className="font-led text-base tracking-[0.14em] text-l3"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: introDelay(2.15) }}
+            >
+              AI SPORTS PREDICTIONS · FREE ON THE APP STORE
+            </motion.p>
           </motion.div>
 
           <motion.div
             style={{ opacity: uiOpacity }}
-            className="pointer-events-none absolute inset-x-0 bottom-[3svh] z-10"
+            className="pointer-events-none absolute inset-x-0 bottom-[6.5svh] z-10"
           >
             <LeagueTicker />
           </motion.div>

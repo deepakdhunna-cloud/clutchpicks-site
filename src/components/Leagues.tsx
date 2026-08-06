@@ -126,7 +126,9 @@ export default function Leagues() {
           className="flex flex-col gap-[3.5svh] py-6 will-change-transform"
         >
           {ROWS.map((row, i) => (
-            <MarqueeRow key={i} {...row} />
+            <Fade key={i} delay={i * 0.1} y={34}>
+              <MarqueeRow {...row} />
+            </Fade>
           ))}
         </motion.div>
       )}
