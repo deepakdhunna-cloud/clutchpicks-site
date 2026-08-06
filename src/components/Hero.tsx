@@ -1,9 +1,15 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { LEAGUES } from "@/lib/site";
-import { MaskLines, useReducedSafe } from "./Reveal";
+import { useRef, type CSSProperties, type ReactNode } from "react";
+import {
+  motion,
+  useMotionTemplate,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
+import { EASE, LEAGUES } from "@/lib/site";
+import { MaskLines, useDesktop, useReducedSafe } from "./Reveal";
 import { introDelay } from "./Loader";
 import CrtRig from "./CrtRig";
 
@@ -32,13 +38,9 @@ export function FoamFinger({
         fill="none"
         className="h-[1.3em] w-auto rotate-180"
       >
-        {/* fat foam index finger */}
         <rect x="3.4" y="0.5" width="7.2" height="14" rx="3.6" fill="currentColor" />
-        {/* mitt */}
         <rect x="2" y="10" width="18" height="13.5" rx="5.2" fill="currentColor" />
-        {/* thumb bump */}
         <rect x="17.2" y="8.2" width="4.3" height="9" rx="2.15" fill="currentColor" />
-        {/* maroon wrist band */}
         <rect x="4.6" y="23.8" width="12.8" height="3.7" rx="1.4" fill="#8B0A1F" />
       </svg>
     </motion.span>
@@ -50,7 +52,7 @@ function LeagueTicker() {
   const items = [...LEAGUES, ...LEAGUES];
   return (
     <div
-      className="relative mt-10 overflow-hidden lg:mt-12"
+      className="relative overflow-hidden"
       style={{
         maskImage:
           "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
@@ -77,31 +79,192 @@ function LeagueTicker() {
   );
 }
 
+/** A statement word staged in space — loads in on its own, scatters on scroll. */
+function SceneWord({
+  p,
+  style,
+  className = "",
+  rotate,
+  scatter,
+  delay,
+  children,
+}: {
+  p: MotionValue<number>;
+  style: CSSProperties;
+  className?: string;
+  rotate: number;
+  scatter: { x: string; y: string; r: number };
+  delay: number;
+  children: ReactNode;
+}) {
+  const x = useTransform(p, [0.26, 0.5], ["0vw", scatter.x]);
+  const y = useTransform(p, [0, 0.26, 0.5], ["0svh", "-2svh", scatter.y]);
+  const r = useTransform(p, [0.26, 0.5], [rotate, rotate + scatter.r]);
+  const opacity = useTransform(p, [0.28, 0.46], [1, 0]);
+  const blur = useTransform(p, [0.28, 0.46], [0, 16]);
+  const filter = useMotionTemplate`blur(${blur}px)`;
+  return (
+    <motion.span
+      className="absolute block will-change-transform"
+      style={{ ...style, x, y, rotate: r, opacity, filter }}
+    >
+      <motion.span
+        className={`block ${className}`}
+        initial={{ opacity: 0, y: 110, scale: 1.08 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 1, ease: EASE, delay: introDelay(delay) }}
+      >
+        {children}
+      </motion.span>
+    </motion.span>
+  );
+}
+
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedSafe();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-  const rigY = useTransform(scrollYProgress, [0, 1], [0, -110]);
-  const rigOpacity = useTransform(scrollYProgress, [0, 0.55, 1], [1, 0.85, 0]);
+  const desktop = useDesktop();
+  const cinema = desktop && !reduced;
 
+  const { scrollYProgress: p } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"],
+  });
+
+  /* scene drivers */
+  const zoom = useTransform(p, [0.42, 0.9], [0, 1]);
+  const uiOpacity = useTransform(p, [0.2, 0.34], [1, 0]);
+  const staticOpacity = useTransform(p, [0.78, 0.92], [0, 1]);
+
+  /* stacked-fallback drivers (mobile) */
+  const rigY = useTransform(p, [0, 1], [0, -110]);
+  const rigOpacity = useTransform(p, [0, 0.55, 1], [1, 0.85, 0]);
+
+  if (cinema) {
+    return (
+      <section ref={ref} id="top" className="relative h-[320svh]">
+        <div className="sticky top-0 h-svh overflow-hidden">
+          {/* the jumbotron, center stage */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[5svh]">
+            <CrtRig zoom={zoom} className="h-full w-full" />
+          </div>
+
+          {/* statement words staged around the rig */}
+          <div className="pointer-events-none absolute inset-0 z-10">
+            <SceneWord
+              p={p}
+              style={{ top: "17svh", left: "4.5vw" }}
+              rotate={-3.5}
+              scatter={{ x: "-42vw", y: "-20svh", r: -9 }}
+              delay={1.45}
+              className="glow-serif-strong animate-glow-breathe font-serif text-[7vw] font-semibold leading-none tracking-tight"
+            >
+              Every Pick,
+            </SceneWord>
+            <SceneWord
+              p={p}
+              style={{ top: "31svh", right: "5vw" }}
+              rotate={2.5}
+              scatter={{ x: "40vw", y: "-14svh", r: 8 }}
+              delay={1.58}
+              className="glow-serif font-serif text-[5.6vw] font-medium italic leading-none tracking-tight"
+            >
+              Run Through
+            </SceneWord>
+            <SceneWord
+              p={p}
+              style={{ bottom: "27svh", left: "6vw" }}
+              rotate={-2}
+              scatter={{ x: "-46vw", y: "20svh", r: -7 }}
+              delay={1.7}
+              className="glow-ice font-serif text-[10.5vw] font-semibold leading-none tracking-tight tabular"
+            >
+              50,000
+            </SceneWord>
+            <SceneWord
+              p={p}
+              style={{ bottom: "12svh", right: "6.5vw" }}
+              rotate={1.5}
+              scatter={{ x: "42vw", y: "24svh", r: 8 }}
+              delay={1.82}
+              className="glow-serif-strong font-serif text-[6.8vw] font-semibold leading-none tracking-tight"
+            >
+              Simulations
+            </SceneWord>
+          </div>
+
+          {/* quiet meta + scroll cue + ticker */}
+          <motion.div
+            style={{ opacity: uiOpacity }}
+            className="pointer-events-none absolute inset-x-0 top-[11.5svh] z-10 flex flex-col items-center gap-1.5"
+          >
+            <motion.p
+              className="font-serif text-xl font-medium italic text-l2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: introDelay(1.35) }}
+            >
+              AI Sports Predictions
+            </motion.p>
+            <motion.p
+              className="font-led text-base tracking-[0.14em] text-l3"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: introDelay(1.5) }}
+            >
+              FREE ON THE APP STORE
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            style={{ opacity: uiOpacity }}
+            className="pointer-events-none absolute inset-x-0 bottom-[8.5svh] z-10 flex justify-center"
+          >
+            <motion.p
+              className="flex items-center gap-4 font-serif text-xl text-l2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.9, delay: introDelay(1.95) }}
+            >
+              Scroll Into the Broadcast
+              <span className="flex items-center gap-1.5 text-l1">
+                <FoamFinger />
+                <FoamFinger delay={0.18} />
+              </span>
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            style={{ opacity: uiOpacity }}
+            className="pointer-events-none absolute inset-x-0 bottom-[3svh] z-10"
+          >
+            <LeagueTicker />
+          </motion.div>
+
+          {/* the cut — static swallows the screen as the dolly lands */}
+          <motion.div
+            style={{ opacity: staticOpacity, backgroundImage: "url(/noise.png)" }}
+            className="static-loop pointer-events-none absolute inset-0 z-20"
+          />
+        </div>
+      </section>
+    );
+  }
+
+  /* stacked hero — phones and reduced motion */
   return (
     <section
       ref={ref}
       id="top"
       className="hero-pad relative flex min-h-svh w-full flex-col px-4 pb-10 lg:px-14 lg:pb-14"
     >
-      {/* The broadcast rig — glides off as the viewer changes channels */}
       <motion.div
         style={reduced ? undefined : { y: rigY, opacity: rigOpacity }}
-        className="pointer-events-none absolute inset-x-0 bottom-[4svh] top-[57svh] lg:inset-y-0 lg:left-[44%] lg:right-[-3%] lg:bottom-0"
+        className="pointer-events-none absolute inset-x-0 bottom-[4svh] top-[57svh]"
       >
         <CrtRig className="h-full w-full" />
       </motion.div>
 
-      {/* Meta — one quiet cluster, top-left */}
       <div className="relative z-10 max-w-xs">
         <MaskLines
           as="p"
@@ -119,11 +282,10 @@ export default function Hero() {
         </motion.p>
       </div>
 
-      {/* Glowing display statement — left wing */}
-      <div className="relative z-10 flex flex-1 flex-col justify-start pt-[7svh] lg:max-w-[56%] lg:justify-center lg:pt-0">
+      <div className="relative z-10 flex flex-1 flex-col justify-start pt-[7svh]">
         <MaskLines
           as="h1"
-          className="glow-serif-strong animate-glow-breathe font-serif text-[11.5svw] font-semibold leading-[1.02] tracking-tight sm:text-[9svw] lg:text-[5.6svw]"
+          className="glow-serif-strong animate-glow-breathe font-serif text-[11.5svw] font-semibold leading-[1.02] tracking-tight sm:text-[9svw]"
           lines={[
             "Every Pick,",
             <span key="l2">
@@ -139,7 +301,7 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.9, delay: introDelay(1.85) }}
         >
-          Scroll for Tonight&apos;s Board
+          Scroll Into the Broadcast
           <span className="flex items-center gap-1.5 text-l1">
             <FoamFinger />
             <FoamFinger delay={0.18} />
@@ -147,8 +309,7 @@ export default function Hero() {
         </motion.p>
       </div>
 
-      {/* Ticker rides the bottom edge */}
-      <div className="relative z-10">
+      <div className="relative z-10 mt-10">
         <LeagueTicker />
       </div>
     </section>

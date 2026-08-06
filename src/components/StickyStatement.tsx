@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import {
   motion,
+  useMotionTemplate,
   useScroll,
   useTransform,
   type MotionValue,
@@ -28,11 +29,19 @@ function Word({
 }) {
   const start = 0.1 + index * 0.13;
   const opacity = useTransform(progress, [start, start + 0.12], [0, 1]);
-  const y = useTransform(progress, [start, start + 0.12], [40, 0]);
+  const y = useTransform(progress, [start, start + 0.12], [46, 0]);
+  const scale = useTransform(progress, [start, start + 0.13], [2.7, 1]);
+  const rotate = useTransform(
+    progress,
+    [start, start + 0.13],
+    [index % 2 === 0 ? 7 : -7, 0]
+  );
+  const blur = useTransform(progress, [start, start + 0.12], [16, 0]);
+  const filter = useMotionTemplate`blur(${blur}px)`;
   return (
     <motion.span
-      style={{ opacity, y }}
-      className={`font-serif text-[13svw] font-semibold leading-[1.02] tracking-tight lg:text-[8svw] ${className}`}
+      style={{ opacity, y, scale, rotate, filter }}
+      className={`font-serif text-[13svw] font-semibold leading-[1.02] tracking-tight will-change-transform lg:text-[8svw] ${className}`}
     >
       {text}
     </motion.span>

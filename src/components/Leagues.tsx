@@ -1,79 +1,143 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { LEAGUES, EASE } from "@/lib/site";
-import { Eyebrow, Fade } from "./Reveal";
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useVelocity,
+} from "framer-motion";
+import { LEAGUES } from "@/lib/site";
+import { Eyebrow, Fade, useReducedSafe } from "./Reveal";
 
-function LeagueRow({
-  abbr,
-  name,
-  color,
-  index,
+/* Three opposing rows of giant serif league marks that shear with the
+ * viewer's scroll speed — the coverage as a velocity wall. */
+const ROWS = [
+  { leagues: LEAGUES.slice(0, 4), duration: "30s", reverse: false, rotate: -1.4 },
+  { leagues: LEAGUES.slice(4, 8), duration: "36s", reverse: true, rotate: 1.1 },
+  { leagues: LEAGUES.slice(8), duration: "26s", reverse: false, rotate: -0.7 },
+];
+
+function MarqueeRow({
+  leagues,
+  duration,
+  reverse,
+  rotate,
 }: {
-  abbr: string;
-  name: string;
-  color: string;
-  index: number;
+  leagues: typeof LEAGUES;
+  duration: string;
+  reverse: boolean;
+  rotate: number;
 }) {
-  return (
-    <motion.li
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-6% 0px" }}
-      transition={{ duration: 0.6, ease: EASE, delay: index * 0.03 }}
-      className="group relative border-t border-line last:border-b"
-    >
-      <div className="grid grid-cols-12 items-baseline gap-x-4 py-4 lg:py-5">
-        {/* accent bar on hover */}
-        <span
-          className="absolute inset-y-2 left-[-1rem] w-1 origin-bottom scale-y-0 transition-transform duration-300 ease-out group-hover:scale-y-100 lg:left-[-1.25rem]"
-          style={{ backgroundColor: color }}
-          aria-hidden="true"
-        />
-        <span className="col-span-1 font-led text-base text-l4 tabular">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-        <span className="col-span-7 flex items-center gap-3 sm:col-span-5 lg:col-span-4">
-          <span className="glow-serif font-serif text-[7.4svw] font-semibold leading-none tracking-tight transition-transform duration-300 ease-out group-hover:translate-x-2 group-hover:italic sm:text-4xl lg:text-[3.1svw]">
-            {abbr}
+  const chunk = (
+    <>
+      {leagues.map((l) => (
+        <span key={l.abbr} className="flex items-baseline gap-4 whitespace-nowrap">
+          <span
+            className="inline-block h-2.5 w-2.5 flex-none self-center rounded-full lg:h-[1.3vw] lg:w-[1.3vw]"
+            style={{ backgroundColor: l.color, boxShadow: `0 0 22px ${l.color}88` }}
+          />
+          <span className="glow-serif font-serif text-[9.5vw] font-semibold leading-none tracking-tight lg:text-[6.5vw]">
+            {l.abbr}
+          </span>
+          <span className="font-serif text-base italic text-l3 lg:text-[1.5vw]">
+            {l.name}
           </span>
         </span>
-        <span className="col-span-4 hidden items-center justify-end gap-2.5 text-right font-serif text-[15px] italic text-l3 transition-colors duration-300 group-hover:text-l2 sm:flex sm:col-start-9 lg:col-span-4 lg:col-start-9">
-          <span
-            className="inline-block h-2 w-2 shrink-0 rounded-full"
-            style={{ backgroundColor: color }}
-            aria-hidden="true"
-          />
-          {name}
-        </span>
+      ))}
+    </>
+  );
+  return (
+    <div
+      className="relative overflow-visible"
+      style={{ rotate: `${rotate}deg` }}
+      aria-hidden="true"
+    >
+      <div
+        className="animate-marquee flex w-max items-center gap-[4vw] pr-[4vw]"
+        style={{
+          animationDuration: duration,
+          animationDirection: reverse ? "reverse" : "normal",
+        }}
+      >
+        <div className="flex items-center gap-[4vw]">{chunk}</div>
+        <div className="flex items-center gap-[4vw]">{chunk}</div>
+        <div className="flex items-center gap-[4vw]">{chunk}</div>
+        <div className="flex items-center gap-[4vw]">{chunk}</div>
       </div>
-    </motion.li>
+    </div>
   );
 }
 
-/** Editorial index of the 11 marketed leagues. */
+/** Editorial index — reduced-motion fallback keeps the info plain. */
+function LeaguesIndex() {
+  return (
+    <ul className="col-span-12 list-none">
+      {LEAGUES.map((l, i) => (
+        <li key={l.abbr} className="border-t border-line last:border-b">
+          <div className="grid grid-cols-12 items-baseline gap-x-4 py-4">
+            <span className="col-span-1 font-led text-base text-l4 tabular">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <span className="col-span-7 font-serif text-3xl font-semibold tracking-tight">
+              {l.abbr}
+            </span>
+            <span className="col-span-4 flex items-center justify-end gap-2.5 text-right font-serif text-[15px] italic text-l3">
+              <span
+                className="inline-block h-2 w-2 shrink-0 rounded-full"
+                style={{ backgroundColor: l.color }}
+              />
+              {l.name}
+            </span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** The coverage — 11 leagues as a scroll-sheared marquee wall. */
 export default function Leagues() {
+  const reduced = useReducedSafe();
+  const { scrollY } = useScroll();
+  const velocity = useVelocity(scrollY);
+  const skew = useSpring(useTransform(velocity, [-2600, 2600], [-11, 11]), {
+    stiffness: 220,
+    damping: 30,
+  });
+
   return (
     <section
       id="leagues"
-      className="grid w-full grid-cols-12 px-4 py-24 lg:px-14 lg:py-32"
+      className="w-full overflow-x-clip py-20 lg:py-28"
     >
-      <h2 className="sr-only">The Leagues</h2>
-      <Eyebrow
-        index="04"
-        title="The Leagues"
-        meta="11 leagues · one board"
-      />
-      <ul className="col-span-12 list-none">
-        {LEAGUES.map((l, i) => (
-          <LeagueRow key={l.abbr} {...l} index={i} />
-        ))}
-      </ul>
-      <Fade className="col-span-12 mt-8">
-        <p className="font-led text-base tracking-[0.08em] text-l4">
-          LIVE SCORES, PICKS, AND FULL COVERAGE FOR EVERY LEAGUE ON THE BOARD.
-        </p>
-      </Fade>
+      <div className="grid w-full grid-cols-12 px-4 lg:px-14">
+        <h2 className="sr-only">The Leagues</h2>
+        <Eyebrow index="04" title="The Leagues" meta="11 leagues · one board" />
+      </div>
+
+      {reduced ? (
+        <div className="grid w-full grid-cols-12 px-4 lg:px-14">
+          <LeaguesIndex />
+        </div>
+      ) : (
+        <motion.div
+          style={{ skewX: skew }}
+          className="flex flex-col gap-[3.5svh] py-6 will-change-transform"
+        >
+          {ROWS.map((row, i) => (
+            <MarqueeRow key={i} {...row} />
+          ))}
+        </motion.div>
+      )}
+
+      <div className="grid w-full grid-cols-12 px-4 pt-10 lg:px-14">
+        <Fade className="col-span-12">
+          <p className="font-led text-base tracking-[0.08em] text-l4">
+            LIVE SCORES, PICKS, AND FULL COVERAGE FOR EVERY LEAGUE ON THE BOARD.
+          </p>
+        </Fade>
+      </div>
     </section>
   );
 }

@@ -1,7 +1,19 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
-import { Eyebrow, Fade, MaskLines } from "./Reveal";
+import { useRef, useState, type ReactNode } from "react";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import {
+  Eyebrow,
+  Fade,
+  MaskLines,
+  useDesktop,
+  useReducedSafe,
+} from "./Reveal";
 import GameCard from "./board/GameCard";
 import LiveCard from "./board/LiveCard";
 import RecordCard from "./board/RecordCard";
@@ -84,9 +96,21 @@ function TapeEdge({ frame, bottom = false }: { frame: number; bottom?: boolean }
   );
 }
 
-function Frame({ spec, index }: { spec: FrameSpec; index: number }) {
+function Frame({
+  spec,
+  index,
+  wide = false,
+}: {
+  spec: FrameSpec;
+  index: number;
+  wide?: boolean;
+}) {
   return (
-    <figure className="w-[min(86vw,500px)] flex-none snap-center">
+    <figure
+      className={`flex-none snap-center ${
+        wide ? "w-[min(36vw,560px)]" : "w-[min(86vw,500px)]"
+      }`}
+    >
       <div className="group border border-line bg-black/45 shadow-[0_24px_60px_rgba(0,0,0,0.55)]">
         <TapeEdge frame={index + 1} />
         <div className="relative px-2.5 py-3 transition-transform duration-500 ease-out lg:group-hover:-translate-y-1">
@@ -112,17 +136,90 @@ function Frame({ spec, index }: { spec: FrameSpec; index: number }) {
   );
 }
 
-/** The board — replica app cards spliced into a broadcast film strip. */
-export default function Board() {
+/** Pinned tape theater — vertical scroll drives the reel sideways. */
+function BoardTheater() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress: p } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"],
+  });
+  const x = useTransform(p, [0.05, 0.95], ["3vw", "-104vw"]);
+  const ghostX = useTransform(p, [0, 1], ["4vw", "-30vw"]);
+  const [reel, setReel] = useState(1);
+  useMotionValueEvent(p, "change", (v) => {
+    setReel(Math.min(4, Math.max(1, Math.floor(((v - 0.1) / 0.85) * 4) + 1)));
+  });
+
+  return (
+    <section ref={ref} id="board" className="relative h-[300svh]">
+      <h2 className="sr-only">The Board</h2>
+      <div className="sticky top-0 flex h-svh flex-col justify-center overflow-hidden">
+        {/* ghost title drifting behind the reel */}
+        <motion.span
+          aria-hidden="true"
+          style={{ x: ghostX }}
+          className="text-ghost pointer-events-none absolute top-[11svh] left-0 whitespace-nowrap font-serif text-[15vw] font-semibold italic leading-none"
+        >
+          The Board · The Board
+        </motion.span>
+
+        {/* eyebrow pinned at the top of the scene */}
+        <div className="absolute inset-x-0 top-[9svh] grid grid-cols-12 px-14">
+          <Eyebrow
+            index="02"
+            title="The Board"
+            meta="Real cards from the app — same layouts, same colors"
+          />
+        </div>
+
+        {/* reel counter */}
+        <div className="absolute bottom-[9svh] right-14 font-led text-lg text-l3 tabular">
+          REEL 0{reel} / 04
+        </div>
+
+        {/* the tape itself */}
+        <motion.div style={{ x }} className="flex w-max items-center gap-12 pl-[5vw]">
+          <div className="w-[30vw] flex-none pr-4">
+            <MaskLines
+              as="p"
+              className="glow-serif-strong font-serif text-[3.7vw] font-semibold leading-[1.06] tracking-tight"
+              lines={["The Board,", "On Tape."]}
+            />
+            <p className="mt-5 max-w-sm font-serif text-[17px] leading-relaxed text-l2">
+              Scroll to run the reel — every frame is a{" "}
+              <span className="italic text-l1">real card from the app</span>,
+              same layouts, same colors, same numbers.
+            </p>
+          </div>
+          {FRAMES.map((spec, i) => (
+            <div
+              key={spec.title}
+              className="flex-none"
+              style={{ rotate: `${i % 2 ? 1.6 : -1.8}deg` }}
+            >
+              <Frame spec={spec} index={i} wide />
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/** Swipeable strip — phones and reduced motion. */
+function BoardStrip() {
   const stripRef = useRef<HTMLDivElement>(null);
   const scrollByFrame = (dir: number) => {
     const el = stripRef.current;
     if (!el) return;
-    el.scrollBy({ left: dir * Math.min(el.clientWidth * 0.72, 540), behavior: "smooth" });
+    el.scrollBy({
+      left: dir * Math.min(el.clientWidth * 0.72, 540),
+      behavior: "smooth",
+    });
   };
 
   return (
-    <section id="board" className="w-full py-24 lg:py-32">
+    <section id="board" className="w-full py-20 lg:py-28">
       <div className="grid w-full grid-cols-12 px-4 lg:px-14">
         <h2 className="sr-only">The Board</h2>
         <Eyebrow
@@ -130,7 +227,6 @@ export default function Board() {
           title="The Board"
           meta="Real cards from the app — same layouts, same colors"
         />
-
         <div className="col-span-12 flex flex-wrap items-end justify-between gap-x-10 gap-y-8">
           <div>
             <MaskLines
@@ -146,8 +242,6 @@ export default function Board() {
               </p>
             </Fade>
           </div>
-
-          {/* reel controls */}
           <Fade delay={0.15} className="flex items-center gap-2.5">
             <button
               type="button"
@@ -169,11 +263,10 @@ export default function Board() {
         </div>
       </div>
 
-      {/* the strip — full bleed, snap scrolling */}
-      <Fade className="mt-10 lg:mt-14" y={30}>
+      <Fade className="mt-10" y={30}>
         <div
           ref={stripRef}
-          className="flex snap-x snap-mandatory gap-7 overflow-x-auto px-[7vw] pb-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:gap-9 lg:px-[10vw]"
+          className="flex snap-x snap-mandatory gap-7 overflow-x-auto px-[7vw] pb-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
           {FRAMES.map((spec, i) => (
             <Frame key={spec.title} spec={spec} index={i} />
@@ -182,4 +275,11 @@ export default function Board() {
       </Fade>
     </section>
   );
+}
+
+/** The board — replica app cards spliced into the broadcast's game tape. */
+export default function Board() {
+  const desktop = useDesktop();
+  const reduced = useReducedSafe();
+  return desktop && !reduced ? <BoardTheater /> : <BoardStrip />;
 }

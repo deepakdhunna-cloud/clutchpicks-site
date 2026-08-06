@@ -1,7 +1,8 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { APP_STORE_URL } from "@/lib/site";
-import { Eyebrow, Fade, MaskLines } from "./Reveal";
+import { Eyebrow, Fade, MaskLines, useReducedSafe } from "./Reveal";
 
 const FREE_FEATURES = [
   "Live scores across 11 leagues",
@@ -20,6 +21,8 @@ const PRO_FEATURES = [
   "Live intelligence in My Arena",
   "Postgame review & season trends",
 ];
+
+const SPRING = { type: "spring", stiffness: 130, damping: 17 } as const;
 
 function FeatureList({
   items,
@@ -40,114 +43,187 @@ function FeatureList({
   );
 }
 
-/** Free vs Clutch Pro — pricing from the app's paywall config ($6.99/mo, 3-day trial). */
+function FreeCard() {
+  return (
+    <div className="flex h-full flex-col rounded-2xl border border-line bg-[#070a0f]/95 p-6 shadow-[0_30px_70px_rgba(0,0,0,0.6)] lg:p-8">
+      <div className="flex items-center justify-between">
+        <span className="font-led text-base tracking-[0.14em] text-l3">
+          FREE FOREVER
+        </span>
+        <span className="font-led text-sm tracking-[0.1em] text-l4">
+          HOME TEAM
+        </span>
+      </div>
+      <div className="mt-4 flex items-baseline gap-3">
+        <span className="glow-serif font-serif text-6xl font-semibold tracking-tight lg:text-7xl">
+          $0
+        </span>
+        <span className="font-led text-base tracking-[0.1em] text-l4">
+          NO CREDIT CARD
+        </span>
+      </div>
+      <div className="my-7 h-px bg-line" />
+      <FeatureList items={FREE_FEATURES} />
+      <a
+        href={APP_STORE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="retro-link mt-8 inline-flex w-fit items-center gap-2 py-2 font-serif text-lg text-l1"
+      >
+        Download Free
+      </a>
+    </div>
+  );
+}
+
+function ProCard() {
+  return (
+    <div
+      className="relative flex h-full flex-col overflow-hidden rounded-2xl border p-6 shadow-[0_0_80px_rgba(122,157,184,0.14)] lg:p-8"
+      style={{
+        borderColor: "rgba(122,157,184,0.35)",
+        background:
+          "linear-gradient(160deg, rgba(122,157,184,0.1) 0%, rgba(7,10,15,0.96) 45%, rgba(139,10,31,0.1) 100%)",
+      }}
+    >
+      <div className="flex items-center justify-between">
+        <span className="glow-ice font-serif text-lg font-semibold italic">
+          Clutch Pro
+        </span>
+        <span
+          className="rounded-full border px-3 py-1 font-led text-sm tracking-[0.1em] text-pro"
+          style={{
+            borderColor: "rgba(180,211,235,0.28)",
+            backgroundColor: "rgba(122,157,184,0.12)",
+          }}
+        >
+          3-DAY FREE TRIAL
+        </span>
+      </div>
+      <div className="mt-4 flex items-baseline gap-3">
+        <span className="glow-serif font-serif text-6xl font-semibold tracking-tight lg:text-7xl">
+          $6.99
+        </span>
+        <span className="font-led text-base tracking-[0.1em] text-l4">
+          / MONTH
+        </span>
+      </div>
+      <div className="my-7 h-px bg-line" />
+      <p className="mb-4 font-led text-base tracking-[0.1em] text-l3">
+        EVERYTHING IN FREE, PLUS:
+      </p>
+      <FeatureList items={PRO_FEATURES} accent />
+      <a
+        href={APP_STORE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-cream px-8 py-3.5 font-serif text-lg font-semibold italic text-[#10130f] shadow-[0_0_40px_rgba(252,249,243,0.25)] transition-all duration-300 hover:shadow-[0_0_60px_rgba(252,249,243,0.4)] hover:brightness-105 active:scale-[0.97]"
+      >
+        Start 3-Day Free Trial
+      </a>
+    </div>
+  );
+}
+
+/** The matchup — Free vs Pro staged as tonight's game card. */
 export default function Pricing() {
+  const reduced = useReducedSafe();
+
   return (
     <section
       id="pricing"
-      className="grid w-full grid-cols-12 gap-x-6 gap-y-12 px-4 py-24 lg:px-14 lg:py-32"
+      className="w-full overflow-x-clip px-4 py-20 lg:px-14 lg:py-28"
     >
-      <Eyebrow index="05" title="Pricing" meta="Free forever · Pro when ready" />
+      <div className="grid w-full grid-cols-12">
+        <Eyebrow index="05" title="The Matchup" meta="Free forever · Pro when ready" />
+      </div>
 
-      <div className="col-span-12">
+      {/* scoreboard header */}
+      <div className="text-center">
+        <Fade>
+          <p className="font-led text-lg tracking-[0.18em] text-l3">
+            TONIGHT&apos;S MATCHUP
+          </p>
+        </Fade>
         <MaskLines
           as="h2"
-          className="glow-serif-strong font-serif text-[10svw] font-semibold leading-[1.04] tracking-tight lg:text-[4.4svw]"
+          className="glow-serif-strong mt-3 font-serif text-[10svw] font-semibold leading-[1.04] tracking-tight lg:text-[4.2svw]"
           lines={[
-            "Start Free.",
-            <span key="pro" className="glow-ice italic">
-              Go Pro.
+            <span key="line">
+              Start Free. <span className="glow-ice italic">Go Pro.</span>
             </span>,
           ]}
         />
       </div>
 
-      {/* Free card */}
-      <Fade className="col-span-12 lg:col-span-5" y={24}>
-        <div className="flex h-full flex-col rounded-2xl border border-line bg-white/[0.02] p-6 lg:p-8">
-          <span className="font-led text-base tracking-[0.14em] text-l3">
-            FREE FOREVER
-          </span>
-          <div className="mt-4 flex items-baseline gap-3">
-            <span className="glow-serif font-serif text-6xl font-semibold tracking-tight lg:text-7xl">
-              $0
-            </span>
-            <span className="font-led text-base tracking-[0.1em] text-l4">
-              NO CREDIT CARD
-            </span>
-          </div>
-          <div className="my-7 h-px bg-line" />
-          <FeatureList items={FREE_FEATURES} />
-          <a
-            href={APP_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="retro-link mt-8 inline-flex w-fit items-center gap-2 py-2 font-serif text-lg text-l1"
-          >
-            Download Free
-          </a>
-        </div>
-      </Fade>
-
-      {/* Pro card */}
-      <Fade
-        className="col-span-12 lg:col-span-6 lg:col-start-7"
-        y={24}
-        delay={0.08}
-      >
-        <div
-          className="relative flex h-full flex-col overflow-hidden rounded-2xl border p-6 shadow-[0_0_80px_rgba(122,157,184,0.09)] lg:p-8"
-          style={{
-            borderColor: "rgba(122,157,184,0.3)",
-            background:
-              "linear-gradient(160deg, rgba(122,157,184,0.08) 0%, rgba(255,255,255,0.02) 45%, rgba(139,10,31,0.06) 100%)",
-          }}
+      {/* the collision */}
+      <div className="relative mx-auto mt-14 grid max-w-6xl grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-0">
+        <motion.div
+          initial={
+            reduced ? { opacity: 0 } : { opacity: 0, x: -170, rotate: -9 }
+          }
+          whileInView={
+            reduced ? { opacity: 1 } : { opacity: 1, x: 0, rotate: -2.6 }
+          }
+          viewport={{ once: true, margin: "-18% 0px" }}
+          transition={SPRING}
+          className="will-change-transform lg:mr-[-10px] lg:mt-5"
         >
-          <div className="flex items-center justify-between">
-            <span className="glow-ice font-serif text-lg font-semibold italic">
-              Clutch Pro
-            </span>
-            <span
-              className="rounded-full border px-3 py-1 font-led text-sm tracking-[0.1em] text-pro"
-              style={{
-                borderColor: "rgba(180,211,235,0.28)",
-                backgroundColor: "rgba(122,157,184,0.12)",
-              }}
-            >
-              3-DAY FREE TRIAL
-            </span>
-          </div>
-          <div className="mt-4 flex items-baseline gap-3">
-            <span className="glow-serif font-serif text-6xl font-semibold tracking-tight lg:text-7xl">
-              $6.99
-            </span>
-            <span className="font-led text-base tracking-[0.1em] text-l4">
-              / MONTH
-            </span>
-          </div>
-          <div className="my-7 h-px bg-line" />
-          <p className="mb-4 font-led text-base tracking-[0.1em] text-l3">
-            EVERYTHING IN FREE, PLUS:
-          </p>
-          <FeatureList items={PRO_FEATURES} accent />
-          <a
-            href={APP_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-cream px-8 py-3.5 font-serif text-lg font-semibold italic text-[#10130f] shadow-[0_0_40px_rgba(252,249,243,0.25)] transition-all duration-300 hover:shadow-[0_0_60px_rgba(252,249,243,0.4)] hover:brightness-105 active:scale-[0.97]"
-          >
-            Start 3-Day Free Trial
-          </a>
-        </div>
-      </Fade>
+          <FreeCard />
+        </motion.div>
 
-      {/* Paywall stats + disclosures */}
-      <Fade className="col-span-12 flex flex-col gap-3 border-t border-line pt-8">
-        <p className="font-led text-base tracking-[0.08em] text-l3">
+        <motion.div
+          initial={reduced ? { opacity: 0 } : { opacity: 0, x: 170, rotate: 9 }}
+          whileInView={
+            reduced ? { opacity: 1 } : { opacity: 1, x: 0, rotate: 2.6 }
+          }
+          viewport={{ once: true, margin: "-18% 0px" }}
+          transition={{ ...SPRING, delay: 0.08 }}
+          className="will-change-transform lg:ml-[-10px]"
+        >
+          <ProCard />
+        </motion.div>
+
+        {/* the VS stamp */}
+        <motion.div
+          initial={
+            reduced
+              ? { opacity: 0 }
+              : { opacity: 0, scale: 0, rotate: -14 }
+          }
+          whileInView={
+            reduced ? { opacity: 1 } : { opacity: 1, scale: 1, rotate: -6 }
+          }
+          viewport={{ once: true, margin: "-18% 0px" }}
+          transition={{ ...SPRING, delay: 0.22 }}
+          className="pointer-events-none absolute left-1/2 top-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 lg:block"
+        >
+          <span
+            className="flex h-28 w-28 items-center justify-center rounded-full border-2 font-serif text-5xl font-semibold italic"
+            style={{
+              color: "#eef4fa",
+              borderColor: "rgba(210,86,104,0.65)",
+              background: "rgba(4,6,10,0.92)",
+              boxShadow:
+                "0 0 44px rgba(210,86,104,0.3), 0 0 90px rgba(122,157,184,0.2), inset 0 0 30px rgba(210,86,104,0.12)",
+              textShadow: "0 0 18px rgba(238,244,250,0.5)",
+            }}
+          >
+            VS
+          </span>
+        </motion.div>
+      </div>
+
+      {/* projected outcome + disclosures */}
+      <Fade className="mx-auto mt-12 flex max-w-4xl flex-col gap-3 border-t border-line pt-8 text-center">
+        <p className="font-led text-base tracking-[0.1em] text-l3">
+          PROJECTED OUTCOME — PRO BY A MILE · CANCEL ANYTIME
+        </p>
+        <p className="font-led text-base tracking-[0.08em] text-l4">
           11 LEAGUES · 20 FACTORS · 24/7 UPDATES — EVERY GAME, EVERY LEAGUE,
           EVERY AI PREDICTION.
         </p>
-        <p className="max-w-3xl font-mono text-[11px] leading-relaxed uppercase tracking-[0.08em] text-l3">
+        <p className="mx-auto max-w-3xl font-mono text-[10px] uppercase leading-relaxed tracking-[0.08em] text-l3">
           Eligible users receive a 3-day free trial, then $6.99/month. App
           Store confirms final terms before purchase. Auto-renews unless
           canceled at least 24 hours before the end of the period — cancel in

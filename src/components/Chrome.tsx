@@ -4,6 +4,7 @@ import { memo, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { APP_STORE_URL } from "@/lib/site";
 import { introDelay } from "./Loader";
+import { useDesktop } from "./Reveal";
 
 const NAV = [
   { label: "Board", href: "#board" },
@@ -44,6 +45,7 @@ const CHANNEL_MAP = [
 
 function useChannelSpy() {
   const [active, setActive] = useState(0);
+  const desktop = useDesktop();
   useEffect(() => {
     const io = new IntersectionObserver(
       (entries) => {
@@ -58,12 +60,20 @@ function useChannelSpy() {
       /* a section is "tuned in" when it crosses the viewport's middle band */
       { rootMargin: "-45% 0px -54% 0px" }
     );
-    CHANNEL_MAP.forEach((c) => {
-      const el = document.getElementById(c.id);
-      if (el) io.observe(el);
-    });
-    return () => io.disconnect();
-  }, []);
+    /* the section nodes remount when the cinema/stacked layouts swap,
+     * so re-observe on the flip (plus a tick for the new tree to land) */
+    const arm = () => {
+      CHANNEL_MAP.forEach((c) => {
+        const el = document.getElementById(c.id);
+        if (el) io.observe(el);
+      });
+    };
+    const t = setTimeout(arm, 60);
+    return () => {
+      clearTimeout(t);
+      io.disconnect();
+    };
+  }, [desktop]);
   return CHANNEL_MAP[active];
 }
 

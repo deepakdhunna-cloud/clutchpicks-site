@@ -270,11 +270,19 @@ function makeBeamPlateTexture() {
   return tex;
 }
 
-export default function CrtRig({ className = "" }: { className?: string }) {
+interface CrtRigProps {
+  className?: string;
+  /** 0→1 dolly into the front screen (any object with .get(), e.g. a framer MotionValue). */
+  zoom?: { get(): number };
+}
+
+export default function CrtRig({ className = "", zoom }: CrtRigProps) {
   const hostRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedSafe();
   const reducedRef = useRef(reduced);
   reducedRef.current = reduced;
+  const zoomRef = useRef(zoom);
+  zoomRef.current = zoom;
 
   useEffect(() => {
     const host = hostRef.current;
@@ -474,13 +482,14 @@ export default function CrtRig({ className = "" }: { className?: string }) {
     );
     io.observe(host);
 
+    let baseZ = 5.7;
     const resize = () => {
       const w = host.clientWidth;
       const h = host.clientHeight;
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
       /* keep the whole hang in frame on narrow columns */
-      camera.position.z = w / h < 0.95 ? 7.1 : 5.7;
+      baseZ = w / h < 0.95 ? 7.1 : 5.7;
       camera.updateProjectionMatrix();
     };
     resize();
@@ -520,20 +529,29 @@ export default function CrtRig({ className = "" }: { className?: string }) {
         drawScreen(still ? 1.2 : t);
       }
 
+      /* dolly toward the front screen when the scene drives a zoom */
+      const zRaw = Math.min(1, Math.max(0, zoomRef.current?.get() ?? 0));
+      const ze = zRaw * zRaw * (3 - 2 * zRaw); // smoothstep
+      camera.position.z = baseZ + (2.85 - baseZ) * ze;
+      camera.position.y = 0.32 + (0.5 - 0.32) * ze;
+
       if (!still) {
-        /* pendulum sway from the beam + slow turn + parallax */
-        const swayZ = Math.sin(t * 0.55) * 0.028 + mouse.x * 0.05;
-        const turnY = -0.42 + Math.sin(t * 0.22) * 0.16 + mouse.x * 0.4;
-        const nodX = mouse.y * 0.14 + Math.sin(t * 0.4) * 0.012;
+        /* pendulum sway from the beam + slow turn + parallax,
+         * all blending to a square-on face as the dolly closes in */
+        const calm = 1 - ze;
+        const swayZ = (Math.sin(t * 0.55) * 0.028 + mouse.x * 0.05) * calm;
+        const turnY =
+          (-0.42 + Math.sin(t * 0.22) * 0.16 + mouse.x * 0.4) * calm;
+        const nodX = (mouse.y * 0.14 + Math.sin(t * 0.4) * 0.012) * calm;
         rig.rotation.z += (swayZ - rig.rotation.z) * 0.04;
-        rig.rotation.y += (turnY - rig.rotation.y) * 0.05;
+        rig.rotation.y += (turnY - rig.rotation.y) * (0.05 + ze * 0.06);
         rig.rotation.x += (nodX - rig.rotation.x) * 0.05;
         hazes.forEach((f, i) => {
           f.position.x = hazeSeeds[i].x + Math.sin(t * 0.1 + i * 2.1) * 0.6;
           f.position.y =
             hazeSeeds[i].y + 1.82 + Math.sin(t * 0.13 + i * 1.3) * 0.2;
           (f.material as THREE.SpriteMaterial).opacity =
-            0.46 + Math.sin(t * 0.2 + i) * 0.13;
+            (0.46 + Math.sin(t * 0.2 + i) * 0.13) * (1 - ze * 0.85);
         });
         tube.intensity = 1.9 + Math.sin(t * 9) * 0.12;
         lampMat.emissiveIntensity = Math.floor(t * 1.8) % 2 === 0 ? 1.8 : 0.5;

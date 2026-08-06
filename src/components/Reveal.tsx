@@ -17,6 +17,23 @@ export function useReducedSafe() {
   return reduced;
 }
 
+/**
+ * SSR-safe desktop flag (min-width: 1024px) for choosing between the
+ * pinned cinematic scenes and their stacked mobile fallbacks. False on
+ * the server and first client render, so both trees hydrate identically.
+ */
+export function useDesktop() {
+  const [desktop, setDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const update = () => setDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+  return desktop;
+}
+
 const MOTION_TAGS = {
   div: motion.div,
   h1: motion.h1,

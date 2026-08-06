@@ -410,6 +410,13 @@ body {
     1.5px 0 0 rgba(155, 194, 220, 0.55);
 }
 
+/* Ghost display type — hollow serif for backdrop titles */
+.text-ghost {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(238, 244, 250, 0.16);
+  text-stroke: 1.5px rgba(238, 244, 250, 0.16);
+}
+
 /* Channel-change static burst (Chrome OSD) */
 @keyframes static-jitter {
   0% {
@@ -433,6 +440,32 @@ body {
   pointer-events: none;
   background-repeat: repeat;
   animation: static-jitter 150ms steps(2) both;
+}
+
+/* Endless channel-noise loop (position only — opacity stays scriptable) */
+@keyframes static-scroll {
+  0% {
+    background-position: 0 0;
+  }
+  33% {
+    background-position: 42px -26px;
+  }
+  66% {
+    background-position: -30px 14px;
+  }
+  100% {
+    background-position: 12px 32px;
+  }
+}
+.static-loop {
+  background-color: #05070a;
+  background-repeat: repeat;
+  animation: static-scroll 240ms steps(3) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .static-loop {
+    animation: none;
+  }
 }
 
 /* ON AIR lamp blink */

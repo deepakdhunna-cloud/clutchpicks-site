@@ -31,7 +31,7 @@ export default function Home() {
         <Bumper next="The Engine Room" note="50,000 simulations per game" />
         <Engine />
         <Leagues />
-        <Bumper next="Pricing" note="Free forever · Pro when ready" />
+        <Bumper next="Tonight's Matchup" note="Free vs Clutch Pro" />
         <Pricing />
         <StickyStatement />
       </main>
