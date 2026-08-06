@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { LEAGUES } from "@/lib/site";
-import { MaskLines } from "./Reveal";
+import { MaskLines, useReducedSafe } from "./Reveal";
 import { introDelay } from "./Loader";
 import CrtRig from "./CrtRig";
 
@@ -77,15 +78,28 @@ function LeagueTicker() {
 }
 
 export default function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const reduced = useReducedSafe();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const rigY = useTransform(scrollYProgress, [0, 1], [0, -110]);
+  const rigOpacity = useTransform(scrollYProgress, [0, 0.55, 1], [1, 0.85, 0]);
+
   return (
     <section
+      ref={ref}
       id="top"
       className="hero-pad relative flex min-h-svh w-full flex-col px-4 pb-10 lg:px-14 lg:pb-14"
     >
-      {/* The broadcast rig — bottom of the tube on mobile, right wing on desktop */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-[4svh] top-[57svh] lg:inset-y-0 lg:left-[44%] lg:right-[-3%] lg:bottom-0">
+      {/* The broadcast rig — glides off as the viewer changes channels */}
+      <motion.div
+        style={reduced ? undefined : { y: rigY, opacity: rigOpacity }}
+        className="pointer-events-none absolute inset-x-0 bottom-[4svh] top-[57svh] lg:inset-y-0 lg:left-[44%] lg:right-[-3%] lg:bottom-0"
+      >
         <CrtRig className="h-full w-full" />
-      </div>
+      </motion.div>
 
       {/* Meta — one quiet cluster, top-left */}
       <div className="relative z-10 max-w-xs">

@@ -47,7 +47,7 @@ export default function Pricing() {
       id="pricing"
       className="grid w-full grid-cols-12 gap-x-6 gap-y-12 px-4 py-24 lg:px-14 lg:py-32"
     >
-      <Eyebrow index="04" title="Pricing" meta="Free forever · Pro when ready" />
+      <Eyebrow index="05" title="Pricing" meta="Free forever · Pro when ready" />
 
       <div className="col-span-12">
         <MaskLines

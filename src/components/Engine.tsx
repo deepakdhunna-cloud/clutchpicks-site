@@ -91,23 +91,39 @@ export default function Engine() {
   return (
     <section
       id="engine"
-      className="grid w-full grid-cols-12 gap-y-14 px-4 py-24 lg:px-14 lg:py-32"
+      className="grid w-full grid-cols-12 gap-y-14 px-4 py-20 lg:px-14 lg:py-28"
     >
       <Eyebrow
-        index="02"
-        title="The Engine"
-        meta="Confidence you can read at a glance"
+        index="03"
+        title="The Engine Room"
+        meta="50,000 runs per game · every league, every day"
       />
 
-      {/* Statement */}
+      {/* Statement — the manifesto lives here now, where the proof is */}
       <div className="col-span-12 lg:col-span-5">
         <MaskLines
           as="h2"
-          className="glow-serif-strong font-serif text-[10svw] font-semibold leading-[1.04] tracking-tight lg:text-[4.4svw]"
-          lines={["Honest", "by Design"]}
+          className="glow-serif-strong font-serif text-[7.2svw] font-semibold leading-[1.12] tracking-tight sm:text-3xl lg:text-[2.9svw]"
+          lines={[
+            "Every matchup runs through",
+            "50,000 simulations before",
+            "a pick reaches your screen.",
+          ]}
+          stagger={0.12}
         />
-        <Fade delay={0.2}>
-          <p className="mt-6 max-w-md font-serif text-[17px] leading-relaxed text-l2">
+        <MaskLines
+          as="p"
+          className="mt-5 font-serif text-[5.4svw] font-medium italic leading-[1.18] text-l3 sm:text-2xl lg:text-[2.1svw]"
+          lines={[
+            "No inflated confidence. No fabricated",
+            "data. When the model isn't sure —",
+            "it tells you.",
+          ]}
+          stagger={0.12}
+          delay={0.15}
+        />
+        <Fade delay={0.25}>
+          <p className="mt-7 max-w-md font-serif text-[17px] leading-relaxed text-l2">
             Every pick carries a{" "}
             <span className="text-l1">confidence rating that means what it
             says</span>. When the numbers are strong, you&apos;ll know — and
@@ -118,7 +134,10 @@ export default function Engine() {
 
         {/* Ground rules */}
         <Fade delay={0.3}>
-          <ul className="mt-8 grid grid-cols-1 gap-2.5 font-led text-base tracking-[0.06em] text-l3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+          <p className="mb-3 mt-9 font-led text-base tracking-[0.1em] text-l4">
+            HOUSE RULES — HONEST BY DESIGN
+          </p>
+          <ul className="grid grid-cols-1 gap-2.5 font-led text-base tracking-[0.06em] text-l3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
             {RULES.map((rule) => (
               <li key={rule} className="flex gap-2.5">
                 <span className="text-teal">—</span>

@@ -50,7 +50,10 @@ export default function StickyStatement() {
 
   if (reduced) {
     return (
-      <section className="flex min-h-svh flex-col items-center justify-center">
+      <section
+        id="signoff"
+        className="flex min-h-svh flex-col items-center justify-center"
+      >
         {WORDS.map((w) => (
           <span
             key={w.text}
@@ -64,7 +67,7 @@ export default function StickyStatement() {
   }
 
   return (
-    <div ref={ref} className="relative h-[220svh]">
+    <div ref={ref} id="signoff" className="relative h-[190svh]">
       <div className="sticky top-0 flex h-svh flex-col items-center justify-center">
         {WORDS.map((w, i) => (
           <Word

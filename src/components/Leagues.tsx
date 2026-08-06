@@ -60,7 +60,7 @@ export default function Leagues() {
     >
       <h2 className="sr-only">The Leagues</h2>
       <Eyebrow
-        index="03"
+        index="04"
         title="The Leagues"
         meta="11 leagues · one board"
       />

@@ -410,6 +410,31 @@ body {
     1.5px 0 0 rgba(155, 194, 220, 0.55);
 }
 
+/* Channel-change static burst (Chrome OSD) */
+@keyframes static-jitter {
+  0% {
+    background-position: 0 0;
+    opacity: 0.55;
+  }
+  35% {
+    background-position: 42px -26px;
+    opacity: 0.38;
+  }
+  70% {
+    background-position: -30px 14px;
+    opacity: 0.5;
+  }
+  100% {
+    background-position: 12px 32px;
+    opacity: 0.42;
+  }
+}
+.static-flash {
+  pointer-events: none;
+  background-repeat: repeat;
+  animation: static-jitter 150ms steps(2) both;
+}
+
 /* ON AIR lamp blink */
 @keyframes on-air {
   0%,

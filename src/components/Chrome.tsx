@@ -30,24 +30,41 @@ function useEasternClock() {
   return time;
 }
 
-function useCursorCoords() {
-  const [coords, setCoords] = useState({ x: 0, y: 0 });
+/* The page is one broadcast — sections are channels, and the OSD in the
+ * bottom bar tracks which one the viewer is tuned to. */
+const CHANNEL_MAP = [
+  { id: "top", ch: "01", label: "ON AIR" },
+  { id: "board", ch: "02", label: "THE BOARD" },
+  { id: "engine", ch: "03", label: "ENGINE ROOM" },
+  { id: "leagues", ch: "04", label: "THE LEAGUES" },
+  { id: "pricing", ch: "05", label: "PRICING" },
+  { id: "signoff", ch: "06", label: "SIGN-OFF" },
+  { id: "download", ch: "06", label: "SIGN-OFF" },
+];
+
+function useChannelSpy() {
+  const [active, setActive] = useState(0);
   useEffect(() => {
-    let frame = 0;
-    const onMove = (e: MouseEvent) => {
-      if (frame) return;
-      frame = requestAnimationFrame(() => {
-        setCoords({ x: e.clientX, y: e.clientY });
-        frame = 0;
-      });
-    };
-    window.addEventListener("mousemove", onMove);
-    return () => {
-      window.removeEventListener("mousemove", onMove);
-      if (frame) cancelAnimationFrame(frame);
-    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          const i = CHANNEL_MAP.findIndex(
+            (c) => c.id === (e.target as HTMLElement).id
+          );
+          if (i >= 0) setActive(i);
+        }
+      },
+      /* a section is "tuned in" when it crosses the viewport's middle band */
+      { rootMargin: "-45% 0px -54% 0px" }
+    );
+    CHANNEL_MAP.forEach((c) => {
+      const el = document.getElementById(c.id);
+      if (el) io.observe(el);
+    });
+    return () => io.disconnect();
   }, []);
-  return coords;
+  return CHANNEL_MAP[active];
 }
 
 function useScrollPercent() {
@@ -81,12 +98,42 @@ const EasternClock = memo(function EasternClock() {
   return <span className="p-2 tabular">ET {time}</span>;
 });
 
-const CursorCoords = memo(function CursorCoords() {
-  const { x, y } = useCursorCoords();
+/** Channel stamp + a burst of static when the viewer changes channels. */
+const ChannelOSD = memo(function ChannelOSD() {
+  const { ch, label } = useChannelSpy();
+  const [flash, setFlash] = useState(false);
+  const first = useRef(true);
+
+  useEffect(() => {
+    if (first.current) {
+      first.current = false;
+      return;
+    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    setFlash(true);
+    const t = setTimeout(() => setFlash(false), 150);
+    return () => clearTimeout(t);
+  }, [ch, label]);
+
   return (
-    <span className="hidden p-2 tabular lg:inline">
-      {pad(x, 4)} X {pad(y, 4)} Y
-    </span>
+    <>
+      <motion.span
+        key={`${ch}-${label}`}
+        initial={{ opacity: 0, scaleY: 2.1, filter: "brightness(2.4)" }}
+        animate={{ opacity: 1, scaleY: 1, filter: "brightness(1)" }}
+        transition={{ duration: 0.22, ease: "easeOut" }}
+        className="p-2 text-l2 tabular"
+      >
+        CH {ch} · {label}
+      </motion.span>
+      {flash && (
+        <span
+          className="static-flash fixed inset-0 z-[88]"
+          style={{ backgroundImage: "url(/noise.png)" }}
+          aria-hidden="true"
+        />
+      )}
+    </>
   );
 });
 
@@ -207,7 +254,7 @@ export default function Chrome() {
         aria-hidden="true"
       >
         <EasternClock />
-        <CursorCoords />
+        <ChannelOSD />
         <ScrollPercent />
       </div>
 

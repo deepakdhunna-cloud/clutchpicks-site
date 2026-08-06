@@ -126,7 +126,7 @@ export default function Board() {
       <div className="grid w-full grid-cols-12 px-4 lg:px-14">
         <h2 className="sr-only">The Board</h2>
         <Eyebrow
-          index="01"
+          index="02"
           title="The Board"
           meta="Real cards from the app — same layouts, same colors"
         />

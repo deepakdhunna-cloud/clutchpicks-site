@@ -122,9 +122,13 @@ export function Eyebrow({
     <Fade
       className={`col-span-12 mb-10 flex items-baseline justify-between border-t border-line pt-4 lg:mb-14 ${className}`}
     >
-      <span className="flex items-baseline gap-3 font-serif text-lg sm:text-xl">
-        <span className="glow-ice tabular">{index}</span>
-        <span className="glow-serif italic">/ {title}</span>
+      <span className="flex items-baseline gap-3">
+        <span className="glow-ice font-led text-lg tracking-[0.1em] tabular sm:text-xl">
+          CH {index}
+        </span>
+        <span className="glow-serif font-serif text-lg italic sm:text-xl">
+          · {title}
+        </span>
       </span>
       {meta ? (
         <span className="hidden font-led text-base tracking-[0.08em] text-l4 sm:inline">
