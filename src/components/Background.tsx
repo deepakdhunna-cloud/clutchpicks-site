@@ -45,7 +45,7 @@ export default function Background() {
 
       {/* faint silver sheen sweeping the middle (app center sheen #C0C8D0) */}
       <div
-        className="bg-drift-c absolute rounded-full"
+        className="bg-drift-c absolute rounded-full opacity-60"
         style={{
           width: "44vmax",
           height: "44vmax",
@@ -55,17 +55,28 @@ export default function Background() {
         }}
       />
 
-      {/* slow-panning grid, faded toward the edges */}
+      {/* studio smoke — slow violet-grey fog banks (after shader.se) */}
       <div
-        className="bg-grid-pan absolute inset-[-15%]"
+        className="fog-blob"
         style={{
-          backgroundImage:
-            "linear-gradient(rgba(160,170,180,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(160,170,180,0.07) 1px, transparent 1px)",
-          backgroundSize: "72px 72px",
-          maskImage:
-            "radial-gradient(ellipse 75% 60% at 50% 38%, black 0%, transparent 78%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 75% 60% at 50% 38%, black 0%, transparent 78%)",
+          width: "52vmax",
+          height: "34vmax",
+          bottom: "-14%",
+          left: "-10%",
+          background:
+            "radial-gradient(ellipse at center, rgba(98,90,128,0.16) 0%, rgba(98,90,128,0.06) 55%, transparent 75%)",
+        }}
+      />
+      <div
+        className="fog-blob"
+        style={{
+          width: "46vmax",
+          height: "30vmax",
+          top: "6%",
+          right: "-12%",
+          animationDelay: "-12s",
+          background:
+            "radial-gradient(ellipse at center, rgba(74,96,116,0.14) 0%, rgba(74,96,116,0.05) 55%, transparent 75%)",
         }}
       />
     </div>

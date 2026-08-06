@@ -1,5 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Bebas_Neue, IBM_Plex_Mono, VT323 } from "next/font/google";
+import {
+  Archivo,
+  Bebas_Neue,
+  Fraunces,
+  IBM_Plex_Mono,
+  VT323,
+} from "next/font/google";
 import "./globals.css";
 
 const archivo = Archivo({
@@ -28,6 +34,15 @@ const bebas = Bebas_Neue({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-bebas",
+  display: "swap",
+});
+
+/* Editorial display serif — the floodlit broadcast face */
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  axes: ["SOFT", "WONK", "opsz"],
+  variable: "--font-fraunces",
   display: "swap",
 });
 
@@ -83,9 +98,9 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${archivo.variable} ${plexMono.variable} ${vt323.variable} ${bebas.variable}`}
+      className={`${archivo.variable} ${plexMono.variable} ${vt323.variable} ${bebas.variable} ${fraunces.variable}`}
     >
-      <body className="noise">{children}</body>
+      <body className="noise scanlines">{children}</body>
     </html>
   );
 }

@@ -29,11 +29,11 @@ function FeatureList({
   accent?: boolean;
 }) {
   return (
-    <ul className="flex flex-col gap-2.5 font-mono text-[13px] leading-relaxed text-l2">
+    <ul className="flex flex-col gap-2.5 font-led text-lg leading-snug text-l2">
       {items.map((f) => (
         <li key={f} className="flex gap-2.5">
           <span className={accent ? "text-pro" : "text-teal"}>+</span>
-          {f}
+          {f.toUpperCase()}
         </li>
       ))}
     </ul>
@@ -52,10 +52,10 @@ export default function Pricing() {
       <div className="col-span-12">
         <MaskLines
           as="h2"
-          className="font-sans text-[10svw] font-black uppercase leading-[0.94] font-wide lg:text-[4.6svw]"
+          className="glow-serif-strong font-serif text-[10svw] font-semibold leading-[1.04] tracking-tight lg:text-[4.4svw]"
           lines={[
-            "Start free.",
-            <span key="pro" className="text-teal">
+            "Start Free.",
+            <span key="pro" className="glow-ice italic">
               Go Pro.
             </span>,
           ]}
@@ -65,15 +65,15 @@ export default function Pricing() {
       {/* Free card */}
       <Fade className="col-span-12 lg:col-span-5" y={24}>
         <div className="flex h-full flex-col rounded-2xl border border-line bg-white/[0.02] p-6 lg:p-8">
-          <span className="font-mono text-xs uppercase tracking-[0.2em] text-l3">
-            Free forever
+          <span className="font-led text-base tracking-[0.14em] text-l3">
+            FREE FOREVER
           </span>
-          <div className="mt-4 flex items-baseline gap-2">
-            <span className="font-sans text-6xl font-black font-wide lg:text-7xl">
+          <div className="mt-4 flex items-baseline gap-3">
+            <span className="glow-serif font-serif text-6xl font-semibold tracking-tight lg:text-7xl">
               $0
             </span>
-            <span className="font-mono text-xs uppercase tracking-[0.14em] text-l4">
-              No credit card
+            <span className="font-led text-base tracking-[0.1em] text-l4">
+              NO CREDIT CARD
             </span>
           </div>
           <div className="my-7 h-px bg-line" />
@@ -82,9 +82,9 @@ export default function Pricing() {
             href={APP_STORE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="dotted-hover mt-8 inline-flex w-fit items-center p-3 font-mono text-[13px] uppercase tracking-[0.14em] text-l1"
+            className="retro-link mt-8 inline-flex w-fit items-center gap-2 py-2 font-serif text-lg text-l1"
           >
-            Download free ↓
+            Download Free
           </a>
         </div>
       </Fade>
@@ -104,48 +104,48 @@ export default function Pricing() {
           }}
         >
           <div className="flex items-center justify-between">
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-pro">
+            <span className="glow-ice font-serif text-lg font-semibold italic">
               Clutch Pro
             </span>
             <span
-              className="rounded-full border px-2.5 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-pro"
+              className="rounded-full border px-3 py-1 font-led text-sm tracking-[0.1em] text-pro"
               style={{
                 borderColor: "rgba(180,211,235,0.28)",
                 backgroundColor: "rgba(122,157,184,0.12)",
               }}
             >
-              3-day free trial
+              3-DAY FREE TRIAL
             </span>
           </div>
-          <div className="mt-4 flex items-baseline gap-2">
-            <span className="font-sans text-6xl font-black font-wide lg:text-7xl">
+          <div className="mt-4 flex items-baseline gap-3">
+            <span className="glow-serif font-serif text-6xl font-semibold tracking-tight lg:text-7xl">
               $6.99
             </span>
-            <span className="font-mono text-xs uppercase tracking-[0.14em] text-l4">
-              / month
+            <span className="font-led text-base tracking-[0.1em] text-l4">
+              / MONTH
             </span>
           </div>
           <div className="my-7 h-px bg-line" />
-          <p className="mb-4 font-mono text-xs uppercase tracking-[0.14em] text-l3">
-            Everything in Free, plus:
+          <p className="mb-4 font-led text-base tracking-[0.1em] text-l3">
+            EVERYTHING IN FREE, PLUS:
           </p>
           <FeatureList items={PRO_FEATURES} accent />
           <a
             href={APP_STORE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-teal px-7 py-3.5 font-sans text-[15px] font-bold uppercase tracking-wide text-[#04121A] transition-all duration-300 font-wide-110 hover:brightness-110 active:scale-[0.97]"
+            className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-cream px-8 py-3.5 font-serif text-lg font-semibold italic text-[#10130f] shadow-[0_0_40px_rgba(252,249,243,0.25)] transition-all duration-300 hover:shadow-[0_0_60px_rgba(252,249,243,0.4)] hover:brightness-105 active:scale-[0.97]"
           >
-            Start 3-day free trial
+            Start 3-Day Free Trial
           </a>
         </div>
       </Fade>
 
       {/* Paywall stats + disclosures */}
       <Fade className="col-span-12 flex flex-col gap-3 border-t border-line pt-8">
-        <p className="font-mono text-xs uppercase tracking-[0.16em] text-l3">
-          11 leagues · 20 factors · 24/7 updates — every game, every league,
-          every AI prediction.
+        <p className="font-led text-base tracking-[0.08em] text-l3">
+          11 LEAGUES · 20 FACTORS · 24/7 UPDATES — EVERY GAME, EVERY LEAGUE,
+          EVERY AI PREDICTION.
         </p>
         <p className="max-w-3xl font-mono text-[11px] leading-relaxed uppercase tracking-[0.08em] text-l3">
           Eligible users receive a 3-day free trial, then $6.99/month. App

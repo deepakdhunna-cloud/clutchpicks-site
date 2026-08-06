@@ -10,9 +10,9 @@ import {
 import { useReducedSafe } from "./Reveal";
 
 const WORDS: { text: string; className: string }[] = [
-  { text: "Built", className: "text-l1" },
-  { text: "for the", className: "text-l3" },
-  { text: "Clutch", className: "text-teal" },
+  { text: "Built", className: "glow-serif-strong" },
+  { text: "for the", className: "italic text-l3" },
+  { text: "Clutch", className: "glow-ice italic" },
 ];
 
 function Word({
@@ -32,7 +32,7 @@ function Word({
   return (
     <motion.span
       style={{ opacity, y }}
-      className={`font-sans text-[13svw] font-black uppercase leading-[0.94] font-wide lg:text-[8svw] ${className}`}
+      className={`font-serif text-[13svw] font-semibold leading-[1.02] tracking-tight lg:text-[8svw] ${className}`}
     >
       {text}
     </motion.span>
@@ -54,7 +54,7 @@ export default function StickyStatement() {
         {WORDS.map((w) => (
           <span
             key={w.text}
-            className={`font-sans text-[13svw] font-black uppercase leading-[0.94] font-wide lg:text-[8svw] ${w.className}`}
+            className={`font-serif text-[13svw] font-semibold leading-[1.02] tracking-tight lg:text-[8svw] ${w.className}`}
           >
             {w.text}
           </span>

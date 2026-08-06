@@ -27,22 +27,22 @@ export default function DownloadButton({
       href={APP_STORE_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group inline-flex items-center rounded-full border border-white/25 bg-white/[0.03] text-l1 transition-all duration-300 hover:border-white hover:bg-white hover:text-[#04070a] active:scale-[0.97] ${
+      className={`group inline-flex items-center rounded-full border border-cream/30 bg-white/[0.03] text-l1 shadow-[0_0_36px_rgba(252,249,243,0.1)] transition-all duration-300 hover:border-cream hover:bg-cream hover:text-[#10130f] hover:shadow-[0_0_60px_rgba(252,249,243,0.32)] active:scale-[0.97] ${
         large ? "gap-4 px-8 py-4" : "gap-3 px-6 py-3"
       }`}
     >
       <AppleLogo className={large ? "h-7 w-7" : "h-5 w-5"} />
       <span className="flex flex-col items-start leading-none">
         <span
-          className={`font-mono uppercase tracking-[0.14em] text-l3 transition-colors duration-300 group-hover:text-[#04070a]/60 ${
-            large ? "text-[11px]" : "text-[9px]"
+          className={`font-led tracking-[0.12em] text-l3 transition-colors duration-300 group-hover:text-[#10130f]/60 ${
+            large ? "text-sm" : "text-xs"
           }`}
         >
-          Download on the
+          DOWNLOAD ON THE
         </span>
         <span
-          className={`mt-1 font-sans font-bold uppercase tracking-wide font-wide-110 ${
-            large ? "text-xl" : "text-base"
+          className={`mt-1 font-serif font-semibold italic ${
+            large ? "text-2xl" : "text-lg"
           }`}
         >
           App Store

@@ -59,7 +59,7 @@ function Ladder() {
           className="grid grid-cols-[7.5rem_1fr_4.5rem] items-center gap-4 border-t border-line py-4 last:border-b sm:grid-cols-[9rem_1fr_5.5rem]"
         >
           <span
-            className="text-[15px] font-bold"
+            className="font-serif text-[17px] font-semibold italic"
             style={{ color: tier.color }}
           >
             {tier.label}
@@ -78,7 +78,7 @@ function Ladder() {
               }}
             />
           </div>
-          <span className="text-right font-mono text-xs text-l3 tabular">
+          <span className="text-right font-led text-base text-l3 tabular">
             {tier.range}
           </span>
         </div>
@@ -103,26 +103,26 @@ export default function Engine() {
       <div className="col-span-12 lg:col-span-5">
         <MaskLines
           as="h2"
-          className="font-sans text-[10svw] font-black uppercase leading-[0.94] font-wide lg:text-[4.6svw]"
-          lines={["Honest", "by design"]}
+          className="glow-serif-strong font-serif text-[10svw] font-semibold leading-[1.04] tracking-tight lg:text-[4.4svw]"
+          lines={["Honest", "by Design"]}
         />
         <Fade delay={0.2}>
-          <p className="mt-6 max-w-md text-[15px] leading-relaxed text-l2">
+          <p className="mt-6 max-w-md font-serif text-[17px] leading-relaxed text-l2">
             Every pick carries a{" "}
             <span className="text-l1">confidence rating that means what it
             says</span>. When the numbers are strong, you&apos;ll know — and
             when they aren&apos;t, Clutch tells you that too, instead of
-            pretending. <span className="text-l1">No hype. No hedging.</span>
+            pretending. <span className="italic text-l1">No hype. No hedging.</span>
           </p>
         </Fade>
 
         {/* Ground rules */}
         <Fade delay={0.3}>
-          <ul className="mt-8 grid grid-cols-1 gap-2 font-mono text-xs uppercase tracking-[0.1em] text-l3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+          <ul className="mt-8 grid grid-cols-1 gap-2.5 font-led text-base tracking-[0.06em] text-l3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
             {RULES.map((rule) => (
-              <li key={rule} className="flex gap-2">
+              <li key={rule} className="flex gap-2.5">
                 <span className="text-teal">—</span>
-                {rule}
+                {rule.toUpperCase()}
               </li>
             ))}
           </ul>
@@ -132,8 +132,8 @@ export default function Engine() {
       {/* Ladder */}
       <div className="col-span-12 flex flex-col gap-10 lg:col-span-6 lg:col-start-7">
         <Fade>
-          <p className="mb-4 font-mono text-xs uppercase tracking-[0.16em] text-l4">
-            Confidence tiers — straight from the app
+          <p className="mb-4 font-led text-base tracking-[0.08em] text-l4">
+            CONFIDENCE TIERS — STRAIGHT FROM THE APP
           </p>
           <Ladder />
         </Fade>
@@ -148,11 +148,11 @@ export default function Engine() {
           { value: <span>24/7</span>, label: "Live updates" },
         ].map((stat, i) => (
           <Fade key={stat.label} delay={i * 0.06} className="flex flex-col gap-2">
-            <span className="font-sans text-5xl font-black font-wide lg:text-6xl">
+            <span className="glow-serif font-serif text-5xl font-semibold tracking-tight lg:text-6xl">
               {stat.value}
             </span>
-            <span className="font-mono text-xs uppercase tracking-[0.16em] text-l3">
-              {stat.label}
+            <span className="font-led text-base tracking-[0.08em] text-l3">
+              {stat.label.toUpperCase()}
             </span>
           </Fade>
         ))}

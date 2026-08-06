@@ -1,70 +1,46 @@
 "use client";
 
-import { useRef } from "react";
-import {
-  motion,
-  useMotionValue,
-  useSpring,
-  useTransform,
-} from "framer-motion";
-import { EASE, LEAGUES } from "@/lib/site";
-import { MaskLines, useReducedSafe } from "./Reveal";
+import { motion } from "framer-motion";
+import { LEAGUES } from "@/lib/site";
+import { MaskLines } from "./Reveal";
 import { introDelay } from "./Loader";
+import CrtRig from "./CrtRig";
 
-/** Stacked 3D logo with gentle float + mouse parallax tilt. */
-function FloatingLogo() {
-  const reduced = useReducedSafe();
-  const ref = useRef<HTMLDivElement>(null);
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const rx = useSpring(useTransform(my, [-0.5, 0.5], [6, -6]), {
-    stiffness: 120,
-    damping: 20,
-  });
-  const ry = useSpring(useTransform(mx, [-0.5, 0.5], [-8, 8]), {
-    stiffness: 120,
-    damping: 20,
-  });
-
-  const onMove = (e: React.MouseEvent) => {
-    const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return;
-    mx.set((e.clientX - rect.left) / rect.width - 0.5);
-    my.set((e.clientY - rect.top) / rect.height - 0.5);
-  };
-
+/** Foam finger — the number-one hand, pointing down at the board. */
+export function FoamFinger({
+  className = "",
+  delay = 0,
+}: {
+  className?: string;
+  delay?: number;
+}) {
   return (
-    <motion.div
-      ref={ref}
-      onMouseMove={reduced ? undefined : onMove}
-      onMouseLeave={() => {
-        mx.set(0);
-        my.set(0);
+    <motion.span
+      className={`inline-block ${className}`}
+      animate={{ y: [0, 7, 0] }}
+      transition={{
+        duration: 1.7,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay,
       }}
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1.1, ease: EASE, delay: introDelay(1.5) }}
-      style={{ perspective: 900 }}
-      className="pointer-events-auto"
+      aria-hidden="true"
     >
-      <motion.div
-        style={reduced ? undefined : { rotateX: rx, rotateY: ry }}
-        className="animate-float-slow"
+      <svg
+        viewBox="0 0 22 28"
+        fill="none"
+        className="h-[1.3em] w-auto rotate-180"
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/logo-stacked.webp"
-          fetchPriority="high"
-          alt="Clutch Picks logo"
-          className="w-[min(48vw,250px)] select-none lg:w-[19vw] lg:max-w-[340px]"
-          style={{
-            filter:
-              "drop-shadow(0 24px 48px rgba(0,0,0,0.85)) drop-shadow(0 0 64px rgba(122,157,184,0.16))",
-          }}
-          draggable={false}
-        />
-      </motion.div>
-    </motion.div>
+        {/* fat foam index finger */}
+        <rect x="3.4" y="0.5" width="7.2" height="14" rx="3.6" fill="currentColor" />
+        {/* mitt */}
+        <rect x="2" y="10" width="18" height="13.5" rx="5.2" fill="currentColor" />
+        {/* thumb bump */}
+        <rect x="17.2" y="8.2" width="4.3" height="9" rx="2.15" fill="currentColor" />
+        {/* maroon wrist band */}
+        <rect x="4.6" y="23.8" width="12.8" height="3.7" rx="1.4" fill="#8B0A1F" />
+      </svg>
+    </motion.span>
   );
 }
 
@@ -73,7 +49,7 @@ function LeagueTicker() {
   const items = [...LEAGUES, ...LEAGUES];
   return (
     <div
-      className="relative col-span-12 mt-10 overflow-hidden lg:mt-12"
+      className="relative mt-10 overflow-hidden lg:mt-12"
       style={{
         maskImage:
           "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
@@ -86,7 +62,7 @@ function LeagueTicker() {
         {items.map((l, i) => (
           <span
             key={`${l.abbr}-${i}`}
-            className="flex items-center gap-2.5 whitespace-nowrap font-mono text-xs uppercase tracking-[0.16em] text-l4"
+            className="flex items-center gap-2.5 whitespace-nowrap font-led text-base tracking-[0.1em] text-l4"
           >
             <span
               className="inline-block h-1.5 w-1.5 rounded-full"
@@ -104,45 +80,61 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="hero-pad relative grid min-h-svh w-full grid-cols-12 content-between gap-y-10 px-4 pb-14 lg:px-14 lg:pb-20"
+      className="hero-pad relative flex min-h-svh w-full flex-col px-4 pb-10 lg:px-14 lg:pb-14"
     >
+      {/* The broadcast rig — bottom of the tube on mobile, right wing on desktop */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-[4svh] top-[57svh] lg:inset-y-0 lg:left-[44%] lg:right-[-3%] lg:bottom-0">
+        <CrtRig className="h-full w-full" />
+      </div>
+
       {/* Meta — one quiet cluster, top-left */}
-      <div className="col-span-12 max-w-xs font-sans">
+      <div className="relative z-10 max-w-xs">
         <MaskLines
           as="p"
-          className="text-[5.4svw] font-semibold leading-tight sm:text-2xl lg:text-3xl"
+          className="font-serif text-xl font-medium italic leading-snug text-l2 sm:text-2xl"
           lines={["AI Sports", "Predictions"]}
           delay={introDelay(1.35)}
         />
         <motion.p
-          className="mt-4 font-mono text-xs uppercase tracking-[0.16em] text-l3"
+          className="mt-3 font-led text-base tracking-[0.1em] text-l3"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, ease: EASE, delay: introDelay(1.6) }}
+          transition={{ duration: 0.8, delay: introDelay(1.6) }}
         >
-          Free on the App Store
+          FREE ON THE APP STORE
         </motion.p>
       </div>
 
-      {/* Floating logo — secondary element, upper right, clear of the statement */}
-      <div className="pointer-events-none col-span-12 flex justify-center lg:absolute lg:right-[8vw] lg:top-[14vh] lg:justify-end">
-        <FloatingLogo />
-      </div>
-
-      {/* Display statement */}
-      <div className="col-span-12">
+      {/* Glowing display statement — left wing */}
+      <div className="relative z-10 flex flex-1 flex-col justify-start pt-[7svh] lg:max-w-[56%] lg:justify-center lg:pt-0">
         <MaskLines
           as="h1"
-          className="font-sans text-[10svw] font-black uppercase leading-[0.94] font-wide lg:text-[7svw]"
+          className="glow-serif-strong animate-glow-breathe font-serif text-[11.5svw] font-semibold leading-[1.02] tracking-tight sm:text-[9svw] lg:text-[5.6svw]"
           lines={[
-            "Every pick",
+            "Every Pick,",
             <span key="l2">
-              runs <span className="text-teal tabular">50,000</span>
+              Run Through <span className="glow-ice tabular">50,000</span>
             </span>,
-            "simulations",
+            "Simulations",
           ]}
           delay={introDelay(1.45)}
         />
+        <motion.p
+          className="mt-7 flex items-center gap-4 font-serif text-lg text-l2 sm:text-xl"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.9, delay: introDelay(1.85) }}
+        >
+          Scroll for Tonight&apos;s Board
+          <span className="flex items-center gap-1.5 text-l1">
+            <FoamFinger />
+            <FoamFinger delay={0.18} />
+          </span>
+        </motion.p>
+      </div>
+
+      {/* Ticker rides the bottom edge */}
+      <div className="relative z-10">
         <LeagueTicker />
       </div>
     </section>

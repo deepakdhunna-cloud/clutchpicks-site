@@ -4,7 +4,7 @@ import { memo, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { APP_STORE_URL } from "@/lib/site";
 import { introDelay } from "./Loader";
-import LedText from "./LedText";
+import StripeMark from "./StripeMark";
 
 const NAV = [
   { label: "Board", href: "#board" },
@@ -76,7 +76,7 @@ function useScrollPercent() {
 const pad = (n: number, len: number) => String(n).padStart(len, "0");
 
 /* Per-frame data lives in leaf components so state churn (clock ticks,
- * mousemove, scroll) never re-renders the LED nav above. */
+ * mousemove, scroll) never re-renders the nav above. */
 const EasternClock = memo(function EasternClock() {
   const time = useEasternClock();
   return <span className="p-2 tabular">ET {time}</span>;
@@ -96,18 +96,36 @@ const ScrollPercent = memo(function ScrollPercent() {
   return <span className="p-2 tabular">Scroll {pad(pct, 3)}%</span>;
 });
 
-/** Brand mark: the real app icon, linking to the App Store. */
-export function BrandIcon({ small = false }: { small?: boolean }) {
+function AppleGlyph({ className = "" }: { className?: string }) {
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src="/app-icon.webp"
-      alt="Clutch Picks app icon"
-      className={`rounded-[10px] border border-white/10 shadow-[0_8px_16px_rgba(0,0,0,0.6)] transition-transform duration-300 ${
-        small ? "h-9 w-9" : "h-10 w-10 lg:h-11 lg:w-11"
-      }`}
-      draggable={false}
-    />
+    <svg
+      viewBox="0 0 384 512"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
+    </svg>
+  );
+}
+
+/** Serif brand lockup — striped globe + italic wordmark. */
+function BrandLockup({ compact = false }: { compact?: boolean }) {
+  return (
+    <a
+      href="#top"
+      className="pointer-events-auto flex items-center gap-3 p-1"
+      aria-label="Clutch Picks — top of page"
+    >
+      <StripeMark size={compact ? 19 : 22} />
+      <span
+        className={`glow-serif font-serif font-semibold italic tracking-tight ${
+          compact ? "text-xl" : "text-[22px]"
+        }`}
+      >
+        Clutch Picks
+      </span>
+    </a>
   );
 }
 
@@ -130,48 +148,41 @@ export default function Chrome() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, delay: introDelay(1.35), ease: "easeOut" }}
-      className="pointer-events-none fixed inset-0 z-50 flex flex-col justify-between font-mono text-[13px]"
+      className="pointer-events-none fixed inset-0 z-50 flex flex-col justify-between"
     >
       {/* Top bar — padded below the notch/status bar on phones */}
       <header
         className="flex items-center justify-between border-b border-line bg-bg px-4 pb-3 lg:border-b-0 lg:bg-transparent lg:bg-gradient-to-b lg:from-bg/90 lg:via-bg/45 lg:to-transparent lg:px-14 lg:py-6"
         style={{ paddingTop: "max(0.75rem, calc(env(safe-area-inset-top) + 0.25rem))" }}
       >
-        {/* App icon + blue LED download, together on the left */}
-        <div className="pointer-events-auto flex items-center gap-2">
-          <a
-            href={APP_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="dotted-hover p-1.5 hover:scale-[1.04]"
-            aria-label="Download Clutch Picks on the App Store"
-          >
-            <BrandIcon />
-          </a>
-          <a
-            href={APP_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="dotted-hover dotted-hover-teal p-2 opacity-90 transition-opacity hover:opacity-100"
-            aria-label="Download on the App Store"
-          >
-            <LedText text="DOWNLOAD" color="teal" height={15} />
-          </a>
-        </div>
+        <BrandLockup />
 
-        {/* Jumbotron nav (desktop) */}
-        <nav className="pointer-events-auto hidden items-center gap-x-4 lg:flex">
+        {/* Serif nav (desktop) */}
+        <nav className="pointer-events-auto hidden items-center gap-x-9 lg:flex">
           {NAV.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="dotted-hover p-2 opacity-75 transition-opacity hover:opacity-100"
-              aria-label={item.label}
+              className="retro-link font-serif text-[17px] text-l2 transition-colors hover:text-l1"
             >
-              <LedText text={item.label.toUpperCase()} height={15} />
+              {item.label}
             </a>
           ))}
         </nav>
+
+        {/* Get-the-app CTA (desktop) */}
+        <a
+          href={APP_STORE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="pointer-events-auto hidden items-center gap-2.5 p-1 lg:flex"
+          aria-label="Download Clutch Picks on the App Store"
+        >
+          <AppleGlyph className="h-[17px] w-[17px] text-l1" />
+          <span className="retro-link font-serif text-[17px] text-l1">
+            Get the app
+          </span>
+        </a>
 
         {/* Hamburger (mobile) */}
         <button
@@ -187,9 +198,9 @@ export default function Chrome() {
         </button>
       </header>
 
-      {/* Bottom bar — ambient data, hidden from assistive tech */}
+      {/* Bottom bar — ambient broadcast telemetry, hidden from assistive tech */}
       <div
-        className="flex items-center justify-between bg-gradient-to-t from-bg/85 via-bg/40 to-transparent px-4 pt-4 text-xs uppercase tracking-[0.12em] text-l3 lg:px-14 lg:py-6"
+        className="flex items-center justify-between bg-gradient-to-t from-bg/85 via-bg/40 to-transparent px-4 pt-4 font-led text-base tracking-[0.08em] text-l3 lg:px-14 lg:py-6"
         style={{ paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}
         aria-hidden="true"
       >
@@ -214,15 +225,7 @@ export default function Chrome() {
                 paddingTop: "max(0.75rem, calc(env(safe-area-inset-top) + 0.25rem))",
               }}
             >
-              <a
-                href={APP_STORE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="dotted-hover p-1.5"
-                aria-label="Download Clutch Picks on the App Store"
-              >
-                <BrandIcon small />
-              </a>
+              <BrandLockup compact />
               <button
                 type="button"
                 onClick={() => setMenuOpen(false)}
@@ -234,7 +237,7 @@ export default function Chrome() {
               </button>
             </div>
 
-            <nav className="flex flex-1 flex-col justify-center gap-3 px-6">
+            <nav className="flex flex-1 flex-col justify-center gap-7 px-8">
               {NAV.map((item, i) => (
                 <motion.a
                   key={item.href}
@@ -251,10 +254,9 @@ export default function Chrome() {
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.35, delay: 0.06 + i * 0.06 }}
-                  className="dotted-hover w-fit p-3"
-                  aria-label={item.label}
+                  className="glow-serif w-fit font-serif text-4xl font-medium"
                 >
-                  <LedText text={item.label.toUpperCase()} height={26} />
+                  {item.label}
                 </motion.a>
               ))}
               <motion.a
@@ -265,15 +267,17 @@ export default function Chrome() {
                 initial={{ opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.35, delay: 0.06 + NAV.length * 0.06 }}
-                className="dotted-hover dotted-hover-teal mt-4 w-fit p-3"
-                aria-label="Download on the App Store"
+                className="mt-5 flex w-fit items-center gap-3"
               >
-                <LedText text="DOWNLOAD" color="teal" height={26} />
+                <AppleGlyph className="h-6 w-6 text-pro" />
+                <span className="glow-ice retro-link font-serif text-4xl font-medium italic">
+                  Get the app
+                </span>
               </motion.a>
             </nav>
 
             <p
-              className="px-6 font-mono text-[11px] uppercase tracking-[0.16em] text-l4"
+              className="px-8 font-led text-base tracking-[0.08em] text-l4"
               style={{
                 paddingBottom: "max(1.5rem, env(safe-area-inset-bottom))",
               }}

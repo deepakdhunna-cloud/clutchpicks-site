@@ -2,7 +2,7 @@
 
 /* Ported verbatim from the app repo (src/components/sports/jerseyVisuals.tsx)
  * with react-native-svg elements mapped to plain web SVG. */
-import React, { useRef, memo } from "react";
+import React, { useId, memo } from "react";
 
 export type JerseyModelVariant = 'basketball' | 'college-basketball' | 'football' | 'baseball' | 'hockey' | 'soccer' | 'ucl' | 'cricket' | 'tennis';
 
@@ -23,7 +23,6 @@ interface ModelShape {
   labelY: number;
 }
 
-let jerseyModelId = 0;
 const WORDMARK_FONT_FAMILY = 'var(--font-bebas), "Bebas Neue", sans-serif';
 
 // Below this rendered size, the fine weave dots, fold micro-strokes, panel
@@ -434,7 +433,7 @@ function TextureLayer({
   accent,
 }: {
   weave: ModelShape['weave'];
-  id: number;
+  id: string;
   primary: string;
   accent: string;
 }) {
@@ -709,7 +708,7 @@ function ModelDefs({
   );
 }
 
-function ClothFoldLayer({ variant, id }: { variant: JerseyModelVariant; id: number }) {
+function ClothFoldLayer({ variant, id }: { variant: JerseyModelVariant; id: string }) {
   const isSleeveless = variant === 'basketball' || variant === 'college-basketball';
   const top = isSleeveless ? 36 : 28;
   const bottom = isSleeveless ? 105 : 110;
@@ -1587,7 +1586,7 @@ function BasketballSleevelessModel({
   const outline = readableOutline(detail);
   const wordSize = jerseyWordmarkFontSize(wordmark, variant);
   const number = jerseyNumber(abbr);
-  const renderId = Number(ids.clip.replace(/\D/g, '').slice(-4)) || 1;
+  const renderId = ids.clip;
   const reducedDetail = size < REDUCED_DETAIL_THRESHOLD;
 
   return (
@@ -1778,9 +1777,8 @@ export const MiniJerseyModel = memo(function MiniJerseyModel({
   teamName,
   size = 52,
 }: MiniJerseyModelProps) {
-  const instanceIdRef = useRef<number | null>(null);
-  if (instanceIdRef.current === null) instanceIdRef.current = ++jerseyModelId;
-  const instanceId = instanceIdRef.current;
+  /* useId is SSR-stable — a module counter desyncs server and client trees */
+  const instanceId = useId().replace(/[^a-zA-Z0-9]/g, "");
   const shape = modelShape(variant);
   const reducedDetail = size < REDUCED_DETAIL_THRESHOLD;
   const label = safeLabel(abbr);

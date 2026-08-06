@@ -30,17 +30,17 @@ function LeagueRow({
           style={{ backgroundColor: color }}
           aria-hidden="true"
         />
-        <span className="col-span-1 font-mono text-xs text-l4 tabular">
+        <span className="col-span-1 font-led text-base text-l4 tabular">
           {String(index + 1).padStart(2, "0")}
         </span>
         <span className="col-span-7 flex items-center gap-3 sm:col-span-5 lg:col-span-4">
-          <span className="font-sans text-[7.4svw] font-black uppercase leading-none transition-transform duration-300 ease-out font-wide group-hover:translate-x-2 sm:text-4xl lg:text-[3.2svw]">
+          <span className="glow-serif font-serif text-[7.4svw] font-semibold leading-none tracking-tight transition-transform duration-300 ease-out group-hover:translate-x-2 group-hover:italic sm:text-4xl lg:text-[3.1svw]">
             {abbr}
           </span>
         </span>
-        <span className="col-span-4 hidden items-center justify-end gap-2.5 text-right font-mono text-xs uppercase tracking-[0.12em] text-l3 transition-colors duration-300 group-hover:text-l2 sm:flex sm:col-start-9 lg:col-span-4 lg:col-start-9">
+        <span className="col-span-4 hidden items-center justify-end gap-2.5 text-right font-serif text-[15px] italic text-l3 transition-colors duration-300 group-hover:text-l2 sm:flex sm:col-start-9 lg:col-span-4 lg:col-start-9">
           <span
-            className="inline-block h-2 w-2 shrink-0"
+            className="inline-block h-2 w-2 shrink-0 rounded-full"
             style={{ backgroundColor: color }}
             aria-hidden="true"
           />
@@ -70,8 +70,8 @@ export default function Leagues() {
         ))}
       </ul>
       <Fade className="col-span-12 mt-8">
-        <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-l4">
-          Live scores, picks, and full coverage for every league on the board.
+        <p className="font-led text-base tracking-[0.08em] text-l4">
+          LIVE SCORES, PICKS, AND FULL COVERAGE FOR EVERY LEAGUE ON THE BOARD.
         </p>
       </Fade>
     </section>

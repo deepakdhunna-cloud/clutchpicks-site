@@ -57,7 +57,7 @@ export default function Manifesto() {
       <div className="col-span-12 flex flex-col gap-8 sm:col-span-8 lg:col-span-8 lg:col-start-5">
         <MaskLines
           as="p"
-          className="text-2xl font-medium leading-[1.18] text-l1 md:text-[3.4svw] md:leading-[1.1]"
+          className="glow-serif font-serif text-[6.6svw] font-medium leading-[1.16] sm:text-3xl md:text-[3.1svw] md:leading-[1.14]"
           lines={[
             "Every matchup runs through",
             "50,000 simulations before",
@@ -67,7 +67,7 @@ export default function Manifesto() {
         />
         <MaskLines
           as="p"
-          className="text-2xl font-medium leading-[1.18] text-l3 md:text-[3.4svw] md:leading-[1.1]"
+          className="font-serif text-[6.6svw] font-medium italic leading-[1.16] text-l3 sm:text-3xl md:text-[3.1svw] md:leading-[1.14]"
           lines={[
             "No inflated confidence.",
             "No fabricated data. When the",
@@ -77,9 +77,8 @@ export default function Manifesto() {
           delay={0.15}
         />
         <Fade delay={0.3}>
-          <p className="font-mono text-xs uppercase tracking-[0.16em] text-l4">
-            The Clutch engine · 50,000 runs per game · every league,
-            every day
+          <p className="font-led text-base tracking-[0.08em] text-l4">
+            THE CLUTCH ENGINE · 50,000 RUNS PER GAME · EVERY LEAGUE, EVERY DAY
           </p>
         </Fade>
       </div>
