@@ -4,7 +4,6 @@ import { memo, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { APP_STORE_URL } from "@/lib/site";
 import { introDelay } from "./Loader";
-import StripeMark from "./StripeMark";
 
 const NAV = [
   { label: "Board", href: "#board" },
@@ -109,22 +108,25 @@ function AppleGlyph({ className = "" }: { className?: string }) {
   );
 }
 
-/** Serif brand lockup — striped globe + italic wordmark. */
+/** Brand lockup — the real stacked wordmark, floodlit. */
 function BrandLockup({ compact = false }: { compact?: boolean }) {
   return (
     <a
       href="#top"
-      className="pointer-events-auto flex items-center gap-3 p-1"
+      className="pointer-events-auto flex items-center p-1"
       aria-label="Clutch Picks — top of page"
     >
-      <StripeMark size={compact ? 19 : 22} />
-      <span
-        className={`glow-serif font-serif font-semibold italic tracking-tight ${
-          compact ? "text-xl" : "text-[22px]"
-        }`}
-      >
-        Clutch Picks
-      </span>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/logo-stacked.webp"
+        alt="Clutch Picks"
+        draggable={false}
+        className={compact ? "h-10 w-auto" : "h-10 w-auto lg:h-[52px]"}
+        style={{
+          filter:
+            "drop-shadow(0 6px 14px rgba(0,0,0,0.75)) drop-shadow(0 0 22px rgba(155,194,220,0.3))",
+        }}
+      />
     </a>
   );
 }

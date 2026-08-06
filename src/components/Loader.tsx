@@ -113,15 +113,21 @@ export default function Loader() {
                 transition: { duration: 0.36, ease: [0.83, 0, 1, 1] },
               }}
             >
-              {/* network ident */}
-              <div className="flex flex-col items-center gap-5 pt-[3svh]">
-                <div className="flex items-center gap-4 sm:gap-6">
-                  <StripeMark size={44} className="text-cream" />
-                  <span className="glow-serif-strong whitespace-nowrap font-serif text-4xl font-semibold italic tracking-tight text-cream sm:text-7xl">
-                    Clutch Picks
-                  </span>
-                </div>
-                <div className="boot-chroma text-center font-led text-xl leading-snug text-cream/85 sm:text-2xl">
+              {/* network ident — the real mark, floodlit */}
+              <div className="flex flex-col items-center gap-7 pt-[2svh]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo-stacked.webp"
+                  alt=""
+                  draggable={false}
+                  className="w-[min(300px,56vw)]"
+                  style={{
+                    filter:
+                      "drop-shadow(0 12px 32px rgba(0,0,0,0.85)) drop-shadow(0 0 44px rgba(155,194,220,0.4))",
+                  }}
+                />
+                <div className="boot-chroma flex items-center gap-3 text-center font-led text-xl leading-snug text-cream/85 sm:text-2xl">
+                  <StripeMark size={18} className="text-cream" />
                   CLUTCH SPORTS NETWORK — CHANNEL 01
                 </div>
               </div>

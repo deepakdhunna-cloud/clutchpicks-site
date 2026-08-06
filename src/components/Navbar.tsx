@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import StripeMark from "./StripeMark";
 
 /** Minimal fixed top bar for legal/support pages. */
 export default function Navbar() {
@@ -10,13 +9,20 @@ export default function Navbar() {
       style={{ paddingTop: "max(0.75rem, calc(env(safe-area-inset-top) + 0.25rem))" }}>
       <Link
         href="/"
-        className="flex items-center gap-3 p-1"
+        className="flex items-center p-1"
         aria-label="Clutch Picks home"
       >
-        <StripeMark size={19} />
-        <span className="glow-serif font-serif text-xl font-semibold italic tracking-tight">
-          Clutch Picks
-        </span>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/logo-stacked.webp"
+          alt="Clutch Picks"
+          draggable={false}
+          className="h-10 w-auto"
+          style={{
+            filter:
+              "drop-shadow(0 6px 14px rgba(0,0,0,0.75)) drop-shadow(0 0 22px rgba(155,194,220,0.3))",
+          }}
+        />
       </Link>
       <Link
         href="/"
