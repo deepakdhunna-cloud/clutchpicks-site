@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   description:
     "AI-powered sports intelligence for live scores, matchup context, confidence-rated picks, and personal tracking across 11 leagues.",
   keywords:
-    "sports predictions, AI, NBA, NFL, MLB, NHL, MLS, EPL, UCL, IPL, tennis, college football, college basketball",
+    "sports predictions, AI, NBA, NFL, MLB, NHL, MLS, EPL, UCL, T20 cricket, tennis, college football, college basketball",
   alternates: { canonical: "/" },
   appleWebApp: {
     capable: true,
@@ -69,8 +69,8 @@ const structuredData = {
       url: SITE_URL,
       logo: `${SITE_URL}/app-icon.png`,
       sameAs: [
-        "https://instagram.com/clutchpicksapp",
-        "https://tiktok.com/@clutchpicksapp",
+        "https://www.instagram.com/clutchpicksapp/",
+        "https://www.tiktok.com/@clutchpicksapp",
         "https://x.com/clutchpicksapp",
       ],
     },

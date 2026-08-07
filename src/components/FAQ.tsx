@@ -7,7 +7,7 @@ const faqs = [
   },
   {
     q: "Which leagues are covered?",
-    a: "NBA, NFL, MLB, NHL, MLS, EPL, UCL, IPL, tennis, NCAA football, and NCAA basketball — eleven leagues on one board.",
+    a: "NBA, NFL, MLB, NHL, MLS, the Premier League, the Champions League, T20 cricket, ATP & WTA tennis, college football, and college basketball — eleven leagues on one board.",
   },
   {
     q: "What do I get for free?",

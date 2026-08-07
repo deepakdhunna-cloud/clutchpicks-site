@@ -4,8 +4,8 @@ import { motion, useInView, animate } from "framer-motion";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 export const EASE = [0.16, 1, 0.3, 1] as const;
-export const APP_STORE_URL =
-  "https://apps.apple.com/us/app/clutch-picks/id6759183746";
+export { APP_STORE_URL } from "@/lib/site";
+import { APP_STORE_URL } from "@/lib/site";
 
 /* ---------------------------------------------------------------
    FadeUp — scroll-triggered reveal used across sections

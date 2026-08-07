@@ -1,18 +1,6 @@
 "use client";
 
-const leagues = [
-  "NBA",
-  "NFL",
-  "MLB",
-  "NHL",
-  "MLS",
-  "EPL",
-  "UCL",
-  "IPL",
-  "TENNIS",
-  "NCAAF",
-  "NCAAB",
-];
+import { LEAGUES } from "@/lib/site";
 
 function List({ dup = false }: { dup?: boolean }) {
   return (
@@ -21,10 +9,13 @@ function List({ dup = false }: { dup?: boolean }) {
       data-dup={dup ? "" : undefined}
       className="flex w-max items-center gap-12 pr-12"
     >
-      {leagues.map((code) => (
-        <li key={code} className="flex items-center gap-12">
-          <span className="scoreboard-type text-3xl text-white/25 transition-colors duration-300 hover:text-white sm:text-4xl">
-            {code}
+      {LEAGUES.map((league) => (
+        <li key={league.abbr} className="flex items-center gap-12">
+          <span
+            className="scoreboard-type text-3xl text-white/25 transition-colors duration-300 hover:text-white sm:text-4xl"
+            title={league.name}
+          >
+            {league.abbr}
           </span>
           <span aria-hidden="true" className="h-1.5 w-1.5 rotate-45 bg-[var(--color-electric)]/40" />
         </li>

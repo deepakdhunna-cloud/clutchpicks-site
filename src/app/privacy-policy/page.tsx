@@ -15,8 +15,7 @@ export default function PrivacyPolicyPage() {
       <section className="pt-40 pb-20 px-6">
         <div className="max-w-3xl mx-auto">
           <h1
-            className="text-4xl sm:text-5xl tracking-wider mb-2"
-            style={{ fontFamily: "var(--font-heading)" }}
+            className="text-4xl sm:text-5xl font-black uppercase font-wide mb-2"
           >
             Privacy Policy
           </h1>
@@ -52,7 +51,7 @@ export default function PrivacyPolicyPage() {
               <p className="mb-4">
                 We collect information in three ways: (a) information you provide, (b)
                 information collected automatically, and (c) information from third
-                parties, including for authentication and age assurance.
+                parties (if you choose to connect them).
               </p>
 
               <h3 className="text-white font-medium mb-2">
@@ -60,21 +59,22 @@ export default function PrivacyPolicyPage() {
               </h3>
               <ul className="list-disc pl-6 space-y-1 mb-4">
                 <li>
-                  Account information (if you create an account): such as username, email
-                  address, and login credentials (or authentication token if you use a
-                  third-party sign-in).
+                  Account information: such as your name or display name, email address,
+                  and authentication credentials or tokens (including if you use Sign in
+                  with Apple).
                 </li>
                 <li>
-                  Profile and preferences: such as favorite teams, notification
-                  preferences, and display settings.
+                  Profile and preferences: such as a profile photo or bio, favorite
+                  teams, notification preferences, and display settings.
                 </li>
                 <li>
-                  Picks and activity: picks you create, comments/notes you add,
-                  watchlists, favorites, and other actions taken inside the App.
+                  Picks and activity: picks you create, watchlists, favorites, and other
+                  actions taken inside the App.
                 </li>
                 <li>
-                  Support communications: information you provide if you contact support
-                  (messages and any files you choose to attach).
+                  Support communications and contact details: information you choose to
+                  provide when contacting support, such as your name, email address,
+                  optional phone number, message, and attachments.
                 </li>
               </ul>
 
@@ -94,33 +94,23 @@ export default function PrivacyPolicyPage() {
                   Diagnostics and performance data: crash reports, error logs, and
                   performance metrics.
                 </li>
+                <li>Push notification tokens if you enable notifications.</li>
+                <li>
+                  On supported Apple devices, a derived age band and age-assurance or
+                  permission status; the applicable policy, change, and permission-question
+                  identifiers; App Store age-rating and install-version context; and a keyed,
+                  pseudonymous identifier derived from Apple&apos;s AppTransaction identifier.
+                  We do not store a date of birth, exact age, raw age-range response, or raw
+                  signed JWS payload for this process.
+                </li>
               </ul>
 
               <h3 className="text-white font-medium mb-2">
-                C. Information From Third Parties
+                C. Information From Third Parties (Optional)
               </h3>
-              <p className="mb-3">
-                If you sign in using a third-party provider (e.g., Apple, Google) or
-                connect third-party services, we may receive limited information such as
-                a unique account identifier and basic profile details permitted by your
-                settings with that provider.
-              </p>
-              <p className="mb-3">
-                For age assurance, we store only the following information derived from
-                Apple&apos;s age-assurance process:
-              </p>
-              <ul className="list-disc pl-6 space-y-1 mb-3">
-                <li>The derived age band and age-assurance or guardian-consent status</li>
-                <li>Policy, change, and question identifiers</li>
-                <li>App Store age-rating baseline and original-install version context</li>
-                <li>
-                  A keyed, pseudonymous identifier derived from Apple&apos;s AppTransaction
-                  identifier
-                </li>
-              </ul>
               <p>
-                We do not collect a date of birth or raw age for age assurance, and we do
-                not store any raw signed JWS payload.
+                If you use Sign in with Apple, we may receive a unique account identifier
+                and limited profile details permitted by your Apple settings.
               </p>
             </div>
 
@@ -136,10 +126,9 @@ export default function PrivacyPolicyPage() {
                   accounts and enabling features such as picks tracking.
                 </li>
                 <li>
-                  Determine whether a user is eligible to access the App, enforce the
+                  Determine whether age or permission requirements apply, enforce the
                   minimum age and any specific system permission Apple identifies as
-                  legally required, and reevaluate eligibility when Apple signals a
-                  relevant policy or consent change.
+                  legally required, and respond to a valid consent withdrawal.
                 </li>
                 <li>
                   Personalize your experience, including showing relevant games, teams,
@@ -156,10 +145,6 @@ export default function PrivacyPolicyPage() {
                 <li>
                   Analytics, to understand usage trends and improve performance and user
                   experience.
-                </li>
-                <li>
-                  Advertising, to display ads in the App, measure ad performance, cap ad
-                  frequency, combat ad fraud, and support the App&apos;s operations.
                 </li>
                 <li>
                   Legal and compliance purposes, such as enforcing policies and complying
@@ -179,10 +164,37 @@ export default function PrivacyPolicyPage() {
               </p>
               <ul className="list-disc pl-6 space-y-1">
                 <li>
-                  Service providers: vendors that help us operate the App (e.g., hosting,
-                  analytics, crash reporting, customer support tools, and advertising
-                  partners). They are permitted to process information only on our
-                  instructions and for the services they provide to us.
+                  Service providers: vendors that help us operate the App. They are
+                  permitted to process information only on our instructions and for the
+                  services they provide to us. These include:
+                  <ul className="list-disc pl-6 space-y-1 mt-2">
+                    <li>
+                      Railway and infrastructure providers (application hosting and data
+                      storage)
+                    </li>
+                    <li>ESPN (sports data and scores)</li>
+                    <li>
+                      OpenAI and Anthropic (game and source analysis; we do not
+                      intentionally send account or profile data for this analysis)
+                    </li>
+                    <li>
+                      Apify (public sports-news and source ingestion; we do not
+                      intentionally send account or profile data)
+                    </li>
+                    <li>
+                      RevenueCat (subscription and payment processing, including the
+                      account identifier, email address, and display name used to match
+                      and support your customer record)
+                    </li>
+                    <li>
+                      Apple (authentication, subscriptions, age assurance, and any
+                      applicable system permission)
+                    </li>
+                    <li>Resend (email verification and service emails)</li>
+                    <li>Expo (push notification delivery)</li>
+                    <li>Sentry (crash and error diagnostics)</li>
+                    <li>Google Workspace (support email communications)</li>
+                  </ul>
                 </li>
                 <li>
                   Legal and safety reasons: if we believe disclosure is necessary to
@@ -202,48 +214,29 @@ export default function PrivacyPolicyPage() {
             {/* Section 4 */}
             <div>
               <h2 className="text-lg text-white font-semibold mb-3">
-                4. Advertising, Ad Partners, and Analytics
+                4. Analytics and Diagnostics
               </h2>
               <p className="mb-3">
-                Clutch Picks displays ads in the App. Advertising and analytics partners
-                may collect or receive certain information to provide ads, measure
-                performance, and prevent fraud. This may include:
+                We use limited analytics and diagnostics to understand app performance,
+                troubleshoot issues, and improve the product. This may include:
               </p>
               <ul className="list-disc pl-6 space-y-1 mb-4">
-                <li>
-                  Device identifiers (such as an advertising ID where permitted)
-                </li>
                 <li>IP address</li>
-                <li>
-                  Approximate location inferred from IP (not precise GPS unless you
-                  explicitly grant it)
-                </li>
-                <li>
-                  App interaction events (e.g., ad impressions/clicks, session data)
-                </li>
+                <li>App interaction events (for example, session data)</li>
                 <li>
                   Device and app information (device model, OS version, app version)
                 </li>
+                <li>Crash and error diagnostics</li>
               </ul>
-
-              <p className="text-white font-medium mb-2">
-                Your choices and controls:
+              <p className="mb-3">
+                Clutch Picks does not use third-party advertising SDKs or sell personal
+                information for advertising.
               </p>
-              <ul className="list-disc pl-6 space-y-1">
-                <li>
-                  You can limit ad tracking or reset your advertising identifier using
-                  your device settings (where available).
-                </li>
-                <li>
-                  On iOS, you can control whether apps can request to track you (App
-                  Tracking Transparency) and manage tracking permissions in system
-                  settings.
-                </li>
-                <li>
-                  You can also control certain analytics permissions through OS-level
-                  controls where offered by Apple/Android.
-                </li>
-              </ul>
+              <p>
+                Payments are processed by Apple through the App Store. We do not receive
+                your full payment card number. RevenueCat helps us manage subscription
+                status and entitlement access.
+              </p>
             </div>
 
             {/* Section 5 */}
@@ -252,10 +245,11 @@ export default function PrivacyPolicyPage() {
                 5. Location Data
               </h2>
               <p>
-                Clutch Picks does not require precise location data to function. If the
-                App ever requests location permissions, it will be optional and used only
-                for the purpose disclosed at the time you grant permission. You can
-                disable location permissions at any time in your device settings.
+                Clutch Picks does not request device-location permission and does not
+                collect precise or coarse GPS location. Like most internet services, our
+                systems may receive an IP address, which can indicate a general region.
+                We use that information for security, diagnostics, and service operation,
+                not to track your physical movements.
               </p>
             </div>
 
@@ -274,10 +268,17 @@ export default function PrivacyPolicyPage() {
                 <li>Enforce agreements</li>
                 <li>Maintain security and prevent abuse</li>
               </ul>
+              <p className="mb-3">
+                We may retain aggregated or de-identified information for analytics and
+                product improvement.
+              </p>
               <p>
-                Retention periods vary depending on the type of data and why we collected
-                it. We may retain aggregated or de-identified information for analytics
-                and product improvement.
+                Where needed to honor a withdrawn platform consent and comply with
+                age-assurance obligations, we may retain a minimal keyed pseudonymous
+                identifier and revocation timestamp after account deletion. Delivery
+                idempotency records and non-revoked orphaned identifiers are removed on a
+                bounded schedule. We do not retain the raw Apple age response or signed
+                AppTransaction payload.
               </p>
             </div>
 
@@ -287,32 +288,35 @@ export default function PrivacyPolicyPage() {
                 7. Account Deletion and Your Privacy Rights
               </h2>
               <p className="mb-3">
-                You may request deletion of your account and associated personal
-                information by emailing{" "}
+                You can delete your account directly in the App from Settings. You may
+                also contact{" "}
                 <a
-                  href="mailto:support@clutchpicks.com"
+                  href="mailto:support@clutchpicksapp.com"
                   className="text-[var(--color-coral)] hover:underline"
                 >
-                  support@clutchpicks.com
+                  support@clutchpicksapp.com
                 </a>{" "}
-                from the email address linked to your account and including the subject
-                line: &quot;Delete My Clutch Picks Account.&quot;
+                from the email address linked to your account if you need help.
               </p>
               <p className="mb-3">
                 When we delete your account, we remove or de-identify personal
                 information associated with the account, subject to limited exceptions
-                where retention is required or permitted by law (for example, security
-                logs, fraud prevention records, or compliance obligations).
+                where retention is required or permitted by law.
+              </p>
+              <p className="mb-3">
+                Deleting your Clutch Picks account does not cancel an App Store
+                subscription. You must separately manage or cancel the subscription
+                through your Apple account settings.
               </p>
               <p>
                 Depending on where you live, you may have additional rights such as
                 accessing, correcting, or deleting certain personal information. You can
                 exercise these rights by contacting us at{" "}
                 <a
-                  href="mailto:support@clutchpicks.com"
+                  href="mailto:support@clutchpicksapp.com"
                   className="text-[var(--color-coral)] hover:underline"
                 >
-                  support@clutchpicks.com
+                  support@clutchpicksapp.com
                 </a>
                 .
               </p>
@@ -336,26 +340,26 @@ export default function PrivacyPolicyPage() {
                 9. Children&apos;s Privacy
               </h2>
               <p className="mb-3">
-                The App blocks users under 13. Users ages 13 through 17 may access the
-                App without a general parent or guardian permission requirement. On
-                supported Apple devices, we still enforce any specific system permission
-                Apple identifies as legally required for the account or region. Users 18
-                or older may access the App subject to its terms.
+                The App is not intended for children under 13 (or the minimum age required
+                in your jurisdiction), and users identified as under 13 are not permitted
+                to use it. Users ages 13 through 17 may use the App without a general
+                parent or guardian permission requirement. On supported Apple devices,
+                we still enforce any specific system permission Apple identifies as
+                legally required for the account or region.
               </p>
               <p className="mb-3">
-                We apply a fail-closed rule. A declined, denied, pending, unknown,
-                unavailable, conflict, or rescinded required age-assurance or permission
-                status is treated as ineligible, and access remains blocked unless and
-                until an eligible status is received.
+                Access remains restricted when such a required age or permission result is
+                declined, denied, pending, unknown, unavailable, conflicting, or rescinded,
+                unless and until eligibility is validly restored.
               </p>
               <p>
                 We do not knowingly collect personal information from children under 13.
                 If you believe a child has provided us personal information, contact{" "}
                 <a
-                  href="mailto:support@clutchpicks.com"
+                  href="mailto:support@clutchpicksapp.com"
                   className="text-[var(--color-coral)] hover:underline"
                 >
-                  support@clutchpicks.com
+                  support@clutchpicksapp.com
                 </a>{" "}
                 and we will take appropriate steps to delete it.
               </p>
@@ -442,10 +446,10 @@ export default function PrivacyPolicyPage() {
               <p>
                 Email:{" "}
                 <a
-                  href="mailto:support@clutchpicks.com"
+                  href="mailto:support@clutchpicksapp.com"
                   className="text-[var(--color-coral)] hover:underline"
                 >
-                  support@clutchpicks.com
+                  support@clutchpicksapp.com
                 </a>
               </p>
             </div>
