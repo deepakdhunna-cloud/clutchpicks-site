@@ -2,3 +2,8 @@ node_modules
 .next
 out
 .DS_Store
+.claude/
+tsconfig.tsbuildinfo
+
+# Local MCP server config (machine-specific absolute idb path)
+.mcp.json

@@ -21,7 +21,7 @@ export default function PrivacyPolicyPage() {
             Privacy Policy
           </h1>
           <p className="text-sm text-[var(--color-text-muted)] mb-12">
-            Effective Date: March 1, 2026 &middot; Last Updated: March 1, 2026
+            Effective Date: March 1, 2026 &middot; Last Updated: July 20, 2026
           </p>
 
           <div className="space-y-10 text-[var(--color-text-muted)] leading-relaxed text-sm sm:text-base">
@@ -52,7 +52,7 @@ export default function PrivacyPolicyPage() {
               <p className="mb-4">
                 We collect information in three ways: (a) information you provide, (b)
                 information collected automatically, and (c) information from third
-                parties (if you choose to connect them).
+                parties, including for authentication and age assurance.
               </p>
 
               <h3 className="text-white font-medium mb-2">
@@ -97,13 +97,30 @@ export default function PrivacyPolicyPage() {
               </ul>
 
               <h3 className="text-white font-medium mb-2">
-                C. Information From Third Parties (Optional)
+                C. Information From Third Parties
               </h3>
-              <p>
+              <p className="mb-3">
                 If you sign in using a third-party provider (e.g., Apple, Google) or
                 connect third-party services, we may receive limited information such as
                 a unique account identifier and basic profile details permitted by your
                 settings with that provider.
+              </p>
+              <p className="mb-3">
+                For age assurance, we store only the following information derived from
+                Apple&apos;s age-assurance process:
+              </p>
+              <ul className="list-disc pl-6 space-y-1 mb-3">
+                <li>The derived age band and age-assurance or guardian-consent status</li>
+                <li>Policy, change, and question identifiers</li>
+                <li>App Store age-rating baseline and original-install version context</li>
+                <li>
+                  A keyed, pseudonymous identifier derived from Apple&apos;s AppTransaction
+                  identifier
+                </li>
+              </ul>
+              <p>
+                We do not collect a date of birth or raw age for age assurance, and we do
+                not store any raw signed JWS payload.
               </p>
             </div>
 
@@ -117,6 +134,12 @@ export default function PrivacyPolicyPage() {
                 <li>
                   Provide and operate the App, including creating and maintaining
                   accounts and enabling features such as picks tracking.
+                </li>
+                <li>
+                  Determine whether a user is eligible to access the App, enforce the
+                  minimum age and any specific system permission Apple identifies as
+                  legally required, and reevaluate eligibility when Apple signals a
+                  relevant policy or consent change.
                 </li>
                 <li>
                   Personalize your experience, including showing relevant games, teams,
@@ -312,11 +335,22 @@ export default function PrivacyPolicyPage() {
               <h2 className="text-lg text-white font-semibold mb-3">
                 9. Children&apos;s Privacy
               </h2>
+              <p className="mb-3">
+                The App blocks users under 13. Users ages 13 through 17 may access the
+                App without a general parent or guardian permission requirement. On
+                supported Apple devices, we still enforce any specific system permission
+                Apple identifies as legally required for the account or region. Users 18
+                or older may access the App subject to its terms.
+              </p>
+              <p className="mb-3">
+                We apply a fail-closed rule. A declined, denied, pending, unknown,
+                unavailable, conflict, or rescinded required age-assurance or permission
+                status is treated as ineligible, and access remains blocked unless and
+                until an eligible status is received.
+              </p>
               <p>
-                The App is not intended for children under 13 (or the minimum age
-                required in your jurisdiction). We do not knowingly collect personal
-                information from children under 13. If you believe a child has provided
-                us personal information, contact{" "}
+                We do not knowingly collect personal information from children under 13.
+                If you believe a child has provided us personal information, contact{" "}
                 <a
                   href="mailto:support@clutchpicks.com"
                   className="text-[var(--color-coral)] hover:underline"

@@ -20,7 +20,7 @@ export default function TermsPage() {
             Terms and Conditions
           </h1>
           <p className="text-sm text-[var(--color-text-muted)] mb-12">
-            Last Updated: March 2026
+            Last Updated: July 20, 2026
           </p>
 
           <div className="space-y-10 text-[var(--color-text-muted)] leading-relaxed text-sm sm:text-base">
@@ -87,9 +87,17 @@ export default function TermsPage() {
               <h2 className="text-lg text-white font-semibold mb-3">
                 6. Age Requirement
               </h2>
+              <p className="mb-3">
+                Users under 13 may not access or use the App. Users ages 13 through 17
+                may use the App without a general parent or guardian permission
+                requirement. Users 18 or older may use the App subject to these Terms.
+              </p>
               <p>
-                You must be at least 13 years of age to use this App. By using this App,
-                you confirm that you meet this requirement.
+                On supported Apple devices, we enforce any specific system age-assurance
+                or permission step Apple identifies as legally required for the account
+                or region. A declined, denied, pending, unknown, unavailable, conflict,
+                or rescinded required status blocks access unless and until an eligible
+                status is received.
               </p>
             </div>
 
@@ -116,8 +124,9 @@ export default function TermsPage() {
                 billing periods.
               </p>
               <p>
-                Current pricing: $4.99 per month. Prices may vary by region and are
-                subject to change.
+                Current US pricing: $6.99 per month. Prices may vary by region and are
+                subject to change. The App Store purchase sheet shows the final price
+                and trial terms before purchase.
               </p>
             </div>
 

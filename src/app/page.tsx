@@ -1,47 +1,33 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import SplashScreen from "@/components/SplashScreen";
-import PageWrapper from "@/components/PageWrapper";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Leagues from "@/components/Leagues";
+import LiveIntelligence from "@/components/LiveIntelligence";
 import Features from "@/components/Features";
+import WhyDifferent from "@/components/WhyDifferent";
 import HowItWorks from "@/components/HowItWorks";
+import AnalystProof from "@/components/AnalystProof";
 import Pricing from "@/components/Pricing";
+import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
-import { motion } from "framer-motion";
 
 export default function Home() {
-  const [splashDone, setSplashDone] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setSplashDone(true), 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <>
-      <SplashScreen />
-      <PageWrapper>
-        <main className="overflow-x-hidden max-w-[100vw]">
-          <Navbar delay={splashDone} />
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={splashDone ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            <Hero />
-            <Leagues />
-            <Features />
-            <HowItWorks />
-            <Pricing />
-            <CTA />
-            <Footer />
-          </motion.div>
-        </main>
-      </PageWrapper>
+      <Navbar />
+      <main id="main">
+        <Hero />
+        <Leagues />
+        <LiveIntelligence />
+        <Features />
+        <WhyDifferent />
+        <HowItWorks />
+        <AnalystProof />
+        <Pricing />
+        <FAQ />
+        <CTA />
+      </main>
+      <Footer />
     </>
   );
 }
