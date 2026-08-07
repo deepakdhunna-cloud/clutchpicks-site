@@ -1,266 +1,535 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #05070b;
-  --color-surface: #0a0e15;
-  --color-electric: #4cc2ff;
-  --color-electric-deep: #2b8fd6;
-  --color-red-bright: #e0233f;
-  --color-maroon-light: #b51633;
+  /* ---- Canvas & surfaces (app-accurate, clutch-picks src/lib/theme.ts) ---- */
+  --color-bg: #040608;
+  --color-bg-deep: #010101;
+  --color-elevated: #0a0e14;
+  --color-panel: rgba(8, 8, 12, 0.95);
+  --color-panel-deep: rgba(2, 3, 8, 0.92);
+
+  /* ---- Label tiers (ice-white opacity — arena floodlight, never grey) ---- */
+  --color-l1: #eef4fa;
+  --color-l2: rgba(238, 244, 250, 0.72);
+  --color-l3: rgba(238, 244, 250, 0.5);
+  --color-l4: rgba(238, 244, 250, 0.3);
+
+  /* ---- Hairlines ---- */
+  --color-line-faint: rgba(238, 244, 250, 0.05);
+  --color-line: rgba(238, 244, 250, 0.09);
+  --color-line-strong: rgba(238, 244, 250, 0.16);
+
+  /* ---- Floodlight white + sign-on navy ---- */
+  --color-cream: #eef4fa;
+  --color-boot: #0c182b;
+
+  /* ---- Brand: steel teal primary, maroon secondary ---- */
+  --color-teal: #7a9db8;
+  --color-teal-dark: #5a7a8a;
+  --color-teal-deep: #2a3e4e;
+  --color-maroon: #8b0a1f;
+  --color-maroon-text: #d25668;
+  --color-maroon-deep: #6a0818;
+  --color-maroon-deepest: #5a0614;
+
+  /* ---- Status ---- */
+  --color-live: #dc2626;
+  --color-loss: #ef4444;
+  --color-up: #4ade80;
+  --color-winner: #31f58a;
+
+  /* ---- Clutch Pro icy blue ---- */
+  --color-pro: #b4d3eb;
+  --color-pro-dim: #9ab8cc;
+
+  /* ---- Confidence tier ramp (display-confidence.ts) ---- */
+  --color-tier-toss: #6b7280;
+  --color-tier-lean: #8ea4b8;
+  --color-tier-solid: #a8bac8;
+  --color-tier-strong: #cbd5e1;
+  --color-tier-lock: #f1f5f9;
+
+  /* ---- Legacy aliases (legal pages) ---- */
+  --color-coral: #7a9db8;
+  --color-coral-light: #8eb0c8;
+  --color-teal-light: #9bb8cf;
   --color-green: #4ade80;
-  --color-slate-blue: #7a9db8;
-  --color-silver: #c9ced6;
   --color-text: #ffffff;
-  --color-text-muted: #9dafc4;
+  --color-text-muted: rgba(255, 255, 255, 0.55);
   --color-border: rgba(255, 255, 255, 0.08);
-  --font-heading: var(--font-bebas), "Arial Narrow", sans-serif;
-  --font-body: var(--font-dm), system-ui, sans-serif;
+  --color-bg-card: #0a0e12;
+  --color-bg-card-hover: #0f1419;
+  --font-heading: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+
+  /* ---- Fonts ---- */
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex), ui-monospace, "SFMono-Regular", Menlo,
+    monospace;
+  --font-led: var(--font-vt323), ui-monospace, monospace;
+  --font-serif: var(--font-fraunces), Georgia, "Times New Roman", serif;
+
+  /* ---- Easing ---- */
+  --ease-clutch: cubic-bezier(0.66, 0, 0.01, 1);
 }
 
-@layer base {
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+/* ============ Base ============ */
 
-  html {
-    width: 100%;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(122, 157, 184, 0.5) var(--color-bg);
-  }
-
-  body {
-    min-height: 100vh;
-    overflow-x: hidden;
-    background:
-      radial-gradient(90rem 44rem at 12% -4%, rgba(76, 194, 255, 0.07), transparent 60%),
-      radial-gradient(80rem 44rem at 95% 104%, rgba(224, 35, 63, 0.06), transparent 60%),
-      var(--color-bg);
-    color: var(--color-text);
-    font-family: var(--font-body);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  ::selection {
-    background: rgba(122, 157, 184, 0.35);
-    color: #fff;
-  }
-
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: var(--color-bg);
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: rgba(122, 157, 184, 0.45);
-    border: 2px solid var(--color-bg);
-    border-radius: 999px;
-  }
-
-  :focus-visible {
-    outline: 2px solid var(--color-electric);
-    outline-offset: 3px;
-    border-radius: 4px;
-  }
+html {
+  background: var(--color-bg);
+  color-scheme: dark;
+  scroll-behavior: smooth;
 }
 
-/* Skip-to-content link: hidden until keyboard-focused */
-.skip-link {
-  position: fixed;
-  top: 14px;
-  left: 14px;
-  z-index: 200;
-  padding: 10px 18px;
-  border-radius: 999px;
-  background: var(--color-electric);
-  color: #04121c;
-  font-weight: 700;
-  font-size: 14px;
-  transform: translateY(-300%);
+/* Slim themed scrollbar — keeps the dark look without hiding the affordance */
+html,
+body {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
 }
-.skip-link:focus-visible {
-  transform: none;
+body::-webkit-scrollbar {
+  width: 6px;
 }
-
-/* ---- Type ---- */
-.scoreboard-type,
-.font-wide {
-  font-family: var(--font-heading);
-  letter-spacing: 0.05em;
+body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 3px;
+}
+body::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.display-hero {
-  font-size: clamp(3.5rem, 8.5vw, 7rem);
-  line-height: 0.9;
+body {
+  background: var(--color-bg);
+  color: var(--color-l1);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-.display-section {
-  font-size: clamp(2.5rem, 4.6vw, 4.1rem);
-  line-height: 0.95;
+::selection {
+  background: #7a9db8;
+  color: #04070a;
 }
 
-.tnum {
+/* ============ Utilities ============ */
+
+@utility font-wide {
+  font-variation-settings: "wdth" 125;
+}
+@utility font-wide-110 {
+  font-variation-settings: "wdth" 110;
+}
+@utility tabular {
   font-variant-numeric: tabular-nums;
 }
 
-/* Two-tone underline — the app's red/cyan matchup split, used as the
-   signature mark under headings and on the win-probability bar. */
-.duo-underline {
-  height: 4px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--color-red-bright) 0 38%, var(--color-electric) 38% 100%);
-  transform-origin: left;
+/* Signature dotted-border hover (after haoqi.design) */
+.dotted-hover {
+  position: relative;
+}
+.dotted-hover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px dotted transparent;
+  pointer-events: none;
+  transition: border-color 200ms ease-out;
+}
+@media (hover: hover) {
+  .dotted-hover:hover::before {
+    border-color: var(--color-l1);
+  }
+  .dotted-hover-teal:hover::before {
+    border-color: var(--color-teal);
+  }
+}
+.dotted-hover:active::before {
+  border-color: var(--color-l1);
+}
+.dotted-hover:focus-visible {
+  outline: none;
+}
+.dotted-hover:focus-visible::before {
+  border-color: var(--color-l1);
+}
+.dotted-hover-teal:focus-visible::before {
+  border-color: var(--color-teal);
+}
+:is(a, button):not(.dotted-hover):focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 2px;
 }
 
-/* Solid-feel gradient headline accent (white → cyan) */
-.text-electric {
-  background: linear-gradient(100deg, #fff 5%, var(--color-electric) 90%);
+/* Hero top padding — clears the safe-area chrome on phones */
+.hero-pad {
+  padding-top: calc(max(0.75rem, env(safe-area-inset-top)) + 4.75rem);
+}
+@media (min-width: 1024px) {
+  .hero-pad {
+    padding-top: 7rem;
+  }
+}
+
+/* Glass panels (app GLASS_* tokens) */
+.glass {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+}
+
+.gradient-text {
+  background: linear-gradient(120deg, #7a9db8, #b4d3eb);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
-/* ---- Surfaces ---- */
-.card {
-  position: relative;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1.25rem;
-  transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
-}
-.card-hover:hover {
-  border-color: rgba(255, 255, 255, 0.16);
-  transform: translateY(-2px);
-}
-
-/* Glowing phone rim, toned to sit quietly on the page */
-.phone-rim {
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.1),
-    0 30px 70px rgba(0, 0, 0, 0.55),
-    0 0 46px rgba(76, 194, 255, 0.09);
-}
-
-/* Hero floor — a single static perspective grid, masked to fade out */
-.hero-floor {
-  position: absolute;
-  left: -40%;
-  right: -40%;
-  bottom: -32%;
-  height: 72%;
-  background-image:
-    linear-gradient(to right, rgba(190, 210, 230, 0.12) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(190, 210, 230, 0.12) 1px, transparent 1px);
-  background-size: 56px 56px;
-  transform: perspective(340px) rotateX(70deg);
-  transform-origin: 50% 100%;
-  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.9) 6%, transparent 82%),
-    linear-gradient(to right, transparent 2%, #000 24%, #000 76%, transparent 98%);
-  mask-composite: intersect;
-  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0.9) 6%, transparent 82%),
-    linear-gradient(to right, transparent 2%, #000 24%, #000 76%, transparent 98%);
-  -webkit-mask-composite: source-in;
+/* Subtle film grain — pre-rendered tile, cheap to composite */
+.noise::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
   pointer-events: none;
+  background: url("/noise.png") repeat;
+  transform: translateZ(0);
 }
 
-/* ---- Live pill pulse ---- */
-.live-dot {
-  box-shadow: 0 0 0 0 rgba(224, 35, 63, 0.6);
-  animation: live-pulse 1.8s ease-out infinite;
+/* ============ Keyframes ============ */
+
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
+.animate-marquee {
+  animation: marquee-x 42s linear infinite;
+}
+
 @keyframes live-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(224, 35, 63, 0.55); }
-  70% { box-shadow: 0 0 0 7px rgba(224, 35, 63, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(224, 35, 63, 0); }
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.85);
+  }
+}
+.animate-live-pulse {
+  animation: live-pulse 750ms ease-in-out infinite;
 }
 
-/* ---- League ticker (one row, pauses on hover) ---- */
-.ticker-mask {
-  overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
-.ticker-track {
-  display: flex;
-  width: max-content;
-  align-items: center;
-  animation: ticker 46s linear infinite;
-}
-.ticker-mask:hover .ticker-track {
-  animation-play-state: paused;
-}
-@keyframes ticker {
-  to { transform: translateX(-50%); }
+.animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
 }
 
-/* ---- FAQ (native details/summary) ---- */
-.faq-item {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+/* Ambient background drift (Background.tsx) */
+@keyframes drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(12vw, 9vh, 0) scale(1.18);
+  }
 }
-.faq-item summary {
-  list-style: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  padding: 1.35rem 0.25rem;
-  font-weight: 700;
-  font-size: 1rem;
-  color: #fff;
+.bg-drift-a {
+  animation: drift-a 20s ease-in-out infinite;
+  will-change: transform;
 }
-.faq-item summary::-webkit-details-marker {
-  display: none;
+
+@keyframes drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-11vw, -9vh, 0) scale(1.12);
+  }
 }
-.faq-item summary:hover {
-  color: var(--color-electric);
+.bg-drift-b {
+  animation: drift-b 26s ease-in-out infinite;
+  will-change: transform;
 }
-.faq-icon {
-  flex-shrink: 0;
-  transition: transform 0.25s ease;
-  color: var(--color-text-muted);
+
+@keyframes drift-c {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  33% {
+    transform: translate3d(-12vw, 9vh, 0);
+  }
+  66% {
+    transform: translate3d(9vw, -7vh, 0);
+  }
 }
-.faq-item[open] .faq-icon {
-  transform: rotate(45deg);
-  color: var(--color-electric);
+.bg-drift-c {
+  animation: drift-c 34s ease-in-out infinite;
+  will-change: transform;
 }
-.faq-answer {
-  padding: 0 0.25rem 1.35rem;
-  max-width: 46rem;
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.66);
-  animation: faq-in 0.3s ease;
+
+@keyframes grid-pan {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(72px, 72px, 0);
+  }
 }
-@keyframes faq-in {
-  from { opacity: 0; transform: translateY(-4px); }
-  to { opacity: 1; transform: none; }
+.bg-grid-pan {
+  animation: grid-pan 16s linear infinite;
+  will-change: transform;
+}
+
+/* ============ Broadcast-era design language (after shader.se) ============ */
+
+/* Glowing serif display text — floodlight bloom, fringed in the brand
+ * maroon (left) and steel-ice (right) instead of stock CRT red/blue */
+.glow-serif {
+  color: var(--color-cream);
+  text-shadow:
+    0 0 14px rgba(238, 244, 250, 0.28),
+    0 0 44px rgba(180, 211, 235, 0.16),
+    0 0 90px rgba(122, 157, 184, 0.13),
+    -1.5px 0 0 rgba(210, 86, 104, 0.14),
+    1.5px 0 0 rgba(155, 194, 220, 0.16);
+}
+.glow-serif-strong {
+  color: var(--color-cream);
+  text-shadow:
+    0 0 10px rgba(238, 244, 250, 0.4),
+    0 0 34px rgba(180, 211, 235, 0.26),
+    0 0 110px rgba(122, 157, 184, 0.22),
+    -2px 0 0 rgba(210, 86, 104, 0.17),
+    2px 0 0 rgba(155, 194, 220, 0.19);
+}
+.glow-ice {
+  color: var(--color-pro);
+  text-shadow:
+    0 0 12px rgba(180, 211, 235, 0.45),
+    0 0 40px rgba(122, 157, 184, 0.3),
+    -1.5px 0 0 rgba(210, 86, 104, 0.12),
+    1.5px 0 0 rgba(155, 194, 220, 0.16);
+}
+.glow-maroon {
+  color: var(--color-maroon-text);
+  text-shadow:
+    0 0 12px rgba(210, 86, 104, 0.4),
+    0 0 40px rgba(139, 10, 31, 0.35),
+    -1.5px 0 0 rgba(210, 86, 104, 0.18),
+    1.5px 0 0 rgba(155, 194, 220, 0.1);
+}
+
+/* Retro underlined serif link — tricolor sweep on hover */
+.retro-link {
+  padding-bottom: 3px;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: opacity 200ms ease-out;
+}
+@media (hover: hover) {
+  .retro-link:hover {
+    background-image: linear-gradient(
+      90deg,
+      var(--color-maroon-text) 0 33%,
+      var(--color-pro) 33% 66%,
+      var(--color-teal) 66% 100%
+    );
+    background-size: 100% 2px;
+  }
+}
+.retro-link:focus-visible {
+  outline: none;
+  background-image: linear-gradient(
+    90deg,
+    var(--color-maroon-text) 0 33%,
+    var(--color-pro) 33% 66%,
+    var(--color-teal) 66% 100%
+  );
+  background-size: 100% 2px;
+}
+
+/* Scanlines — interlace texture above the page, below nothing interactive */
+.scanlines::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 91;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(1, 2, 4, 0.16) 0px,
+    rgba(1, 2, 4, 0.16) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* CRT vignette — darkened rounded corners for boot screen & tube frames */
+.crt-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 55%,
+    rgba(0, 0, 0, 0.42) 92%,
+    rgba(0, 0, 0, 0.72) 100%
+  );
+  box-shadow: inset 0 0 140px rgba(0, 0, 0, 0.5);
+}
+
+/* Sign-on screen chromatic text (VT323 face) — brand-fringed */
+.boot-chroma {
+  text-shadow:
+    -1.5px 0 0 rgba(210, 86, 104, 0.6),
+    1.5px 0 0 rgba(155, 194, 220, 0.55);
+}
+
+/* Ghost display type — hollow serif for backdrop titles */
+.text-ghost {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(238, 244, 250, 0.16);
+  text-stroke: 1.5px rgba(238, 244, 250, 0.16);
+}
+
+/* Channel-change static burst (Chrome OSD) */
+@keyframes static-jitter {
+  0% {
+    background-position: 0 0;
+    opacity: 0.55;
+  }
+  35% {
+    background-position: 42px -26px;
+    opacity: 0.38;
+  }
+  70% {
+    background-position: -30px 14px;
+    opacity: 0.5;
+  }
+  100% {
+    background-position: 12px 32px;
+    opacity: 0.42;
+  }
+}
+.static-flash {
+  pointer-events: none;
+  background-repeat: repeat;
+  animation: static-jitter 150ms steps(2) both;
+}
+
+/* Endless channel-noise loop (position only — opacity stays scriptable) */
+@keyframes static-scroll {
+  0% {
+    background-position: 0 0;
+  }
+  33% {
+    background-position: 42px -26px;
+  }
+  66% {
+    background-position: -30px 14px;
+  }
+  100% {
+    background-position: 12px 32px;
+  }
+}
+.static-loop {
+  background-color: #05070a;
+  background-repeat: repeat;
+  animation: static-scroll 240ms steps(3) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .static-loop {
+    animation: none;
+  }
+}
+
+/* ON AIR lamp blink */
+@keyframes on-air {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+.animate-on-air {
+  animation: on-air 1.1s steps(2, jump-none) infinite;
+}
+
+/* Slow phosphor breathing for hero glow */
+@keyframes glow-breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.93;
+  }
+}
+.animate-glow-breathe {
+  animation: glow-breathe 5.5s ease-in-out infinite;
+}
+
+/* Drifting smoke — pure-CSS fog blobs behind the hero rig */
+@keyframes fog-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(9vw, -5vh, 0) scale(1.15);
+  }
+  66% {
+    transform: translate3d(-7vw, 4vh, 0) scale(0.95);
+  }
+}
+.fog-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(46px);
+  animation: fog-drift 26s ease-in-out infinite;
+  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-  }
-  .ticker-track {
+  .animate-marquee,
+  .animate-live-pulse,
+  .animate-float-slow,
+  .animate-glow-breathe,
+  .fog-blob,
+  .bg-drift-a,
+  .bg-drift-b,
+  .bg-drift-c,
+  .bg-grid-pan {
     animation: none;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
   }
-  .ticker-track [data-dup] {
-    display: none;
+  html {
+    scroll-behavior: auto;
   }
 }

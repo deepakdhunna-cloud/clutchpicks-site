@@ -1,33 +1,41 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import Leagues from "@/components/Leagues";
-import LiveIntelligence from "@/components/LiveIntelligence";
-import Features from "@/components/Features";
-import WhyDifferent from "@/components/WhyDifferent";
-import HowItWorks from "@/components/HowItWorks";
-import AnalystProof from "@/components/AnalystProof";
-import Pricing from "@/components/Pricing";
-import FAQ from "@/components/FAQ";
-import CTA from "@/components/CTA";
-import Footer from "@/components/Footer";
+"use client";
 
+import PageWrapper from "@/components/PageWrapper";
+import Background from "@/components/Background";
+import Loader from "@/components/Loader";
+import Chrome from "@/components/Chrome";
+import Hero from "@/components/Hero";
+import Board from "@/components/Board";
+import Bumper from "@/components/Bumper";
+import Engine from "@/components/Engine";
+import Leagues from "@/components/Leagues";
+import Pricing from "@/components/Pricing";
+import StickyStatement from "@/components/StickyStatement";
+import FooterCta from "@/components/FooterCta";
+
+/**
+ * One continuous broadcast: sign-on → the promise (hero) → the product
+ * (board) → the proof (engine room) → the coverage (leagues) → the
+ * offer (pricing) → sign-off. Bumpers rejoin segments; the chrome's
+ * channel OSD tracks the scroll like flipping through the network.
+ */
 export default function Home() {
   return (
-    <>
-      <Navbar />
-      <main id="main">
+    <PageWrapper>
+      <Background />
+      <Loader />
+      <Chrome />
+      <main className="relative z-10 overflow-x-clip">
         <Hero />
+        <Board />
+        <Bumper next="The Engine Room" note="50,000 simulations per game" />
+        <Engine />
         <Leagues />
-        <LiveIntelligence />
-        <Features />
-        <WhyDifferent />
-        <HowItWorks />
-        <AnalystProof />
+        <Bumper next="Tonight's Matchup" note="Free vs Clutch Pro" />
         <Pricing />
-        <FAQ />
-        <CTA />
+        <StickyStatement />
       </main>
-      <Footer />
-    </>
+      <FooterCta />
+    </PageWrapper>
   );
 }

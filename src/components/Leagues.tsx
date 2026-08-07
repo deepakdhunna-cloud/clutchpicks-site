@@ -1,43 +1,144 @@
 "use client";
 
+import {
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useVelocity,
+} from "framer-motion";
 import { LEAGUES } from "@/lib/site";
+import { Eyebrow, Fade, useReducedSafe } from "./Reveal";
 
-function List({ dup = false }: { dup?: boolean }) {
-  return (
-    <ul
-      aria-hidden={dup || undefined}
-      data-dup={dup ? "" : undefined}
-      className="flex w-max items-center gap-12 pr-12"
-    >
-      {LEAGUES.map((league) => (
-        <li key={league.abbr} className="flex items-center gap-12">
+/* Three opposing rows of giant serif league marks that shear with the
+ * viewer's scroll speed — the coverage as a velocity wall. */
+const ROWS = [
+  { leagues: LEAGUES.slice(0, 4), duration: "30s", reverse: false, rotate: -1.4 },
+  { leagues: LEAGUES.slice(4, 8), duration: "36s", reverse: true, rotate: 1.1 },
+  { leagues: LEAGUES.slice(8), duration: "26s", reverse: false, rotate: -0.7 },
+];
+
+function MarqueeRow({
+  leagues,
+  duration,
+  reverse,
+  rotate,
+}: {
+  leagues: typeof LEAGUES;
+  duration: string;
+  reverse: boolean;
+  rotate: number;
+}) {
+  const chunk = (
+    <>
+      {leagues.map((l) => (
+        <span key={l.abbr} className="flex items-baseline gap-4 whitespace-nowrap">
           <span
-            className="scoreboard-type text-3xl text-white/25 transition-colors duration-300 hover:text-white sm:text-4xl"
-            title={league.name}
-          >
-            {league.abbr}
+            className="inline-block h-2.5 w-2.5 flex-none self-center rounded-full lg:h-[1.3vw] lg:w-[1.3vw]"
+            style={{ backgroundColor: l.color, boxShadow: `0 0 22px ${l.color}88` }}
+          />
+          <span className="glow-serif font-serif text-[9.5vw] font-semibold leading-none tracking-tight lg:text-[6.5vw]">
+            {l.abbr}
           </span>
-          <span aria-hidden="true" className="h-1.5 w-1.5 rotate-45 bg-[var(--color-electric)]/40" />
+          <span className="font-serif text-base italic text-l3 lg:text-[1.5vw]">
+            {l.name}
+          </span>
+        </span>
+      ))}
+    </>
+  );
+  return (
+    <div
+      className="relative overflow-visible"
+      style={{ rotate: `${rotate}deg` }}
+      aria-hidden="true"
+    >
+      <div
+        className="animate-marquee flex w-max items-center gap-[4vw] pr-[4vw]"
+        style={{
+          animationDuration: duration,
+          animationDirection: reverse ? "reverse" : "normal",
+        }}
+      >
+        <div className="flex items-center gap-[4vw]">{chunk}</div>
+        <div className="flex items-center gap-[4vw]">{chunk}</div>
+        <div className="flex items-center gap-[4vw]">{chunk}</div>
+        <div className="flex items-center gap-[4vw]">{chunk}</div>
+      </div>
+    </div>
+  );
+}
+
+/** Editorial index — reduced-motion fallback keeps the info plain. */
+function LeaguesIndex() {
+  return (
+    <ul className="col-span-12 list-none">
+      {LEAGUES.map((l, i) => (
+        <li key={l.abbr} className="border-t border-line last:border-b">
+          <div className="grid grid-cols-12 items-baseline gap-x-4 py-4">
+            <span className="col-span-1 font-led text-base text-l4 tabular">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <span className="col-span-7 font-serif text-3xl font-semibold tracking-tight">
+              {l.abbr}
+            </span>
+            <span className="col-span-4 flex items-center justify-end gap-2.5 text-right font-serif text-[15px] italic text-l3">
+              <span
+                className="inline-block h-2 w-2 shrink-0 rounded-full"
+                style={{ backgroundColor: l.color }}
+              />
+              {l.name}
+            </span>
+          </div>
         </li>
       ))}
     </ul>
   );
 }
 
+/** The coverage — 11 leagues as a scroll-sheared marquee wall. */
 export default function Leagues() {
+  const reduced = useReducedSafe();
+  const { scrollY } = useScroll();
+  const velocity = useVelocity(scrollY);
+  const skew = useSpring(useTransform(velocity, [-2600, 2600], [-11, 11]), {
+    stiffness: 220,
+    damping: 30,
+  });
+
   return (
     <section
-      aria-label="Leagues covered"
-      className="border-y border-white/[0.06] py-10 sm:py-12"
+      id="leagues"
+      className="w-full overflow-x-clip py-20 lg:py-28"
     >
-      <p className="text-center text-[11px] font-bold uppercase tracking-[0.3em] text-white/55">
-        Eleven leagues · One board · Every slate
-      </p>
-      <div className="ticker-mask mt-7">
-        <div className="ticker-track">
-          <List />
-          <List dup />
+      <div className="grid w-full grid-cols-12 px-4 lg:px-14">
+        <h2 className="sr-only">The Leagues</h2>
+        <Eyebrow index="04" title="The Leagues" meta="11 leagues · one board" />
+      </div>
+
+      {reduced ? (
+        <div className="grid w-full grid-cols-12 px-4 lg:px-14">
+          <LeaguesIndex />
         </div>
+      ) : (
+        <motion.div
+          style={{ skewX: skew }}
+          className="flex flex-col gap-[3.5svh] py-6 will-change-transform"
+        >
+          {ROWS.map((row, i) => (
+            <Fade key={i} delay={i * 0.1} y={34}>
+              <MarqueeRow {...row} />
+            </Fade>
+          ))}
+        </motion.div>
+      )}
+
+      <div className="grid w-full grid-cols-12 px-4 pt-10 lg:px-14">
+        <Fade className="col-span-12">
+          <p className="font-led text-base tracking-[0.08em] text-l4">
+            LIVE SCORES, PICKS, AND FULL COVERAGE FOR EVERY LEAGUE ON THE BOARD.
+          </p>
+        </Fade>
       </div>
     </section>
   );

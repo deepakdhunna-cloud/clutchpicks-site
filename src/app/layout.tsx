@@ -1,91 +1,92 @@
 import type { Metadata, Viewport } from "next";
-import { Bebas_Neue, DM_Sans } from "next/font/google";
+import {
+  Archivo,
+  Bebas_Neue,
+  Fraunces,
+  IBM_Plex_Mono,
+  VT323,
+} from "next/font/google";
 import "./globals.css";
 
-const bebas = Bebas_Neue({
-  weight: "400",
+const archivo = Archivo({
   subsets: ["latin"],
+  axes: ["wdth"],
+  variable: "--font-archivo",
+  display: "swap",
+});
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-plex",
+  display: "swap",
+});
+
+const vt323 = VT323({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-vt323",
+  display: "swap",
+});
+
+/* Jersey wordmarks — same face the app renders on its jerseys */
+const bebas = Bebas_Neue({
+  subsets: ["latin"],
+  weight: "400",
   variable: "--font-bebas",
   display: "swap",
 });
 
-const dmSans = DM_Sans({
+/* Editorial display serif — the floodlit broadcast face */
+const fraunces = Fraunces({
   subsets: ["latin"],
-  variable: "--font-dm",
+  style: ["normal", "italic"],
+  axes: ["SOFT", "WONK", "opsz"],
+  variable: "--font-fraunces",
   display: "swap",
 });
-
-const SITE_URL = "https://clutchpicksapp.com";
-const APP_STORE_URL = "https://apps.apple.com/us/app/clutch-picks/id6759183746";
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#05070b",
+  viewportFit: "cover",
+  themeColor: "#040608",
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: {
-    default: "Clutch Picks — Live Sports Intelligence",
-    template: "%s — Clutch Picks",
-  },
+  metadataBase: new URL("https://clutchpicksapp.com"),
+  title: "Clutch Picks — AI Sports Predictions & Live Scores",
   description:
-    "AI-powered sports intelligence for live scores, matchup context, confidence-rated picks, and personal tracking across 11 leagues.",
+    "AI-powered sports picks, live scores, matchup analysis, and personal pick tracking across 11 leagues. 50,000 simulations per game. Free on the App Store.",
   keywords:
-    "sports predictions, AI, NBA, NFL, MLB, NHL, MLS, EPL, UCL, T20 cricket, tennis, college football, college basketball",
-  alternates: { canonical: "/" },
+    "sports, picks, predictions, football, basketball, baseball, hockey, soccer, NFL, NBA, MLB, NHL, analysis, stats",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent",
     title: "Clutch Picks",
   },
-  formatDetection: { telephone: false },
+  formatDetection: {
+    telephone: false,
+  },
+  icons: {
+    icon: "/app-icon.png",
+    apple: "/app-icon.png",
+  },
   openGraph: {
-    title: "Clutch Picks — Live Sports Intelligence",
+    title: "Clutch Picks — AI Sports Predictions & Live Scores",
     description:
-      "Follow live games, compare matchup context, and track your picks across 11 leagues.",
+      "AI-powered sports picks, live scores, matchup analysis, and personal pick tracking across 11 leagues.",
     type: "website",
-    url: SITE_URL,
-    siteName: "Clutch Picks",
-    images: [{ url: "/og.jpg", width: 1200, height: 630, alt: "Clutch Picks — Live Sports Intelligence" }],
+    url: "https://clutchpicksapp.com",
+    images: [{ url: "/app-icon.png", width: 512, height: 512 }],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Clutch Picks — Live Sports Intelligence",
+    card: "summary",
+    title: "Clutch Picks — AI Sports Predictions & Live Scores",
     description:
-      "Live scores, confidence-rated picks, matchup context, and personal tracking.",
-    images: ["/og.jpg"],
+      "AI-powered sports picks, live scores, and matchup analysis across 11 leagues.",
+    images: ["/app-icon.png"],
   },
-};
-
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": `${SITE_URL}/#org`,
-      name: "Clutch Picks",
-      url: SITE_URL,
-      logo: `${SITE_URL}/app-icon.png`,
-      sameAs: [
-        "https://www.instagram.com/clutchpicksapp/",
-        "https://www.tiktok.com/@clutchpicksapp",
-        "https://x.com/clutchpicksapp",
-      ],
-    },
-    {
-      "@type": "SoftwareApplication",
-      name: "Clutch Picks",
-      operatingSystem: "iOS",
-      applicationCategory: "SportsApplication",
-      url: APP_STORE_URL,
-      description:
-        "Live scores, matchup context, confidence-rated picks, and personal tracking across 11 leagues.",
-      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-      publisher: { "@id": `${SITE_URL}/#org` },
-    },
-  ],
 };
 
 export default function RootLayout({
@@ -94,17 +95,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${bebas.variable} ${dmSans.variable}`}>
-      <body>
-        <a href="#main" className="skip-link">
-          Skip to content
-        </a>
-        {children}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-      </body>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${archivo.variable} ${plexMono.variable} ${vt323.variable} ${bebas.variable} ${fraunces.variable}`}
+    >
+      <body className="noise scanlines">{children}</body>
     </html>
   );
 }
