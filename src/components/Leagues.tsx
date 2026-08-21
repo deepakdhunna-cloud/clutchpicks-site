@@ -96,7 +96,7 @@ function LeaguesIndex() {
   );
 }
 
-/** The coverage — 11 leagues as a scroll-sheared marquee wall. */
+/** The coverage — supported competitions as a scroll-sheared marquee wall. */
 export default function Leagues() {
   const reduced = useReducedSafe();
   const { scrollY } = useScroll();
@@ -113,7 +113,7 @@ export default function Leagues() {
     >
       <div className="grid w-full grid-cols-12 px-4 lg:px-14">
         <h2 className="sr-only">The Leagues</h2>
-        <Eyebrow index="04" title="The Leagues" meta="11 leagues · one board" />
+        <Eyebrow index="04" title="The Leagues" meta="Supported competitions · one board" />
       </div>
 
       {reduced ? (
@@ -136,7 +136,7 @@ export default function Leagues() {
       <div className="grid w-full grid-cols-12 px-4 pt-10 lg:px-14">
         <Fade className="col-span-12">
           <p className="font-led text-base tracking-[0.08em] text-l4">
-            LIVE SCORES, PICKS, AND FULL COVERAGE FOR EVERY LEAGUE ON THE BOARD.
+            LIVE SCORES, PICKS, AND SUPPORTED COVERAGE ACROSS THE COMPETITIONS ON THE BOARD.
           </p>
         </Fade>
       </div>

@@ -31,13 +31,13 @@ export function introDelay(base: number): number {
 function statusFor(lit: number): string {
   const f = lit / BARS;
   if (f < 0.35) return "ACQUIRING SIGNAL ···";
-  if (f < 0.75) return "TUNING 11 LEAGUES ···";
+  if (f < 0.75) return `TUNING ${BARS} COMPETITIONS ···`;
   if (f < 1) return "LOCKING THE BOARD ···";
   return "SIGNAL LOCKED";
 }
 
 /**
- * Station sign-on — a broadcast test card in the 11 league colors that
+ * Station sign-on — a broadcast test card in the supported competition colors that
  * powers up bar by bar over deep arena navy, stamps ON AIR, then cuts
  * into the page with a CRT collapse. Plays once per session.
  */
@@ -178,7 +178,7 @@ export default function Loader() {
 
               {/* sign-off line */}
               <p className="boot-chroma px-4 text-center font-led text-lg text-maroon-text/90 sm:text-xl">
-                COPYRIGHT (C) CLUTCH PICKS LLC, 2026 · 50,000 SIMULATIONS PER GAME
+                COPYRIGHT (C) CLUTCH PICKS LLC, 2026 · 50,000 SIMULATIONS PER ELIGIBLE PICK
               </p>
 
               <div className="crt-vignette" />

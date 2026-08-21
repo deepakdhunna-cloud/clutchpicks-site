@@ -5,9 +5,9 @@ import { APP_STORE_URL } from "@/lib/site";
 import { Eyebrow, Fade, MaskLines, useReducedSafe } from "./Reveal";
 
 const FREE_FEATURES = [
-  "Live scores across 11 leagues",
-  "Schedules & full box scores",
-  "Where to watch — TV & streaming",
+  "Live scores across supported competitions",
+  "Schedules & box scores when available",
+  "Where to watch when listed",
   "Pick making & pick history",
   "My Arena game following",
   "Notifications, 7 categories",
@@ -17,7 +17,7 @@ const PRO_FEATURES = [
   "Daily Model Board — ranked picks",
   "AI predictions & confidence tiers",
   "Score & outcome projections",
-  "Full matchup reads — 20 factors",
+  "Full matchup and model context",
   "Live intelligence in My Arena",
   "Postgame review & season trends",
 ];
@@ -97,7 +97,7 @@ function ProCard() {
             backgroundColor: "rgba(122,157,184,0.12)",
           }}
         >
-          3-DAY FREE TRIAL
+          3-DAY TRIAL IF ELIGIBLE
         </span>
       </div>
       <div className="mt-4 flex items-baseline gap-3">
@@ -119,7 +119,7 @@ function ProCard() {
         rel="noopener noreferrer"
         className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-cream px-8 py-3.5 font-serif text-lg font-semibold italic text-[#10130f] shadow-[0_0_40px_rgba(252,249,243,0.25)] transition-all duration-300 hover:shadow-[0_0_60px_rgba(252,249,243,0.4)] hover:brightness-105 active:scale-[0.97]"
       >
-        Start 3-Day Free Trial
+        Start Trial If Eligible
       </a>
     </div>
   );
@@ -220,8 +220,8 @@ export default function Pricing() {
           PROJECTED OUTCOME — PRO BY A MILE · CANCEL ANYTIME
         </p>
         <p className="font-led text-base tracking-[0.08em] text-l4">
-          11 LEAGUES · 20 FACTORS · 24/7 UPDATES — EVERY GAME, EVERY LEAGUE,
-          EVERY AI PREDICTION.
+          LIVE SCORES · MODEL CONTEXT · PERSONAL PICK TRACKING — WITH HONEST
+          UNAVAILABLE AND NO-PICK STATES WHEN VERIFIED DATA IS INSUFFICIENT.
         </p>
         <p className="mx-auto max-w-3xl font-mono text-[10px] uppercase leading-relaxed tracking-[0.08em] text-l3">
           Eligible users receive a 3-day free trial, then $6.99/month. App

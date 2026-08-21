@@ -57,7 +57,7 @@ function TeamColumn({
   );
 }
 
-/** Faithful replica of the app's pregame GameCard (premium prediction state). */
+/** Illustrative preview of the app's pregame card layout. */
 export default function GameCard() {
   const reduced = useReducedSafe();
   return (

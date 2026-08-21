@@ -11,7 +11,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import { CONFIDENCE_TIERS } from "@/lib/site";
+import { CONFIDENCE_TIERS, LEAGUES } from "@/lib/site";
 import { Eyebrow, Fade, MaskLines, useDesktop, useReducedSafe } from "./Reveal";
 
 const RULES = [
@@ -60,10 +60,10 @@ function CountUp({
 }
 
 const STATS = [
-  { value: <CountUp target={50000} />, label: "SIMULATIONS PER GAME" },
-  { value: <CountUp target={11} />, label: "LEAGUES COVERED" },
-  { value: <CountUp target={20} />, label: "FACTORS PER GAME" },
-  { value: <span>24/7</span>, label: "LIVE UPDATES" },
+  { value: <CountUp target={50000} />, label: "SIMULATIONS PER ELIGIBLE PICK" },
+  { value: <CountUp target={LEAGUES.length} />, label: "SUPPORTED COMPETITIONS" },
+  { value: <span>ON</span>, label: "HONEST NO-PICK STATES" },
+  { value: <span>LIVE</span>, label: "SCORE UPDATES" },
 ];
 
 /* ---- pinned gauge-wall scene (desktop) ---- */
@@ -141,7 +141,7 @@ function EngineScene() {
           <Eyebrow
             index="03"
             title="The Engine Room"
-            meta="50,000 runs per game · every league, every day"
+            meta="50,000 runs per eligible model pick"
           />
         </div>
 
@@ -154,7 +154,7 @@ function EngineScene() {
             as="h2"
             className="glow-serif-strong font-serif text-[4vw] font-semibold leading-[1.1] tracking-tight"
             lines={[
-              "Every matchup runs through",
+              "Every eligible model pick runs through",
               "50,000 simulations before",
               "a pick reaches your screen.",
             ]}
@@ -280,7 +280,7 @@ function EngineStacked() {
       <Eyebrow
         index="03"
         title="The Engine Room"
-        meta="50,000 runs per game · every league, every day"
+        meta="50,000 runs per eligible model pick"
       />
 
       <div className="col-span-12 lg:col-span-5">
@@ -288,7 +288,7 @@ function EngineStacked() {
           as="h2"
           className="glow-serif-strong font-serif text-[7.2svw] font-semibold leading-[1.12] tracking-tight sm:text-3xl lg:text-[2.9svw]"
           lines={[
-            "Every matchup runs through",
+            "Every eligible model pick runs through",
             "50,000 simulations before",
             "a pick reaches your screen.",
           ]}
@@ -359,7 +359,7 @@ export default function Engine() {
       <div className="grid w-full grid-cols-12 px-14 pb-20">
         <Fade className="col-span-6 col-start-4">
           <p className="text-center font-serif text-[17px] leading-relaxed text-l2">
-            Every pick carries a{" "}
+            Every published model pick carries a{" "}
             <span className="text-l1">confidence rating that means what it
             says</span>. When the numbers are strong, you&apos;ll know — and
             when they aren&apos;t, Clutch tells you that too, instead of

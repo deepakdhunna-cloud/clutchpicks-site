@@ -166,7 +166,7 @@ export default function Hero() {
               delay={1.45}
               className="glow-serif-strong animate-glow-breathe font-serif text-[7vw] font-semibold leading-none tracking-tight"
             >
-              Every Pick,
+              Eligible Model Picks,
             </SceneWord>
             <SceneWord
               p={p}
@@ -280,7 +280,7 @@ export default function Hero() {
           as="h1"
           className="glow-serif-strong animate-glow-breathe font-serif text-[11.5svw] font-semibold leading-[1.02] tracking-tight sm:text-[9svw]"
           lines={[
-            "Every Pick,",
+            "Eligible Model Picks,",
             <span key="l2">
               Run Through <span className="glow-ice tabular">50,000</span>
             </span>,

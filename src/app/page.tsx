@@ -28,7 +28,7 @@ export default function Home() {
       <main className="relative z-10 overflow-x-clip">
         <Hero />
         <Board />
-        <Bumper next="The Engine Room" note="50,000 simulations per game" />
+        <Bumper next="The Engine Room" note="50,000 simulations per eligible model pick" />
         <Engine />
         <Leagues />
         <Bumper next="Tonight's Matchup" note="Free vs Clutch Pro" />

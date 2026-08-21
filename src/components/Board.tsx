@@ -30,35 +30,35 @@ interface FrameSpec {
 
 const FRAMES: FrameSpec[] = [
   {
-    tag: "PRO · STRONG PICK",
+    tag: "ILLUSTRATIVE SAMPLE",
     tagColor: "#CBD5E1",
     tagText: "#04070A",
-    title: "Game Card — Pregame Read",
-    meta: "NBA · 68% CONF",
+    title: "Pregame Card Layout",
+    meta: "SAMPLE PRESENTATION",
     card: <GameCard />,
   },
   {
-    tag: "LIVE",
-    tagColor: "#DC2626",
+    tag: "ILLUSTRATIVE SAMPLE",
+    tagColor: "#7A9DB8",
     tagText: "#FFFFFF",
-    title: "Live Card — Real-Time Scores",
-    meta: "SSE · 3S FALLBACK",
+    title: "Live-Score Card Layout",
+    meta: "NOT LIVE DATA",
     card: <LiveCard />,
   },
   {
-    tag: "FREE",
+    tag: "ILLUSTRATIVE SAMPLE",
     tagColor: "#7A9DB8",
     tagText: "#04070A",
-    title: "Pick History — Your Record",
-    meta: "STREAKS & RINGS",
+    title: "Pick-History Layout",
+    meta: "SAMPLE RECORD",
     card: <RecordCard />,
   },
   {
-    tag: "SHARE CARD",
+    tag: "ILLUSTRATIVE SAMPLE",
     tagColor: "#B4D3EB",
     tagText: "#04070A",
-    title: "Analyst Card — Own Your Season",
-    meta: "ACCURACY · FORM",
+    title: "Analyst-Card Layout",
+    meta: "SAMPLE PROFILE",
     card: <AnalystCard />,
   },
 ];
@@ -77,8 +77,7 @@ function TapeEdge({ frame, bottom = false }: { frame: number; bottom?: boolean }
           "CLUTCH GAME TAPE"
         ) : (
           <>
-            <span className="animate-live-pulse inline-block h-1.5 w-1.5 rounded-full bg-live" />
-            REC
+            LAYOUT PREVIEW
           </>
         )}
       </span>
@@ -168,7 +167,7 @@ function BoardTheater() {
           <Eyebrow
             index="02"
             title="The Board"
-            meta="Real cards from the app — same layouts, same colors"
+            meta="Illustrative previews of current app layouts"
           />
         </div>
 
@@ -186,9 +185,9 @@ function BoardTheater() {
               lines={["The Board,", "On Tape."]}
             />
             <p className="mt-5 max-w-sm font-serif text-[17px] leading-relaxed text-l2">
-              Scroll to run the reel — every frame is a{" "}
-              <span className="italic text-l1">real card from the app</span>,
-              same layouts, same colors, same numbers.
+              Scroll to run the reel. These are illustrative layout previews;
+              the scores, records, picks, confidence, and user details shown
+              here are samples, not live or current app data.
             </p>
           </div>
           {FRAMES.map((spec, i) => (
@@ -225,7 +224,7 @@ function BoardStrip() {
         <Eyebrow
           index="02"
           title="The Board"
-          meta="Real cards from the app — same layouts, same colors"
+          meta="Illustrative previews of current app layouts"
         />
         <div className="col-span-12 flex flex-wrap items-end justify-between gap-x-10 gap-y-8">
           <div>
@@ -236,9 +235,9 @@ function BoardStrip() {
             />
             <Fade delay={0.2}>
               <p className="mt-5 max-w-md font-serif text-[17px] leading-relaxed text-l2">
-                Browse the reel — every frame is a{" "}
-                <span className="italic text-l1">real card from the app</span>,
-                same layouts, same colors, same numbers.
+                Browse the reel. These are illustrative layout previews; the
+                scores, records, picks, confidence, and user details shown here
+                are samples, not live or current app data.
               </p>
             </Fade>
           </div>
@@ -277,7 +276,7 @@ function BoardStrip() {
   );
 }
 
-/** The board — replica app cards spliced into the broadcast's game tape. */
+/** The board — clearly labeled illustrative app-layout previews. */
 export default function Board() {
   const desktop = useDesktop();
   const reduced = useReducedSafe();

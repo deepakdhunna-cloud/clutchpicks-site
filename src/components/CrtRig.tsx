@@ -158,7 +158,7 @@ function drawSims(ctx: CanvasRenderingContext2D, t: number) {
   );
   led(
     ctx,
-    "SIMULATIONS PER GAME",
+    "SIMULATIONS PER ELIGIBLE PICK",
     SCREEN_W / 2,
     SCREEN_H * 0.68,
     34,
