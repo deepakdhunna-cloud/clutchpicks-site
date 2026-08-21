@@ -6,8 +6,8 @@ import { Eyebrow, Fade, MaskLines, useReducedSafe } from "./Reveal";
 
 const FREE_FEATURES = [
   "Live scores across supported competitions",
-  "Schedules & full box scores",
-  "Where to watch — TV & streaming",
+  "Schedules & box scores when available",
+  "Where to watch when listed",
   "Pick making & pick history",
   "My Arena game following",
   "Notifications, 7 categories",
@@ -97,7 +97,7 @@ function ProCard() {
             backgroundColor: "rgba(122,157,184,0.12)",
           }}
         >
-          3-DAY FREE TRIAL
+          3-DAY TRIAL IF ELIGIBLE
         </span>
       </div>
       <div className="mt-4 flex items-baseline gap-3">
@@ -119,7 +119,7 @@ function ProCard() {
         rel="noopener noreferrer"
         className="mt-8 inline-flex w-fit items-center gap-2 rounded-full bg-cream px-8 py-3.5 font-serif text-lg font-semibold italic text-[#10130f] shadow-[0_0_40px_rgba(252,249,243,0.25)] transition-all duration-300 hover:shadow-[0_0_60px_rgba(252,249,243,0.4)] hover:brightness-105 active:scale-[0.97]"
       >
-        Start 3-Day Free Trial
+        Start Trial If Eligible
       </a>
     </div>
   );

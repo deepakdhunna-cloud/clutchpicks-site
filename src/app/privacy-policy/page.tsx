@@ -64,6 +64,12 @@ export default function PrivacyPolicyPage() {
                   credentials or tokens (including if you use Sign in with Apple).
                 </li>
                 <li>
+                  Verification information: one-time verification requests, delivery
+                  status, expiration and attempt information used to create an account,
+                  sign in, prevent abuse, and protect account access. We do not ask you
+                  to create a password for email or phone sign-in.
+                </li>
+                <li>
                   Profile and preferences: such as a profile photo or bio, favorite
                   teams, notification preferences, and display settings.
                 </li>
@@ -113,9 +119,9 @@ export default function PrivacyPolicyPage() {
                 and limited profile details permitted by your Apple settings.
               </p>
               <p>
-                If you choose phone authentication, Twilio Verify processes your phone
-                number and verification delivery/status information to send and validate
-                the one-time verification code. We use this information for account
+                If you use email or phone verification, our verification providers
+                process the destination and one-time verification request needed to
+                deliver or validate your code. We use this information for account
                 authentication and security, not advertising.
               </p>
             </div>
@@ -283,10 +289,13 @@ export default function PrivacyPolicyPage() {
                 product improvement.
               </p>
               <p className="mb-3">
-                Email and phone verification challenges expire on a bounded schedule.
-                After successful phone authentication, the verified phone number remains
-                linked to the account until it is changed or the account is deleted,
-                subject to limited security, fraud-prevention, and legal retention needs.
+                Email and phone verification challenges are retained only for the short
+                period needed to complete verification, enforce attempt limits, and
+                prevent abuse, then expire or are removed on a bounded schedule. A
+                verified email address or phone number remains linked to the account until
+                it is changed or the account is deleted. Our verification providers may
+                retain limited delivery and security records under their own contractual
+                and legal requirements.
               </p>
               <p>
                 Where needed to honor a withdrawn platform consent and comply with
@@ -312,7 +321,9 @@ export default function PrivacyPolicyPage() {
                 >
                   support@clutchpicksapp.com
                 </a>{" "}
-                from the email address linked to your account if you need help.
+                if you need help. We may ask you to verify control of an email address,
+                phone number, or linked Apple account before completing an account-access
+                or privacy request.
               </p>
               <p className="mb-3">
                 When we delete your account, we remove or de-identify personal
