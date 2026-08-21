@@ -342,7 +342,7 @@ export default function Chrome() {
                 paddingBottom: "max(1.5rem, env(safe-area-inset-bottom))",
               }}
             >
-              Free on the App Store · iOS 15.1+
+              Free on the App Store · iOS 16+
             </p>
           </motion.div>
         )}

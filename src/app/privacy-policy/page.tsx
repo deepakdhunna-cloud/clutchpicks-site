@@ -20,7 +20,7 @@ export default function PrivacyPolicyPage() {
             Privacy Policy
           </h1>
           <p className="text-sm text-[var(--color-text-muted)] mb-12">
-            Effective Date: March 1, 2026 &middot; Last Updated: July 20, 2026
+            Effective Date: March 1, 2026 &middot; Last Updated: August 21, 2026
           </p>
 
           <div className="space-y-10 text-[var(--color-text-muted)] leading-relaxed text-sm sm:text-base">
@@ -60,8 +60,8 @@ export default function PrivacyPolicyPage() {
               <ul className="list-disc pl-6 space-y-1 mb-4">
                 <li>
                   Account information: such as your name or display name, email address,
-                  and authentication credentials or tokens (including if you use Sign in
-                  with Apple).
+                  phone number when you choose phone authentication, and authentication
+                  credentials or tokens (including if you use Sign in with Apple).
                 </li>
                 <li>
                   Profile and preferences: such as a profile photo or bio, favorite
@@ -108,9 +108,15 @@ export default function PrivacyPolicyPage() {
               <h3 className="text-white font-medium mb-2">
                 C. Information From Third Parties (Optional)
               </h3>
-              <p>
+              <p className="mb-3">
                 If you use Sign in with Apple, we may receive a unique account identifier
                 and limited profile details permitted by your Apple settings.
+              </p>
+              <p>
+                If you choose phone authentication, Twilio Verify processes your phone
+                number and verification delivery/status information to send and validate
+                the one-time verification code. We use this information for account
+                authentication and security, not advertising.
               </p>
             </div>
 
@@ -191,7 +197,11 @@ export default function PrivacyPolicyPage() {
                       applicable system permission)
                     </li>
                     <li>Resend (email verification and service emails)</li>
-                    <li>Expo (push notification delivery)</li>
+                    <li>Twilio Verify (phone-number verification and SMS delivery)</li>
+                    <li>
+                      Expo (app services, update delivery, limited app-launch analytics,
+                      and push notification delivery)
+                    </li>
                     <li>Sentry (crash and error diagnostics)</li>
                     <li>Google Workspace (support email communications)</li>
                   </ul>
@@ -271,6 +281,12 @@ export default function PrivacyPolicyPage() {
               <p className="mb-3">
                 We may retain aggregated or de-identified information for analytics and
                 product improvement.
+              </p>
+              <p className="mb-3">
+                Email and phone verification challenges expire on a bounded schedule.
+                After successful phone authentication, the verified phone number remains
+                linked to the account until it is changed or the account is deleted,
+                subject to limited security, fraud-prevention, and legal retention needs.
               </p>
               <p>
                 Where needed to honor a withdrawn platform consent and comply with

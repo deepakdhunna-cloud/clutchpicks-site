@@ -2,7 +2,7 @@ import { useId } from "react";
 import { LEAGUES } from "@/lib/site";
 
 /**
- * Pennant brand mark — a sports flag striped in the 11 league colors,
+ * Pennant brand mark — a sports flag striped in the supported competition colors,
  * flying off a short mast. Ours, not anyone's globe.
  */
 export default function StripeMark({

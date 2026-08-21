@@ -50,7 +50,7 @@ function TeamRow({
   );
 }
 
-/** Faithful replica of the app's live GameCard layout (red ambient glow, LED scores). */
+/** Illustrative preview of the app's live-score card layout. */
 export default function LiveCard() {
   return (
     <Shell away={KC.primary} home={BUF.primary} live>
@@ -59,8 +59,8 @@ export default function LiveCard() {
         <div className="flex items-center gap-1.5">
           <SportPill label="NFL" />
           <span className="flex items-center gap-1 rounded-[5px] bg-white px-1.5 py-0.5">
-            <span className="animate-live-pulse h-[5px] w-[5px] rounded-full bg-[#DC2626]" />
-            <span className="text-[10px] font-bold text-[#DC2626]">LIVE</span>
+            <span className="h-[5px] w-[5px] rounded-full bg-[#7A9DB8]" />
+            <span className="text-[10px] font-bold text-[#5A7A8A]">SAMPLE</span>
           </span>
         </div>
         <span

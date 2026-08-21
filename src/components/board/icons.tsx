@@ -1,4 +1,4 @@
-/** Tiny inline icons used by the replica app cards. */
+/** Tiny inline icons used by the illustrative app-layout previews. */
 
 const base = {
   fill: "none",

@@ -5,7 +5,7 @@ import { APP_STORE_URL } from "@/lib/site";
 import { Eyebrow, Fade, MaskLines, useReducedSafe } from "./Reveal";
 
 const FREE_FEATURES = [
-  "Live scores across 11 leagues",
+  "Live scores across supported competitions",
   "Schedules & full box scores",
   "Where to watch — TV & streaming",
   "Pick making & pick history",
@@ -17,7 +17,7 @@ const PRO_FEATURES = [
   "Daily Model Board — ranked picks",
   "AI predictions & confidence tiers",
   "Score & outcome projections",
-  "Full matchup reads — 20 factors",
+  "Full matchup and model context",
   "Live intelligence in My Arena",
   "Postgame review & season trends",
 ];
@@ -220,8 +220,8 @@ export default function Pricing() {
           PROJECTED OUTCOME — PRO BY A MILE · CANCEL ANYTIME
         </p>
         <p className="font-led text-base tracking-[0.08em] text-l4">
-          11 LEAGUES · 20 FACTORS · 24/7 UPDATES — EVERY GAME, EVERY LEAGUE,
-          EVERY AI PREDICTION.
+          LIVE SCORES · MODEL CONTEXT · PERSONAL PICK TRACKING — WITH HONEST
+          UNAVAILABLE AND NO-PICK STATES WHEN VERIFIED DATA IS INSUFFICIENT.
         </p>
         <p className="mx-auto max-w-3xl font-mono text-[10px] uppercase leading-relaxed tracking-[0.08em] text-l3">
           Eligible users receive a 3-day free trial, then $6.99/month. App

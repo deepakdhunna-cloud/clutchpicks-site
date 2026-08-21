@@ -15,7 +15,7 @@ export interface League {
   color: string;
 }
 
-/** The 11 marketed leagues (WELCOME_LEAGUE_PILLS order), colors from SPORT_META. */
+/** Current supported competitions, using colors from the app's SPORT_META. */
 export const LEAGUES: League[] = [
   { abbr: "NBA", name: "NBA Basketball", color: "#8B0A1F" },
   { abbr: "NFL", name: "NFL Football", color: "#2E4A5E" },
@@ -24,7 +24,8 @@ export const LEAGUES: League[] = [
   { abbr: "MLS", name: "MLS Soccer", color: "#C9BDA8" },
   { abbr: "EPL", name: "Premier League", color: "#6A0818" },
   { abbr: "UCL", name: "Champions League", color: "#1A2A6C" },
-  { abbr: "T20", name: "T20 Cricket", color: "#D7A21E" },
+  { abbr: "WC", name: "World Cup", color: "#B49A56" },
+  { abbr: "IPL", name: "IPL Cricket", color: "#D7A21E" },
   { abbr: "TENNIS", name: "ATP & WTA Tennis", color: "#7A9DB8" },
   { abbr: "CFB", name: "College Football", color: "#5A7A8A" },
   { abbr: "CBB", name: "College Basketball", color: "#D98E76" },

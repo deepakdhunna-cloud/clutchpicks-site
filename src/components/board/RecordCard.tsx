@@ -157,7 +157,7 @@ function StatRing({
   );
 }
 
-/** Pick-history rows + stat rings — after the app's picks-history screen. */
+/** Illustrative pick-history rows and stat rings. */
 export default function RecordCard() {
   return (
     <div

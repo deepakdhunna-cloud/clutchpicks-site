@@ -141,7 +141,7 @@ function EngineScene() {
           <Eyebrow
             index="03"
             title="The Engine Room"
-            meta="50,000 runs per game · every league, every day"
+            meta="50,000 runs per eligible matchup"
           />
         </div>
 
@@ -280,7 +280,7 @@ function EngineStacked() {
       <Eyebrow
         index="03"
         title="The Engine Room"
-        meta="50,000 runs per game · every league, every day"
+        meta="50,000 runs per eligible matchup"
       />
 
       <div className="col-span-12 lg:col-span-5">

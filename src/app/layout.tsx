@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://clutchpicksapp.com"),
   title: "Clutch Picks — AI Sports Predictions & Live Scores",
   description:
-    "AI-powered sports picks, live scores, matchup analysis, and personal pick tracking across 11 leagues. 50,000 simulations per game. Free on the App Store.",
+    "AI-powered sports picks, live scores, matchup analysis, and personal pick tracking across supported sports and competitions. Free on the App Store.",
   keywords:
     "sports, picks, predictions, football, basketball, baseball, hockey, soccer, NFL, NBA, MLB, NHL, analysis, stats",
   appleWebApp: {
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Clutch Picks — AI Sports Predictions & Live Scores",
     description:
-      "AI-powered sports picks, live scores, matchup analysis, and personal pick tracking across 11 leagues.",
+      "AI-powered sports picks, live scores, matchup analysis, and personal pick tracking across supported sports and competitions.",
     type: "website",
     url: "https://clutchpicksapp.com",
     images: [{ url: "/app-icon.png", width: 512, height: 512 }],
@@ -84,7 +84,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "Clutch Picks — AI Sports Predictions & Live Scores",
     description:
-      "AI-powered sports picks, live scores, and matchup analysis across 11 leagues.",
+      "AI-powered sports picks, live scores, and matchup analysis across supported sports and competitions.",
     images: ["/app-icon.png"],
   },
 };

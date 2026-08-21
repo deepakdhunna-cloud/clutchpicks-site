@@ -51,7 +51,7 @@ export default function FooterCta() {
           <DownloadButton size="large" />
         </div>
         <p className="font-led text-base tracking-[0.1em] text-l4">
-          FREE ON THE APP STORE · IOS 15.1+ · SIGN IN WITH APPLE
+          FREE ON THE APP STORE · IOS 16+ · SIGN IN WITH APPLE
         </p>
       </Fade>
 

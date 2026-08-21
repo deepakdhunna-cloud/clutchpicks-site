@@ -10,7 +10,7 @@ const TRACK = "#2A3444";
 /* Last 10 picks: teal = win, red = loss (app form line) */
 const FORM: ("W" | "L")[] = ["W", "W", "L", "W", "W", "W", "L", "W", "W", "W"];
 
-/** Shareable Analyst Card — after the app's profile hero. */
+/** Illustrative analyst-card layout. */
 export default function AnalystCard() {
   const reduced = useReducedSafe();
   return (
